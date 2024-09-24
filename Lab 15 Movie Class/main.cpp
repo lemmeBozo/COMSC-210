@@ -47,26 +47,18 @@ int main() {
     }
 
     string line;
-    vector<Movie>
+    vector<Movie> movies;
+    int i = 0;
 
-
-    while (getline(file, line)) { // While a new line exists and is gotten
+    while(getline(file, line)) { // Reads title
         string title;
         string screenWriter;
         int yearReleased;
-        if (!line.empty()) { // if line is not empty
-            title = line;
-            getline(file, line);
-            if (!line.empty()) { // if line is not empty
-                yearReleased = stoi(line); // converts string to integer
-                getline(file, line);
-                if (!line.empty()) { // if line is not emetpy
-                    screenWriter = line;
-                }
-            }
-        }
-    }
 
+        if (line.empty()) {continue;} // Skips empty lines
+        title = line;
+
+    }
 
 
 
