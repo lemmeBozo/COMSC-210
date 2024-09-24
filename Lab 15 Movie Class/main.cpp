@@ -2,6 +2,7 @@
 #include <string> // for string
 #include <fstream> // for file input
 #include <vector> // for vectors
+#include <iomanip> // for setw
 
 using namespace std;
 
@@ -37,8 +38,8 @@ class Movie {
 
     // Print method
     void print() {
-                cout << setw(10) << "Red" << setw(10) << "Green" << setw(10) << "Blue" << endl;
-        cout << setw(10) << red << setw(10) << green << setw(10) << blue << endl;
+        cout << setw(10) << "Title" << setw(10) << "Screen Writer" << setw(10) << "Year Released" << endl;
+        cout << setw(10) << this->title << setw(10) << this->screenWriter << setw(10) << this->yearReleased << endl;
         cout << endl;
     }
 };
@@ -75,8 +76,10 @@ int main() {
     }
 
     for (int i = 0; i < movies.size(); i++) {
-
+        movies[i].print();
     }
+
+    cout << "Does this work" << endl;
 
     return 0;
 }
