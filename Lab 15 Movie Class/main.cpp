@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string> // for string
 #include <fstream> // for file input
+#include <vector> // for vectors
 
 using namespace std;
 
@@ -41,7 +42,34 @@ int main() {
     file.open("text.txt");
     if (file.good()) {// if file is open
         file.close(); // closes the file
+    } else {
+        cout << "File not found" << endl;
     }
+
+    string line;
+    vector<Movie>
+
+
+    while (getline(file, line)) { // While a new line exists and is gotten
+        string title;
+        string screenWriter;
+        int yearReleased;
+        if (!line.empty()) { // if line is not empty
+            title = line;
+            getline(file, line);
+            if (!line.empty()) { // if line is not empty
+                yearReleased = stoi(line); // converts string to integer
+                getline(file, line);
+                if (!line.empty()) { // if line is not emetpy
+                    screenWriter = line;
+                }
+            }
+        }
+    }
+
+
+
+
     return 0;
 }
 
