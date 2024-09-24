@@ -23,6 +23,13 @@ class Color {
     void setGreen(int green) {this->green = green;}
     void setBlue(int blue) {this->blue = blue;}
 
+    // Print function (prints out rgb values)
+    void print() {
+        cout << "Red: " << red << endl;
+        cout << "Green: " << green << endl;
+        cout << "Blue: " << blue << endl;
+    }
+
 };
 
 int main() {
