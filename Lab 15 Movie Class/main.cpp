@@ -35,6 +35,12 @@ class Movie {
     void setTitle(string title) {this->title = title;}
     void setYearReleased() {this->yearReleased = yearReleased;}
 
+    // Print method
+    void print() {
+                cout << setw(10) << "Red" << setw(10) << "Green" << setw(10) << "Blue" << endl;
+        cout << setw(10) << red << setw(10) << green << setw(10) << blue << endl;
+        cout << endl;
+    }
 };
 
 int main() {
@@ -48,19 +54,29 @@ int main() {
 
     string line;
     vector<Movie> movies;
-    int i = 0;
+
+
 
     while(getline(file, line)) { // Reads title
         string title;
         string screenWriter;
         int yearReleased;
 
-        if (line.empty()) {continue;} // Skips empty lines
         title = line;
 
+        if (getline(file,line)) { // checks if new line is read
+            yearReleased = stoi(line); // converts string to integer
+        } else {break;} // exits out of execution if new line cannot be read
+
+        if (getline(file,line)) { // checks if new line is read
+            screenWriter = line;
+        } else {break;} // exits out of execution if new line cannot be read
+        movies.push_back(Movie(screenWriter, title, yearReleased));
     }
 
+    for (int i = 0; i < movies.size(); i++) {
 
+    }
 
     return 0;
 }
