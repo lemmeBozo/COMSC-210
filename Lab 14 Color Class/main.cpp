@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip> // for setw
 
 using namespace std;
 
@@ -11,6 +12,7 @@ class Color {
     int blue;
 
     public: 
+    // Parameterized constructor function
     Color(int red, int green, int blue) : red(red), green(green), blue(blue) {}
 
     // Getters that return the associated value
@@ -25,16 +27,20 @@ class Color {
 
     // Print function (prints out rgb values)
     void print() {
-        cout << "Red: " << red << endl;
-        cout << "Green: " << green << endl;
-        cout << "Blue: " << blue << endl;
+        cout << setw(10) << "Red" << setw(10) << "Green" << setw(10) << "Blue" << endl;
+        cout << setw(10) << red << setw(10) << green << setw(10) << blue << endl;
+        cout << endl;
     }
 
 };
 
 int main() {
-    Color red = Color(0, 188, 250);
+    Color red = Color(255, 0, 0);
+    Color green = Color(0, 255, 0);
+    Color blue = Color(0, 0, 255);
     red.print();
+    green.print();
+    blue.print();
     return 0;
 }
 
