@@ -38,8 +38,8 @@ class Movie {
 
     // Print method
     void print() {
-        cout << setw(10) << "Title" << setw(10) << "Screen Writer" << setw(10) << "Year Released" << endl;
-        cout << setw(10) << this->title << setw(10) << this->screenWriter << setw(10) << this->yearReleased << endl;
+        cout << setw(20) << "Title" << setw(20) << "Screen Writer" << setw(20) << "Year Released" << endl;
+        cout << setw(20) << this->title << setw(20) << this->screenWriter << setw(20) << this->yearReleased << endl;
         cout << endl;
     }
 };
@@ -47,16 +47,12 @@ class Movie {
 int main() {
     ifstream file;
     file.open("text.txt");
-    if (file.good()) {// if file is open
-        file.close(); // closes the file
-    } else {
+    if (!file.good()) {
         cout << "File not found" << endl;
     }
 
     string line;
     vector<Movie> movies;
-
-
 
     while(getline(file, line)) { // Reads title
         string title;
@@ -79,8 +75,7 @@ int main() {
         movies[i].print();
     }
 
-    cout << "Does this work" << endl;
-
+    file.close(); // closes file after reading everything
     return 0;
 }
 
