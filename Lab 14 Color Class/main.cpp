@@ -34,6 +34,7 @@ class Color {
 
 int main() {
     Color red = Color(0, 188, 250);
+    red.print();
     return 0;
 }
 
