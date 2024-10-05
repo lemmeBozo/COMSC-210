@@ -15,6 +15,18 @@ class Color {
     // Parameterized constructor function
     Color(int red, int green, int blue) : red(red), green(green), blue(blue) {}
 
+    Color() {
+        red = 0;
+        green = 0;
+        blue = 0;
+    }
+
+    Color(int redColor) {
+        red = redColor;
+        green = 0;
+        blue = 0;
+    }
+
     // Getters that return the associated value
     int getRed() {return red;}
     int getGreen() {return green;}
@@ -35,12 +47,23 @@ class Color {
 };
 
 int main() {
+    // parameterized constructor
     Color red = Color(255, 0, 0);
     Color green = Color(0, 255, 0);
     Color blue = Color(0, 0, 255);
     red.print();
     green.print();
     blue.print();
+
+    Color redTwo = Color(255); // partial constructor
+
+    Color black = Color(); // default constructor
+
+    redTwo.print();
+    black.print();
+
+
+
     return 0;
 }
 
