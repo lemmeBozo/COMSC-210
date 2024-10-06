@@ -102,7 +102,7 @@ T LinkedList<T>::peek() {
 
 template <typename T>
 void LinkedList<T>::clear() {
-    while(!isEmpty()) { 
+    while(!isEmpty()) { // while the list isn't empty it will pop the elements i.e. delete them
         pop();
     }
 }
