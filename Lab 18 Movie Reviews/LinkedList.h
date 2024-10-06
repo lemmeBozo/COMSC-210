@@ -26,7 +26,7 @@ class LinkedList {
 
     void pushFront(T&); // push element to the front of the list
 
-   void pushBack(T&); // ADDING A NEW METHOD (for the lab since items can either be added to front or back of list)
+    void pushBack(T&); // ADDING A NEW METHOD (for the lab since items can either be added to front or back of list)
 
     void pop(); // remove first element from the list
     T peek(); // returns the value of the first element
