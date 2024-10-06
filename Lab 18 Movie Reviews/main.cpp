@@ -19,7 +19,7 @@ int main() {
 
     LinkedList<Review> list;
     addReviews(list);
-
+    outputReviews(list);
 
     return 0;
 }
@@ -27,7 +27,7 @@ int main() {
 void addReviews(LinkedList<Review>& list) { // function declaration for adding reviews
     bool moreReviews = true;
 
-    while(moreReviews) { // while moreReviews = true;
+    while (moreReviews) { // while moreReviews = true;
         float rating = 0;
         int choice = 0;
         string comment;
@@ -62,8 +62,11 @@ void outputReviews(LinkedList<Review>& list) {
     // the way my code works is by poping the elements to see the next one
     // should I have added an iterator to iterate through my linked list to see what each element is?
     // instead of just poping them?
+    if (list.isEmpty()) {
+        cout << "No reviews to output" << endl; 
+    }
     int i = 1;
-    while(!list.isEmpty()) { // while the list is not empty run the below code
+    while (!list.isEmpty()) { // while the list is not empty run the below code
         cout << "Outputting all reviews: " << endl;
         Review currReview = list.peek();
         cout << "\tReview #" << i << ": " << currReview.rating << ": " << currReview.comment << endl;

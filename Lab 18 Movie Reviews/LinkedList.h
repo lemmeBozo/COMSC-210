@@ -10,7 +10,10 @@ class LinkedList {
     struct Node {
         T data;
         Node* nextLink;
-        Node(T data) {
+        Node() { // default constructor (added due to error from main.cpp)
+            nextLink = nullptr;
+        }
+        Node(T data) { // parameterized constructor
             this->data = data;
             nextLink = nullptr;
         }
