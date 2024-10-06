@@ -12,35 +12,47 @@ struct Review {
     Review(float rating, string comment) : rating(rating), comment(comment) {};
 };
 
-void getReview();
+void addReviews(LinkedList<Review>&); // function prototype for adding reviews
 
 int main() {
 
     LinkedList<Review> list;
-    getReview();
+    addReviews(list);
 
 
     return 0;
 }
 
-void getReview() {
-    bool pushFront = false;
-    bool pushBack = false;
-    bool moreReviews = false;
-    float rating = 0;
-    int choice = 0;
-    string comment;
+void addReviews(LinkedList<Review>& list) { // function declaration for adding reviews
+    bool moreReviews = true;
 
-    cout << "Which linked list method would you like to use?" << endl;
-    cout << "\t[1] New nodes are added to the head of the linked list" << endl;
-    cout << "\t[2] New nodes are added to the tail of the linked list" << endl;
-    cout << "Choice: ";
+    while(moreReviews) { // while moreReviews = true;
+        float rating = 0;
+        int choice = 0;
+        string comment;
 
-    cin >> choice; // gets user choice
+        cout << "Which linked list method would you like to use?" << endl;
+        cout << "\t[1] New nodes are added to the head of the linked list" << endl;
+        cout << "\t[2] New nodes are added to the tail of the linked list" << endl;
+        cout << "Choice: ";
 
-    cout << endl << "Enter movie review rating 0-5 (floats included): " ;
-    cin >> rating; // gets user rating
-    cin.ignore();
-    cout << "Enter move review comments: ";
-    getline(cin, comment); // gets user comment (note gets the whole line instead of only the first string)
+        cin >> choice; // gets user choice
+
+        cout << endl << "Enter movie review rating 0-5 (floats included): " ;
+        cin >> rating; // gets user rating
+        cin.ignore();
+        cout << "Enter move review comments: ";
+        getline(cin, comment); // gets user comment (note gets the whole line instead of only the first string)
+
+        cout << endl << "Would you like to enter anothe review (0 for no 1 for yes): ";
+        Review review(rating,comment); // Instantiates a review struct
+
+        if (choice == 1) { // push review to the front of the list
+            list.pushFront(review);
+        } else { // push review to the back of the list
+            list.pushBack(review);
+        }
+
+        cin >> moreReviews;
+    }
 }
