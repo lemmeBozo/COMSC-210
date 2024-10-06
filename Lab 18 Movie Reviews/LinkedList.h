@@ -24,7 +24,10 @@ class LinkedList {
 
     ~LinkedList() {clear();}
 
-    void push(T&); // push element to the front of the list
+    void pushFront(T&); // push element to the front of the list
+
+   void pushBack(T&); // ADDING A NEW METHOD (for the lab since items can either be added to front or back of list)
+
     void pop(); // remove first element from the list
     T peek(); // returns the value of the first element
     bool isEmpty() {return (head == nullptr);}
@@ -40,7 +43,7 @@ LinkedList<T>::LinkedList() {
 }
 
 template <typename T>
-void LinkedList<T>::push(T& data) {
+void LinkedList<T>::pushFront(T& data) {
     Node* node = new Node(data);
     node->nextLink = head;
     head = node;
@@ -65,6 +68,21 @@ void LinkedList<T>::push(T& data) {
         }
     }
 */
+}
+
+template <typename T>
+void LinkedList<T>::pushBack(T& data) {
+    Node* node = new Node(data); // creates a new node with the data
+    if(isEmpty()) { // If the list is emetpy
+        head = node;
+    } else {
+        Node* temp = head;
+        while(temp->nextLink != nullptr) { // traverese the linked list untill we reach the last element
+            temp = temp->nextLink;
+        }
+        temp->nextLink = node; // once last element is reached we set the new node created equal to the last node
+    }
+    currSize++;
 }
 
 template <typename T>
