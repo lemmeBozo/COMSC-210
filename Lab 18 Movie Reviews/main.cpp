@@ -16,14 +16,24 @@ void getReview();
 
 int main() {
 
-    LinkedList<Review> interstellarReviews;
-    
-
+    LinkedList<Review> list;
+    getReview();
 
 
     return 0;
 }
 
 void getReview() {
-    
+    bool pushFront = false;
+    bool pushBack = false;
+    int choice = 0;
+
+    cout << "Which linked list method would you like to use?" << endl;
+    cout << "\t[1] New nodes are added to the head of the linked list" << endl;
+    cout << "\t[2] New nodes are added to the tail of the linked list" << endl;
+    cout << "Choice: ";
+
+    cin >> choice; // gets user choice
+
+
 }

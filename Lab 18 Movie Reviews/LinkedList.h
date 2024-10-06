@@ -14,7 +14,7 @@ class LinkedList {
             this->data = data;
             nextLink = nullptr;
         }
-    }
+    };
 
     Node* head;
     int currSize;
@@ -26,7 +26,7 @@ class LinkedList {
 
     void pushFront(T&); // push element to the front of the list
 
-    void pushBack(T&); // ADDING A NEW METHOD (for the lab since items can either be added to front or back of list)
+   void pushBack(T&); // ADDING A NEW METHOD (for the lab since items can either be added to front or back of list)
 
     void pop(); // remove first element from the list
     T peek(); // returns the value of the first element
@@ -80,7 +80,7 @@ void LinkedList<T>::pushBack(T& data) {
         while(temp->nextLink != nullptr) { // traverese the linked list untill we reach the last element
             temp = temp->nextLink;
         }
-        temp->nextLink = node; // once last element is reached we set the new node created equal to the last node
+        temp->nextLink = node; // once last element is reached we set it equal to nextLink
     }
     currSize++;
 }
