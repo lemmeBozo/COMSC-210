@@ -24,7 +24,7 @@ class LinkedList {
 
     ~LinkedList() {clear();}
 
-    void pushFront(T&); // push element to the front of the list
+    void pushFront(T&); // push element to the front of the list (originally called push)
 
    void pushBack(T&); // ADDING A NEW METHOD (for the lab since items can either be added to front or back of list)
 
@@ -77,10 +77,10 @@ void LinkedList<T>::pushBack(T& data) {
         head = node;
     } else {
         Node* temp = head;
-        while(temp->nextLink != nullptr) { // traverese the linked list untill we reach the last element
+        while(temp->nextLink != nullptr) { // traverese the linked list until we reach the last element
             temp = temp->nextLink;
         }
-        temp->nextLink = node; // once last element is reached we set it equal to nextLink
+        temp->nextLink = node; // once last element is reached we set it equal to node (i.e. will be last element in list)
     }
     currSize++;
 }
