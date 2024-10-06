@@ -8,8 +8,13 @@ using namespace std;
 struct Review {
     float rating;
     string comment;
+    Review() { // Default constructor (added due to issue in code)
+        rating = 0;
+        comment = "";
+    }
 
-    Review(float rating, string comment) : rating(rating), comment(comment) {};
+    Review(float rating, string comment) // parameterized constructor
+        : rating(rating), comment(comment) {}; 
 };
 
 void addReviews(LinkedList<Review>&); // function prototype for adding reviews

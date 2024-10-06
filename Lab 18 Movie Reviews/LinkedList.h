@@ -3,6 +3,7 @@
 
 // This is my own personal linked list that I created for another class
 // I hope you don't mind that I used this for the assignment
+// also the below may not have followed our coding conventions as again it was done in another class
 
 template <typename T>
 class LinkedList {
