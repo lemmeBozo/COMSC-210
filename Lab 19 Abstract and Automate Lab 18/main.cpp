@@ -12,7 +12,7 @@ using namespace std;
 
 float generateRandomRating();
 
-void printMovieDetails(vector<Movie>&);
+
 
 struct Movie {
     string title;
@@ -32,6 +32,8 @@ struct Movie {
     }
 };
 
+void printMovieDetails(vector<Movie>&);
+
 int main() {
 
     // Creating Movie objects
@@ -48,6 +50,7 @@ int main() {
     file.open("Movie-One-Comments.txt");
     if (!file.good()) {
         cout << "File not found" << endl;
+        return 0; // returns if file wasn't found 
     }
     
 
@@ -65,18 +68,21 @@ int main() {
 
     file.close(); // closes file after reading everything
 
-    // file.open("Movie.Two-Comments.txt");
-    // if(!file.good()) {
-    //     cout << "File not found" << endl;
-    // }
+    file.open("Movie-One-Comments.txt");
+    if(!file.good()) {
+        cout << "File not found" << endl;
+        return 0; // returns if file wasn't found 
+    }
 
-    // while (getline(file, line)) {
-    //     if(!line.empty()) {
-    //         movies[1].comments.pushFront("line");
-    //     }
-    // }
+    while (getline(file, line)) {
+        if(!line.empty()) {
+            movies[1].comments.pushFront("line");
+        }
+    }
 
     file.close();
+
+    printMovieDetails(movies);
 
     return 0;
 }
@@ -93,12 +99,14 @@ void printMovieDetails(vector<Movie>& movies) {
         cout << "Movie title: " << movies[i].title << endl;
         cout << "\tComments: ";
         while (!movies[i].comments.isEmpty()) { // as long as linked list isn't empty 
-            cout << movies[i].comments.peek() << ", ";
+            cout << movies[i].comments.peek() << endl;
+            movies[i].comments.pop();
         }
         cout << endl << "Ratings: ";
 
         while (!movies[i].ratings.isEmpty()) { // as long as linked list isn't empty
-            cout << movies[i].ratings.peek() << ", ";
+            cout << movies[i].ratings.peek() << endl;
+            movies[i].ratings.pop();
         }
         cout << endl;
     }
