@@ -1,9 +1,10 @@
 #include <iostream>
 #include <string> 
 #include "LinkedList.h" // personal linked list I created
-
-#include <random>
+#include <fstream> // for file input
+#include <random> 
 #include <cmath>
+#include <vector> 
 
 using namespace std;
 
@@ -22,6 +23,9 @@ struct Movie {
         rating = generateRandomRating();
     }
 
+    Movie(string title)
+        : title(title), comment(""), rating(generateRandomRating()) {};
+
     Movie(string title, string comment) // Parameterized member initilization constructor 
         : title(title), comment(comment), rating(generateRandomRating()) {};
 
@@ -29,7 +33,29 @@ struct Movie {
 
 int main() {
 
-    generateRandomRating();
+    LinkedList<Movie> movies;
+    string line;
+
+    // Creating Movie objects
+    Movie interstellar("Interstellar");
+    Movie inception("Inception");
+    
+    // Creating vector
+
+    // Opening comments file
+    ifstream file;
+    file.open("comments.txt");
+    if (!file.good()) {
+        cout << "File not found" << endl;
+    }
+    
+    while (getline(file, line)) { // as long as there is a next line to get
+        if (!line.empty()) { // if line is not empty
+           
+        }
+    }
+
+    file.close(); // closes file after reading everything
 
     return 0;
 }
