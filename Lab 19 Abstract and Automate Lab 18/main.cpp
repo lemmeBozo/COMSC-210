@@ -12,6 +12,8 @@ using namespace std;
 
 float generateRandomRating();
 
+void printMovieDetails(vector<Movie>&);
+
 struct Movie {
     string title;
     LinkedList<float> ratings;
@@ -23,9 +25,11 @@ struct Movie {
 
     Movie(string title) {
         this->title = title;
-        ratings.pushFront(generateRandomRating);
     }
-
+    void addComment(string comment) { // Adds a comment (every time comment is added random rating is added with the comment )
+        comments.pushFront(comment);
+        ratings.pushFront(generateRandomRating());
+    }
 };
 
 int main() {
@@ -54,9 +58,10 @@ int main() {
 
     while (getline(file, line)) { // as long as there is a next line to get
         if (!line.empty()) { // if line is not empty
-            movies[0].comments.pushFront(line);
+            movies[0].addComment(line);
         }
     }
+
 
     file.close(); // closes file after reading everything
 
@@ -82,3 +87,19 @@ float generateRandomRating() {
     randomFloat = round(randomFloat * 10.0f) / 10.0f; // rounds to the nearest tenth
     return randomFloat;
 }
+
+void printMovieDetails(vector<Movie>& movies) {
+    for (int i = 0; i < movies.size(); i++) {
+        cout << "Movie title: " << movies[i].title << endl;
+        cout << "\tComments: ";
+        while (!movies[i].comments.isEmpty()) { // as long as linked list isn't empty 
+            cout << movies[i].comments.peek() << ", ";
+        }
+        cout << endl << "Ratings: ";
+
+        while (!movies[i].ratings.isEmpty()) { // as long as linked list isn't empty
+            cout << movies[i].ratings.peek() << ", ";
+        }
+        cout << endl;
+    }
+} 

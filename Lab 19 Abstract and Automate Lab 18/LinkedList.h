@@ -28,7 +28,7 @@ class LinkedList {
 
     ~LinkedList() {clear();}
 
-    void pushFront(T&); // push element to the front of the list (originally called push)
+    void pushFront(const T&); // push element to the front of the list (originally called push)
 
    void pushBack(T&); // ADDING A NEW METHOD (for the lab since items can either be added to front or back of list)
 
@@ -47,7 +47,7 @@ LinkedList<T>::LinkedList() {
 }
 
 template <typename T>
-void LinkedList<T>::pushFront(T& data) {
+void LinkedList<T>::pushFront(const T& data) {
     Node* node = new Node(data);
     node->nextLink = head;
     head = node;
