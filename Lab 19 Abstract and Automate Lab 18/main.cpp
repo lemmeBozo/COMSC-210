@@ -12,8 +12,6 @@ using namespace std;
 
 float generateRandomRating();
 
-
-
 struct Movie {
     string title;
     LinkedList<float> ratings;
@@ -34,14 +32,14 @@ struct Movie {
 
 void printMovieDetails(vector<Movie>&);
 
-int main() {
+int main() { // Note to self: while function should be some function because they litterally do the same thing just get written into a different linked list they essentiall do the same thing
 
     // Creating Movie objects
     Movie interstellar("Interstellar");
     Movie inception("Inception");
 
     // creates a vector of movies
-    vector<Movie> movies(2);
+    vector<Movie> movies;
     movies.push_back(interstellar);
     movies.push_back(inception);
 
@@ -53,7 +51,6 @@ int main() {
         return 0; // returns if file wasn't found 
     }
     
-
     string line;
 
     // Note each time a comment is added so should a review 
@@ -65,7 +62,6 @@ int main() {
         }
     }
 
-
     file.close(); // closes file after reading everything
 
     file.open("Movie-One-Comments.txt");
@@ -76,7 +72,7 @@ int main() {
 
     while (getline(file, line)) {
         if(!line.empty()) {
-            movies[1].comments.pushFront("line");
+            movies[1].addComment(line);
         }
     }
 
@@ -97,12 +93,12 @@ float generateRandomRating() {
 void printMovieDetails(vector<Movie>& movies) {
     for (int i = 0; i < movies.size(); i++) {
         cout << "Movie title: " << movies[i].title << endl;
-        cout << "\tComments: ";
+        cout << "Comments: " << endl;
         while (!movies[i].comments.isEmpty()) { // as long as linked list isn't empty 
             cout << movies[i].comments.peek() << endl;
             movies[i].comments.pop();
         }
-        cout << endl << "Ratings: ";
+        cout << endl << "Ratings: " << endl;
 
         while (!movies[i].ratings.isEmpty()) { // as long as linked list isn't empty
             cout << movies[i].ratings.peek() << endl;
