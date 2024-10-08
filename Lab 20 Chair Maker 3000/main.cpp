@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib> // for rand(), srand()
 #include <ctime> // for time()
+#include <cmath> // for round()
 
 using namespace std;
 
@@ -69,5 +70,5 @@ int generateRandomInt(int min, int max) {
 }
 
 float generateRandomFloat(float min, float max) {
-    
+    floa
 }
