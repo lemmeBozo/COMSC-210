@@ -59,15 +59,15 @@ public:
 };
 
 int main() {
-
+    srand(time(0)); // seed for random number generator 
     return 0;
 }
 
-int generateRandomInt(int min, int max) {
-    
-    return 
+// returns a number between min and max
+int generateRandomInt(int min, int max) { 
+    return (min + rand() % (max - min + 1));
 }
 
 float generateRandomFloat(float min, float max) {
-
+    
 }
