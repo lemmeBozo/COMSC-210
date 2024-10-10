@@ -1,7 +1,9 @@
 #include <iostream>
-#include <cstdlib> // for rand(), srand()
-#include <ctime> // for time()
-#include <cmath> // for round()
+
+#include <random> // for rng
+#include <chrono> // for better time percision
+#include <cmath> // for rounding
+
 
 using namespace std;
 
@@ -60,12 +62,31 @@ public:
 };
 
 int main() {
-    srand(time(0)); // seed for random number generator 
+    cout << generateRandomFloat(100.00, 999.99) << endl;
+    cout << generateRandomFloat(100.00, 999.99) << endl;
+    cout << generateRandomFloat(100.00, 999.99) << endl;
+    cout << generateRandomInt(3,4) << endl;
+    cout << generateRandomInt(3,4) << endl;
+    cout << generateRandomInt(3,4) << endl;
     return 0;
 }
 
-// returns a number between min and max
-int generateRandomInt(int min, int max) { 
-    return (min + rand() % (max - min + 1));
+float generateRandomFloat(float min, float max) {
+    // returns time in miliseconds
+    // using type of auto as that is convention when dealing with chrono
+    auto seed = chrono::high_resolution_clock::now().time_since_epoch().count();
+    mt19937 generator(seed); // Mersene Twister RNG algorithm
+    uniform_real_distribution<float> distribution(min,max); 
+
+    // Generates random number
+    float ranValue = distribution(generator);
+    return round(ranValue * 100.00) / 100.00;
 }
 
+int generateRandomInt(int min, int max) {
+    auto seed = chrono::high_resolution_clock::now().time_since_epoch().count();
+    mt19937 generator(seed); // Mersene Twister RNG algorithm
+    uniform_real_distribution<int> distribution(min,max); 
+    int value = 0;
+    return value;
+}
