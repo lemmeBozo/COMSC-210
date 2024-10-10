@@ -3,6 +3,7 @@
 #include <random> // for rng
 #include <chrono> // for better time percision
 #include <cmath> // for rounding
+#include <iomanip>
 
 
 using namespace std;
@@ -30,6 +31,13 @@ public:
             prices[i] = generateRandomDouble(100.00, 999.99);
     }
     
+    Chair(int l) {
+        prices = new double[SIZE];
+        legs = generateRandomInt(3,4);
+        for (int i = 0; i < SIZE; i++)
+            prices[i] = generateRandomDouble(100.00, 999.99);
+    }
+
     Chair(int l, vector<double>& priceVector) {
         prices = new double[SIZE];
         legs = l;
