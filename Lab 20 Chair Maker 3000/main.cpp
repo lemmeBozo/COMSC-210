@@ -69,6 +69,3 @@ int generateRandomInt(int min, int max) {
     return (min + rand() % (max - min + 1));
 }
 
-float generateRandomFloat(float min, float max) {
-    floa
-}
