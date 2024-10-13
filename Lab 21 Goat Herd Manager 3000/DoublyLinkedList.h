@@ -44,9 +44,6 @@ class DoublyLinkedList {
     // Deletes methods
     void deleteNode(const T&);
 
-    // Returns the latest element
-    T peek(); 
-
     // Checks if list is empty
     bool isEmpty() {return (head == nullptr);}
 
@@ -61,11 +58,38 @@ class DoublyLinkedList {
 
 
 // Methods to implement
-// insertAfter()
 // deleteNode()
 // print()
 // printReverse();
 
+template <typename T>
+void DoublyLinkedList<T>::deleteNode(const T& data) {
+    if(isEmpty()) {return;} // if array is empty returns (can't delete everything)
+
+    Node* temp = head;
+    while (temp && temp->data != data) {
+        temp = temp->nextLink;
+    }
+
+    if (!temp) {return;} // value not found
+
+    // Adjusts the previous node's next link
+    if (temp->prevLink) {
+        temp->prevLink->nextLink = temp->nextLink;
+    } else {
+        head = temp->nextLink;
+    }
+
+    // Adjusts the next node's previous link
+    if (temp->nextLink) {
+        temp->nextLink->prevLink = temp->prevLink;
+    } else {
+        tail = temp->prevLink;
+    }
+    delete temp;
+}
+
+// FIX THE BELOW METHOD IF IT DOESN"T WORK
 template <typename T>
 void DoublyLinkedList<T>::insertAfter(const T& data, int position) {
     if (position < 0) {
@@ -89,14 +113,19 @@ void DoublyLinkedList<T>::insertAfter(const T& data, int position) {
         delete node;
         return;
     }
+
     // otherwise perform the following
     node->nextLink = temp->nextLink;
-    temp->nextLink = node;
     node->prevLink = temp;
-
-    // if the new node is inserted at the end, update the tail 
-    
+    if (temp->nextLink) {
+        temp->nextLink->prevLink = node;
+    } else {
+        tail = node;
+    }
+    temp->nextLink = node;
 }
+
+
 
 template <typename T>
 DoublyLinkedList<T>::DoublyLinkedList() {
