@@ -1,6 +1,8 @@
 #ifndef DOUBLYLINKEDLIST_H
 #define DOUBLYLINKEDLIST_H
 
+#include <iostream>
+
 // I have a general question about linked list
 // I have always been confused on the distinction between lists, queues and stacks
 // like my code below just feels like a mix of a queue / stack 
@@ -57,10 +59,28 @@ class DoublyLinkedList {
 };
 
 
-// Methods to implement
-// deleteNode()
-// print()
-// printReverse();
+// MAKE SURE TO OVERLOAD << for the GOAT CLASS
+template <typename T>
+void DoublyLinkedList<T>::print() {
+    Node* current = head;
+    if (!current) {return;}
+    while (current) {
+        cout << current->data << " ";
+        current = current->nextLink;
+    }
+    cout << endl;
+}
+
+template <typename T>
+void DoublyLinkedList<T>::printReverse() {
+    Node* current = tail;
+    if (!current) {return;}
+    while (current) {
+        cout << current->data << " ";
+        current = current->prevLink;
+    }
+    cout << endl;
+}
 
 template <typename T>
 void DoublyLinkedList<T>::deleteNode(const T& data) {
@@ -87,6 +107,7 @@ void DoublyLinkedList<T>::deleteNode(const T& data) {
         tail = temp->prevLink;
     }
     delete temp;
+    currSize--;
 }
 
 // FIX THE BELOW METHOD IF IT DOESN"T WORK
@@ -123,9 +144,8 @@ void DoublyLinkedList<T>::insertAfter(const T& data, int position) {
         tail = node;
     }
     temp->nextLink = node;
+    currSize++;
 }
-
-
 
 template <typename T>
 DoublyLinkedList<T>::DoublyLinkedList() {
@@ -163,7 +183,7 @@ void DoublyLinkedList<T>::pushBack(const T& data) {
 template <typename T>
 DoublyLinkedList<T>::~DoublyLinkedList() {
     while(head) {
-        node* temp = head;
+        Node* temp = head;
         head = head->nextLink;
         delete temp;
     }

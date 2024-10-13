@@ -36,6 +36,8 @@ class Goat {
     Goat (int age, string name, string color) 
         : age(age), name(name), color(color) {}
 
+    
+
 };
 
 // Driver program
