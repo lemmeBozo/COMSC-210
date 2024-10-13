@@ -1,6 +1,9 @@
 #ifndef DOUBLYLINKEDLIST_H
 #define DOUBLYLINKEDLIST_H
 
+// I have a general question about linked list
+// I have always been confused on the distinction between lists, queues and stacks
+// like my code below just feels like a mix of a queue / stack 
 
 template <typename T>
 class DoublyLinkedList {
@@ -106,21 +109,24 @@ template <typename T>
 void DoublyLinkedList<T>::pushFront(const T& data) {
     Node * node = new Node(data);
     if(isEmpty()) { // if the list is empty
-
+        head = tail = node; 
+    } else { // if the list is not empty 
+        node->nextLink = head;
+        head->prevLink = node;
+        head = node;
     }
+    currSize++;
 }
 
 template <typename T>
 void DoublyLinkedList<T>::pushBack(const T& data) {
     Node* node = new Node(data); 
     if(isEmpty()) { 
-        head = node;
+        head = tail = node;
     } else {
-        Node* temp = head;
-        while(temp->nextLink != nullptr) { 
-            temp = temp->nextLink;
-        }
-        temp->nextLink = node; 
+        tail->nextLink = node;
+        node->prevLink = tail;
+        tail = node;
     }
     currSize++;
 }
