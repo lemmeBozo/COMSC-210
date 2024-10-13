@@ -3,9 +3,7 @@
 
 #include <iostream>
 
-// I have a general question about linked list
-// I have always been confused on the distinction between lists, queues and stacks
-// like my code below just feels like a mix of a queue / stack 
+using namespace std;
 
 template <typename T>
 class DoublyLinkedList {
@@ -58,6 +56,12 @@ class DoublyLinkedList {
 
 };
 
+template <typename T>
+DoublyLinkedList<T>::DoublyLinkedList() {
+    head = nullptr;
+    tail = nullptr;
+    currSize = 0;
+}
 
 // MAKE SURE TO OVERLOAD << for the GOAT CLASS
 template <typename T>
@@ -145,13 +149,6 @@ void DoublyLinkedList<T>::insertAfter(const T& data, int position) {
     }
     temp->nextLink = node;
     currSize++;
-}
-
-template <typename T>
-DoublyLinkedList<T>::DoublyLinkedList() {
-    head = nullptr;
-    tail = nullptr;
-    currSize = 0;
 }
 
 template <typename T>

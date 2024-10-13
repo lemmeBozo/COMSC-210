@@ -2,6 +2,9 @@
 #include <random> // for rng
 #include <chrono> // for better time percision
 #include <cmath> // for rounding
+
+#include "DoublyLinkedList.h" // includes improved version of doubly linked list 
+
 using namespace std;
 
 // COMSC-210 | Lab 21: Goat Herd Manager 3000 | Erick Pascual-Bautista
@@ -36,27 +39,30 @@ class Goat {
     Goat (int age, string name, string color) 
         : age(age), name(name), color(color) {}
 
-    
+    friend ostream& operator<<(ostream& os, const Goat& obj) {
+        os << "[ Name: " << obj.name << ", Color: " << obj.color << ", Age: " << obj.color << "]";
+        return os; 
+    }
 
 };
 
 // Driver program
 int main() {
-    // DoublyLinkedList list;
-    // int size = rand() % (MAX_LS-MIN_LS+1) + MIN_LS;
+    DoublyLinkedList<Goat> list;
+    int size = rand() % (MAX_LS-MIN_LS+1) + MIN_LS;
 
-    // for (int i = 0; i < size; ++i)
-    //     list.push_back(rand() % (MAX_NR-MIN_NR+1) + MIN_NR);
-    // cout << "List forward: ";
-    // list.print();
+    for (int i = 0; i < size; ++i)
+        list.pushBack(rand() % (MAX_NR-MIN_NR+1) + MIN_NR);
+    cout << "List forward: ";
+    list.print();
 
-    // cout << "List backward: ";
-    // list.print_reverse();
+    cout << "List backward: ";
+    list.printeverse();
 
-    // cout << "Deleting list, then trying to print.\n";
-    // list.~DoublyLinkedList();
-    // cout << "List forward: ";
-    // list.print();
+    cout << "Deleting list, then trying to print.\n";
+    list.~DoublyLinkedList();
+    cout << "List forward: ";
+    list.print();
 
     return 0;
 }
