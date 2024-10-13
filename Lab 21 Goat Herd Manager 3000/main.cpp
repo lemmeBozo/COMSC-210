@@ -13,7 +13,8 @@ const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
 int generateRandomInt(int, int);
 
-class Goat {
+struct Goat {
+    // private: 
     int age;
     string name;
     string color;
@@ -40,7 +41,7 @@ class Goat {
         : age(age), name(name), color(color) {}
 
     friend ostream& operator<<(ostream& os, const Goat& obj) {
-        os << "[ Name: " << obj.name << ", Color: " << obj.color << ", Age: " << obj.color << "]";
+        os << "[ Name: " << obj.name << ", Color: " << obj.color << ", Age: " << obj.age << "]" << endl;
         return os; 
     }
 
@@ -49,15 +50,17 @@ class Goat {
 // Driver program
 int main() {
     DoublyLinkedList<Goat> list;
-    int size = rand() % (MAX_LS-MIN_LS+1) + MIN_LS;
+    int size = generateRandomInt(5, 20);
 
-    for (int i = 0; i < size; ++i)
-        list.pushBack(rand() % (MAX_NR-MIN_NR+1) + MIN_NR);
-    cout << "List forward: ";
+    for (int i = 0; i < size; i++) {
+        Goat goat;
+        list.pushBack(goat);
+    }
+    cout << "List Forward: " << endl;
     list.print();
 
-    cout << "List backward: ";
-    list.printeverse();
+    cout << endl << "List Backwards: " << endl;
+    list.printReverse();
 
     cout << "Deleting list, then trying to print.\n";
     list.~DoublyLinkedList();
