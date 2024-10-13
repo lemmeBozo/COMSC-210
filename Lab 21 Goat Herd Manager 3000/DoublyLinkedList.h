@@ -7,16 +7,21 @@ class DoublyLinkedList {
     struct Node {
         T data;
         Node* nextLink;
+        Node* prevLink;
         Node() { 
+            data = T();
             nextLink = nullptr;
+            prevLink = nullptr;
         }
         Node(T data) { 
             this->data = data;
             nextLink = nullptr;
+            prevLink = nullptr;
         }
     };
 
     Node* head;
+    Node* tail;
     int currSize;
 
     public:
@@ -70,40 +75,39 @@ void DoublyLinkedList<T>::insertAfter(const T& data, int position) {
     }
 
     Node* node new Node(data);
+    if (!head) {
+        head = tail = newNode;
+        return
+    }
+
+    Node* temp = head;
+    for (int i = 0; i < position && temp; i++) { // traverse the list until it reaches the desired position
+        temp = temp->nextLink;
+    }
+
+    if (!temp) { // if node is out of range (caused from the above) then deletes node and returns
+        cout << "Position exceeds list size. Node not inserted." << endl;
+        delete newNode;
+        return
+    }
+
+    // otherwise do the following
+    node->nextLink = temp->nextLink;
 }
 
 template <typename T>
 DoublyLinkedList<T>::DoublyLinkedList() {
     head = nullptr;
+    tail = nullptr;
     currSize = 0;
 }
 
 template <typename T>
 void DoublyLinkedList<T>::pushFront(const T& data) {
-    Node* node = new Node(data);
-    node->nextLink = head;
-    head = node;
-    currSize++;
+    Node * node = new Node(data);
+    if(isEmpty()) { // if the list is empty
 
-    /*
-    This was my original implementation 
-    before I learned the easier way
-    
-    if (isEmpty()) { // if list is empty
-        head = new Node(data);
     }
-    else {
-        Node* node = new Node(data)
-        if (head->nextLink == nullptr){
-            head->nextLink = node;
-        }
-        else {
-            Node* tempNode = head->nextLink;
-            head->nextLink = node;
-            node->nextLink = tempNode;
-        }
-    }
-*/
 }
 
 template <typename T>
