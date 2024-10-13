@@ -33,8 +33,10 @@ class DoublyLinkedList {
     // Insert method
     void insertAfter(const T&, int);
 
-    // Deletes latest element
+    // Deletes methods
     void pop();
+    void deleteNode(const T&);
+
     // Returns the latest element
     T peek(); 
 
@@ -46,12 +48,29 @@ class DoublyLinkedList {
 
     // Helper function for the destructor (pops all elements of the list)
     void clear();
+
+    // Prints methods
+    void print();
+    void printReverse();
+
 };
 
 
+// Methods to implement
+// insertAfter()
+// deleteNode()
+// print()
+// printReverse();
 
+template <typename T>
+void DoublyLinkedList<T>::insertAfter(const T& data, int position) {
+    if (position < 0) {
+        cout << "Position must be >= 0" << endl;
+        return;
+    }
 
-
+    Node* node new Node(data);
+}
 
 template <typename T>
 DoublyLinkedList<T>::DoublyLinkedList() {
@@ -59,69 +78,69 @@ DoublyLinkedList<T>::DoublyLinkedList() {
     currSize = 0;
 }
 
-// template <typename T>
-// void DoublyLinkedList<T>::pushFront(const T& data) {
-//     Node* node = new Node(data);
-//     node->nextLink = head;
-//     head = node;
-//     currSize++;
+template <typename T>
+void DoublyLinkedList<T>::pushFront(const T& data) {
+    Node* node = new Node(data);
+    node->nextLink = head;
+    head = node;
+    currSize++;
 
-//     /*
-//     This was my original implementation 
-//     before I learned the easier way
+    /*
+    This was my original implementation 
+    before I learned the easier way
     
-//     if (isEmpty()) { // if list is empty
-//         head = new Node(data);
-//     }
-//     else {
-//         Node* node = new Node(data)
-//         if (head->nextLink == nullptr){
-//             head->nextLink = node;
-//         }
-//         else {
-//             Node* tempNode = head->nextLink;
-//             head->nextLink = node;
-//             node->nextLink = tempNode;
-//         }
-//     }
-// */
-// }
+    if (isEmpty()) { // if list is empty
+        head = new Node(data);
+    }
+    else {
+        Node* node = new Node(data)
+        if (head->nextLink == nullptr){
+            head->nextLink = node;
+        }
+        else {
+            Node* tempNode = head->nextLink;
+            head->nextLink = node;
+            node->nextLink = tempNode;
+        }
+    }
+*/
+}
 
-// template <typename T>
-// void DoublyLinkedList<T>::pushBack(const T& data) {
-//     Node* node = new Node(data); 
-//     if(isEmpty()) { 
-//         head = node;
-//     } else {
-//         Node* temp = head;
-//         while(temp->nextLink != nullptr) { 
-//             temp = temp->nextLink;
-//         }
-//         temp->nextLink = node; 
-//     }
-//     currSize++;
-// }
+template <typename T>
+void DoublyLinkedList<T>::pushBack(const T& data) {
+    Node* node = new Node(data); 
+    if(isEmpty()) { 
+        head = node;
+    } else {
+        Node* temp = head;
+        while(temp->nextLink != nullptr) { 
+            temp = temp->nextLink;
+        }
+        temp->nextLink = node; 
+    }
+    currSize++;
+}
 
-// template <typename T>
-// void DoublyLinkedList<T>::pop() {
-//     if (!isEmpty()) {
-//         Node* tempPtr = head;
-//         head = head->nextLink;
-//         delete tempPtr;
-//         currSize--;
-//     }
-// }
+template <typename T>
+void DoublyLinkedList<T>::pop() {
+    if (!isEmpty()) {
+        Node* tempPtr = head;
+        head = head->nextLink;
+        delete tempPtr;
+        currSize--;
+    }
+}
 
-// template <typename T>
-// T DoublyLinkedList<T>::peek() {
-//     return head->data;
-// }
+template <typename T>
+T DoublyLinkedList<T>::peek() {
+    return head->data;
+}
 
-// template <typename T>
-// void DoublyLinkedList<T>::clear() {
-//     while(!isEmpty()) { 
-//         pop();
-//     }
-// }
+template <typename T>
+void DoublyLinkedList<T>::clear() {
+    while(!isEmpty()) { 
+        pop();
+    }
+}
 
 #endif
