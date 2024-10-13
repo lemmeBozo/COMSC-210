@@ -32,7 +32,7 @@ class DoublyLinkedList {
     DoublyLinkedList(); 
 
     // Destructor
-    ~DoublyLinkedList() {clear();}
+    ~DoublyLinkedList();
 
     // Push methods
     void pushFront(const T&); 
@@ -42,7 +42,6 @@ class DoublyLinkedList {
     void insertAfter(const T&, int);
 
     // Deletes methods
-    void pop();
     void deleteNode(const T&);
 
     // Returns the latest element
@@ -53,9 +52,6 @@ class DoublyLinkedList {
 
     // returns the size of the list
     int size() {return currSize;}
-
-    // Helper function for the destructor (pops all elements of the list)
-    void clear();
 
     // Prints methods
     void print();
@@ -77,10 +73,10 @@ void DoublyLinkedList<T>::insertAfter(const T& data, int position) {
         return;
     }
 
-    Node* node new Node(data);
+    Node* node = new Node(data);
     if (!head) {
-        head = tail = newNode;
-        return
+        head = tail = node;
+        return;
     }
 
     Node* temp = head;
@@ -90,12 +86,16 @@ void DoublyLinkedList<T>::insertAfter(const T& data, int position) {
 
     if (!temp) { // if node is out of range (caused from the above) then deletes node and returns
         cout << "Position exceeds list size. Node not inserted." << endl;
-        delete newNode;
-        return
+        delete node;
+        return;
     }
-
-    // otherwise do the following
+    // otherwise perform the following
     node->nextLink = temp->nextLink;
+    temp->nextLink = node;
+    node->prevLink = temp;
+
+    // if the new node is inserted at the end, update the tail 
+    
 }
 
 template <typename T>
@@ -132,25 +132,13 @@ void DoublyLinkedList<T>::pushBack(const T& data) {
 }
 
 template <typename T>
-void DoublyLinkedList<T>::pop() {
-    if (!isEmpty()) {
-        Node* tempPtr = head;
+DoublyLinkedList<T>::~DoublyLinkedList() {
+    while(head) {
+        node* temp = head;
         head = head->nextLink;
-        delete tempPtr;
-        currSize--;
+        delete temp;
     }
 }
 
-template <typename T>
-T DoublyLinkedList<T>::peek() {
-    return head->data;
-}
-
-template <typename T>
-void DoublyLinkedList<T>::clear() {
-    while(!isEmpty()) { 
-        pop();
-    }
-}
 
 #endif
