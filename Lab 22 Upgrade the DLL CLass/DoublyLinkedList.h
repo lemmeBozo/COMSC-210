@@ -40,12 +40,12 @@ class DoublyLinkedList {
     void insertAfter(const T&, int);
 
     // Deletes methods
-    void deleteNode(const T&);
+    void deleteValue(const T&);
     void deleteAt(int);
 
     // Pop methods
-    void popFront();
-    void popBack();
+    T popFront();
+    T popBack();
 
 
     // Checks if list is empty
@@ -104,7 +104,7 @@ void DoublyLinkedList<T>::insertAfter(const T& data, int position) {
     }
 
     Node* node = new Node(data);
-    if (!head) {
+    if (isEmpty()) {
         head = tail = node;
         return;
     }
@@ -133,7 +133,7 @@ void DoublyLinkedList<T>::insertAfter(const T& data, int position) {
 }
 
 template <typename T>
-void DoublyLinkedList<T>::deleteNode(const T& data) {
+void DoublyLinkedList<T>::deleteValue(const T& data) {
     if(isEmpty()) {return;} // if array is empty returns (can't delete everything)
 
     Node* temp = head;
@@ -167,7 +167,7 @@ void DoublyLinkedList<T>::deleteAt(int position) {
     if(isEmpty()) {return;} // do nothing if true
 
     // Case 2: Position is out of bounds
-    if (position < 0 || position >= size) {return;} // do nothing if true
+    if (position < 0 || position >= this->size()) {return;} // do nothing if true
 
     Node* current = head;
 
@@ -203,15 +203,45 @@ void DoublyLinkedList<T>::deleteAt(int position) {
 };
 
 template <typename T>
-void DoublyLinkedList<T>::popFront() {
+T DoublyLinkedList<T>::popFront() {
+    if (isEmpty()) {return;} // Case 1: List is empty (Do Nothing)
 
+    Node* temp = head; // Stores the pointer for the head
+    T value = temp->data; // Stores the data value at the head
+
+    // Case 2: List has only one element
+    if (head == tail) {
+        head = nullptr;
+        tail = nullptr;
+    } else { // Case 3: List has more than one element
+        head = head->nextLink;
+        head->prevLink = nullptr;
+    }
+    delete temp;
+    currSize--;
+    return value;
 }
 
 template <typename T>
-void DoublyLinkedList<T>::popBack() {
+T DoublyLinkedList<T>::popBack() {
+    if (isEmpty()) {return;} // Case 1: List is empty (Do Nothing)
 
+    Node* temp = tail;
+    T value = temp->data;
+
+    // Case 2: List has only one element
+    if (head ==tail) {
+        head = nullptr;
+        tail = nullptr;
+    } else {
+        tail = tail->prevLink;
+        tail->nextLink = nullptr;    
+    }
+    delete temp;
+    currSize--;
+    return value;
 }
-1
+
 // MAKE SURE TO OVERLOAD << for any data that is a class
 template <typename T>
 void DoublyLinkedList<T>::print() {
