@@ -2,6 +2,7 @@
 #define DOUBLYLINKEDLIST_H
 
 #include <iostream>
+#include <stdexcept>
 
 using namespace std;
 // Question isn't our linked list below really just a stack/queue because we have pop back and front methods that again either act like a stack or a queue
@@ -209,7 +210,7 @@ void DoublyLinkedList<T>::deleteAt(int position) {
 
 template <typename T>
 T DoublyLinkedList<T>::popFront() {
-    if (isEmpty()) {return T();} // Case 1: List is empty (return a default construtor of my data)
+    if (isEmpty()) {throw runtime_error("Error: Cannot pop from an empty list");} // Case 1: List is empty (Throw an exception)
 
     Node* temp = head; // Stores the pointer for the head
     T value = temp->data; // Stores the data value at the head
@@ -229,7 +230,7 @@ T DoublyLinkedList<T>::popFront() {
 
 template <typename T>
 T DoublyLinkedList<T>::popBack() {
-    if (isEmpty()) {return T();} // Case 1: List is empty (return a default construtor of my data)
+    if (isEmpty()) {throw runtime_error("Error: Cannot pop from an empty list");} // Case 1: List is empty (Throw an exception)
 
     Node* temp = tail;
     T value = temp->data;
