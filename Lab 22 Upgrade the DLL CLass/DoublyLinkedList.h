@@ -170,10 +170,14 @@ template <typename T>
 void DoublyLinkedList<T>::deleteAt(int position) {
 
     // Case 1: List is empty
-    if(isEmpty()) {return;} // do nothing if true
+    if(isEmpty()) { // throws an error if out of bounds
+        throw runtime_error("Error: Cannot delete element from an empty list");
+    } 
 
     // Case 2: Position is out of bounds
-    if (position < 0 || position >= this->size()) {return;} // do nothing if true
+    if (position < 0 || position >= this->size()) {
+        throw runtime_error("Error: Out of bounds");
+    } // do nothing if true
 
     Node* current = head;
 

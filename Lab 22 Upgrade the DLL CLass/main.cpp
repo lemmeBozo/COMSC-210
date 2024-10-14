@@ -49,6 +49,40 @@ int main() {
     list.print();
 
     // Test deleteValue
+    cout << "Deleting value 20." << endl;
+    list.deleteValue(20);
+    cout << "List after deleting 20: ";
+    list.print();
+
+    cout << endl;
+
+    // Test deleteAt
+    cout << "Deleting at position 0" << endl;
+    list.deleteAt(0);
+    cout << "List after deleting at position 0: ";
+    list.print();
+
+    cout << endl;
+
+    // Test deleteAt invalid position
+    try {
+        cout << "Deleting at position 5 (invalid position)" << endl;
+        list.deleteAt(5);
+    }   catch(const runtime_error& e) {
+        cout << "Caught an exception: " << e.what() << endl;
+    }
+
+    // Test deletAt empty 
+
 
     return 0;
 }
+
+
+
+    // try { // Should throw an error
+    //     cout << "Popping back: " << list.popBack() << endl; 
+
+    // } catch(const runtime_error& e) {
+    //     cout << "Caught an exception: " << e.what() << endl;
+    // }
