@@ -140,14 +140,18 @@ void DoublyLinkedList<T>::insertAfter(const T& data, int position) {
 
 template <typename T>
 void DoublyLinkedList<T>::deleteValue(const T& data) {
-    if(isEmpty()) {return;} // if array is empty returns (can't delete everything)
+    if(isEmpty()) {
+        throw runtime_error("Error: Cannot delete element from an empty list"); // Throws exception if list is empty
+    } 
 
     Node* temp = head;
     while (temp && temp->data != data) {
         temp = temp->nextLink;
     }
 
-    if (!temp) {return;} // value not found
+    if (!temp) {
+        throw runtime_error("Error: Could not delete value, value not found"); // Throws exception if the vaule cannot be found
+    } 
 
     // Adjusts the previous node's next link
     if (temp->prevLink) {

@@ -7,6 +7,7 @@ using namespace std;
 int main() {
     // Test Driver Application
     DoublyLinkedList<int> list;
+    DoublyLinkedList<int> emptyList;
     
     // Test popFront on emptyList
     cout << "TEST POPPING FROM EMPTY LIST: " << endl << endl;
@@ -48,11 +49,33 @@ int main() {
     cout << "List after poping back: ";
     list.print();
 
+    cout << endl;
+
     // Test deleteValue
     cout << "Deleting value 20." << endl;
     list.deleteValue(20);
     cout << "List after deleting 20: ";
     list.print();
+
+    cout << endl;
+
+    // Test deleValue empty list
+    try {
+        cout << "Deleting an empty list" << endl;
+        emptyList.deleteValue(20);
+    } catch (const runtime_error& e) {
+        cout << "Caught an exception: " << e.what() << endl;
+    }
+
+    cout << endl;
+
+    // Test deleteValue not found
+    try {
+        cout << "Deleting a value in which it isn't found" << endl;
+        list.deleteValue(100);
+    } catch (const runtime_error& e) {
+        cout << "Caught an exception: " << e.what() << endl;
+    }
 
     cout << endl;
 
@@ -72,17 +95,18 @@ int main() {
         cout << "Caught an exception: " << e.what() << endl;
     }
 
+    cout << endl;
+
     // Test deletAt empty 
+    try {
+        cout << "Deleting an empty list" << endl;
+        emptyList.deleteAt(5);
+    }   catch(const runtime_error& e) {
+        cout << "Caught an exception: " << e.what() << endl;
+    }
+
 
 
     return 0;
 }
 
-
-
-    // try { // Should throw an error
-    //     cout << "Popping back: " << list.popBack() << endl; 
-
-    // } catch(const runtime_error& e) {
-    //     cout << "Caught an exception: " << e.what() << endl;
-    // }
