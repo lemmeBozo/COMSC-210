@@ -163,11 +163,6 @@ void DoublyLinkedList<T>::deleteNode(const T& data) {
 template <typename T>
 void DoublyLinkedList<T>::deleteAt(int position) {
 
-    // Case 3 found
-        // case 3.1 position is frist element
-        // case 3.2 position is last element
-        // case 3.3 position have next and prev link
-
     // Case 1: List is empty
     if(isEmpty()) {return;} // do nothing if true
 
@@ -183,18 +178,40 @@ void DoublyLinkedList<T>::deleteAt(int position) {
 
     // Case 3.1: Position is the first element
     if (current == head) {
-        
+        head = head->nextLink; // sets head equal to the next element
+        if (head != nullptr) { // if the list is not empty
+            head->prevLink = nullptr; // Update the new head's prev
+        }
+        delete current;
+        currSize--;
+    }
+    
+    // Case 3.2: Position is the last element
+    else if (current->nextLink == nullptr) { 
+        current->prevLink->nextLink = nullptr; // updates the 2nd to last node
+        delete current;
+        currSize--;
     }
 
+    // Case 3.3: Position has both next and prev links
+    else {
+        current->prevLink->nextLink = current->nextLink;
+        current->nextLink->prevLink = current->prevLink;
+        delete current;
+        currSize--;
+    }
 };
 
+template <typename T>
+void DoublyLinkedList<T>::popFront() {
 
+}
 
-// popFront()
-// popBack()
+template <typename T>
+void DoublyLinkedList<T>::popBack() {
 
-
-
+}
+1
 // MAKE SURE TO OVERLOAD << for any data that is a class
 template <typename T>
 void DoublyLinkedList<T>::print() {
