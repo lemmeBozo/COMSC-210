@@ -4,7 +4,8 @@
 #include <iostream>
 
 using namespace std;
-
+// Question isn't our linked list below really just a stack/queue because we have pop back and front methods that again either act like a stack or a queue
+// the same can be said for our push methods
 template <typename T>
 class DoublyLinkedList {
     struct Node {
@@ -41,6 +42,11 @@ class DoublyLinkedList {
     // Deletes methods
     void deleteNode(const T&);
     void deleteAt(int);
+
+    // Pop methods
+    void popFront();
+    void popBack();
+
 
     // Checks if list is empty
     bool isEmpty() {return (head == nullptr);}
@@ -157,15 +163,39 @@ void DoublyLinkedList<T>::deleteNode(const T& data) {
 template <typename T>
 void DoublyLinkedList<T>::deleteAt(int position) {
 
+    // Case 3 found
+        // case 3.1 position is frist element
+        // case 3.2 position is last element
+        // case 3.3 position have next and prev link
+
+    // Case 1: List is empty
+    if(isEmpty()) {return;} // do nothing if true
+
+    // Case 2: Position is out of bounds
+    if (position < 0 || position >= size) {return;} // do nothing if true
+
+    Node* current = head;
+
+    // Traverse through the linked list 
+    for (int i = 0; i < position; i++) { // Case 3: Position is found
+        current = current->nextLink;
+    }
+
+    // Case 3.1: Position is the first element
+    if (current == head) {
+        
+    }
+
 };
 
 
 
+// popFront()
+// popBack()
 
 
 
-
-// MAKE SURE TO OVERLOAD << for the GOAT CLASS
+// MAKE SURE TO OVERLOAD << for any data that is a class
 template <typename T>
 void DoublyLinkedList<T>::print() {
     Node* current = head;
@@ -187,7 +217,6 @@ void DoublyLinkedList<T>::printReverse() {
     }
     cout << endl;
 }
-
 
 template <typename T>
 DoublyLinkedList<T>::~DoublyLinkedList() {
