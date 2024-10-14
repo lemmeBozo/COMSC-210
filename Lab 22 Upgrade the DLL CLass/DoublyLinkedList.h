@@ -109,6 +109,11 @@ void DoublyLinkedList<T>::insertAfter(const T& data, int position) {
         return;
     }
 
+    if (position == currSize) {
+        pushBack(data);
+        return;
+    }
+
     Node* temp = head;
     for (int i = 0; i < position && temp; i++) { // traverse the list until it reaches the desired position
         temp = temp->nextLink;
@@ -204,7 +209,7 @@ void DoublyLinkedList<T>::deleteAt(int position) {
 
 template <typename T>
 T DoublyLinkedList<T>::popFront() {
-    if (isEmpty()) {return;} // Case 1: List is empty (Do Nothing)
+    if (isEmpty()) {return T();} // Case 1: List is empty (return a default construtor of my data)
 
     Node* temp = head; // Stores the pointer for the head
     T value = temp->data; // Stores the data value at the head
@@ -224,7 +229,7 @@ T DoublyLinkedList<T>::popFront() {
 
 template <typename T>
 T DoublyLinkedList<T>::popBack() {
-    if (isEmpty()) {return;} // Case 1: List is empty (Do Nothing)
+    if (isEmpty()) {return T();} // Case 1: List is empty (return a default construtor of my data)
 
     Node* temp = tail;
     T value = temp->data;
