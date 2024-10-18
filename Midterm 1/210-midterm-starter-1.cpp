@@ -57,20 +57,28 @@ public:
         temp->next = newNode;
     }
 
+    // Deletes the node that holds value
     void delete_val(int value) {
-        if (!head) return;
+        if (!head) return;  // if the list is empty exits from the method
 
-        Node* temp = head;
+        Node* temp = head;  // sets temp equal to the head 
         
-        while (temp && temp->data != value)
+        while (temp && temp->data != value) // while temp exists (!= nullptr) and temps->data doesn't equal the value we are trying to find (note if the node is found then the loop stops)
             temp = temp->next;
 
-        if (!temp) return; 
+        if (!temp) return; // if temp is equal to nullptr (i.e. value not found) then exits out of the method
 
-        if (temp->prev)
-            temp->prev->next = temp->next;
-        else
-            head = temp->next; 
+        if (temp->prev) // if temp has a previous node (i.e. isn't the first node in the list) then
+            temp->prev->next = temp->next;  // sets prev->next = next
+                                            // Sets prev next pointer equal to the node after temp (next)
+                                            // [prev] [temp] [next]
+                                            // the above becomes
+                                            // [prev] [next]
+        else                                // otherwise if it doesn't have a previous node
+            head = temp->next;              // sets head equal to the value after temp
+                                            //  [temp(the current head)] [next]
+                                            // becomes
+                                            // [next( the new head)]
 
         if (temp->next)
             temp->next->prev = temp->prev;
