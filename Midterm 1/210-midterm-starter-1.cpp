@@ -136,40 +136,43 @@ public:
         if (!head)                      // if the list is emetpy (list is emetpy when tail =  nullptr)
             head = tail = newNode;      // then we set the head equal to the tail which is equal to the new node we want to add
         else {                          // If the list is not empty
-            newNode->next = head;       // then the newNode->next element will now be the head
-            head->prev = newNode;       // 
-            head = newNode;
+            newNode->next = head;       // the newNode's->next value should be the head because the newNode is now the new first element therefore its next element must be the head now being the new 2nd element in the list
+            head->prev = newNode;       // the heads previous element should be our newly appened node because it is the 2nd element in the list and the 1st element in the list should be our newNode
+            head = newNode;             // the head will now be equal/point to newNode because it should be the first element in the list i.e. be the head
         }
     }
     
+    // Pops the first element in the list and deletes it
     void pop_front() {
 
-        if (!head) {
-            cout << "List is empty." << endl;
+        if (!head) { // if the list is emetpy
+            cout << "List is empty." << endl; // then output the list is empty to the console
             return;
         }
 
-        Node * temp = head;
+        Node * temp = head; // temp will point to the head
 
-        if (head->next) {
-            head = head->next;
-            head->prev = nullptr;
+        if (head->next) {   // If the head has a next pointer i.e. next element exists
+            head = head->next;  // Then the head will now point to the next element in the list (because the original head will get deleted)
+            head->prev = nullptr;   // The head's prev pointer should point to nothing because the head is the first element in the list 
         }
-        else
-            head = tail = nullptr;
-        delete temp;
+        else    // IF the head is the only element in the list
+            head = tail = nullptr; // Then the head should point to tail and they should both be nullptr because we are removing the first element in the list
+        delete temp;    // Deletes the first element in the list
     }
 
+    // Pops the last element in the list and deletes it
     void pop_back() {
-        if (!tail) {
-            cout << "List is empty." << endl;
+        if (!tail) {    // If the list  is empty then 
+            cout << "List is empty." << endl;   // Output "List is emetpy" to the console
             return;
         }
-        Node * temp = tail;
 
-        if (tail->prev) {
-            tail = tail->prev;
-            tail->next = nullptr;
+        Node * temp = tail; // Temp points to the tail
+
+        if (tail->prev) { // If the tail has a previous element (i.e. not the only element in the list )
+            tail = tail->prev;  // then the tail should now point to its previous element (because the original tail is going to be deleted so the 2nd to last element is now the last element)
+            tail->next = nullptr;   // sets the tail->next element in the list = to nullptr
         }
         else
             head = tail = nullptr;
