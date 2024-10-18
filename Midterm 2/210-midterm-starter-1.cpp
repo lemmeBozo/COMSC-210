@@ -13,7 +13,7 @@ const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
 
 // function to read names from the file (filename)
-vector<string> readNames (const string&);
+DoublyLinkedList<string> readNames (const string&);
 
 // REUSING CODE FROM LAB 21
 int generateRandomInt(int, int);
@@ -29,14 +29,14 @@ int main() {
     return 0;
 }
 
-vector<string> readNames (const string& filename) {
-    vector<string> names;
+DoublyLinkedList<string> readNames (const string& filename) {
+    DoublyLinkedList<string> names;
     ifstream file(filename);
     // checks if the file has been opened properly
     if (file.is_open()) {
         string name;
         while(getline(file,name)) { // while there is a name to read
-            names.push_back(name); // pushes the name into the vecotr
+            names.pushBack(name); // pushes the name into the vecotr
         }
         return names;
     } else { // if file was not opened
@@ -55,8 +55,8 @@ int generateRandomInt(int min, int max) {
 
 void simulateCoffeeShop() {
     // Store opens
-    DoublyLinkedList<int> line; // creates the line/queue
-    vector<string> names = readNames("names.txt");
+    DoublyLinkedList<int> line = readNames();
+    
     // add 5 customers immediately
     cout << "Store opens: " << endl;
     for (int i = 0; i < 5; i++) {   
@@ -69,14 +69,21 @@ void simulateCoffeeShop() {
 
     // simulation should run for 20 minutes (lets just say 20 run a loop 20 times)
     for (int minute = 1; minute <= 20; minute++) { // each itereation of the loop is 1 minute
+        cout << "Minute: " << minute << endl;
         // probabilty of a customer being helped at the beggining of the line and ordering their coffee is 40%
         if (!line.isEmpty() && generateRandomInt(1, 100) <= 40)    { // if the line is NOT empty and our rng is less than or equal to 40 i.e. 40% chance has been hit
-            cout << names[line.popFront()] << " is sereved" << endl;
+            cout << endl << "\t"<< names[line.popFront()] << " is sereved" << endl;
         }
+        // new customer joining 60% probability
+        if (!line.isEmpty() && generateRandomInt(1,100) <= 60) { // 60% chance of customer joining line
+            int index = generateRandomInt(0, names.size() - 1); // Randomly selecets a name from the vector
+            cout << "\t" << names[index] << "joined the line" << endl;
+        }
+
     }
     // in the following time
 
-    // new customer joining 60% probability
+
     // Customer at the end of the line deciding to leave is 20%
     // Any customer at any time deciding to leave at any time is 20%
     // A vip customer with a coffe house gold card gets to skip the line and go straight to the counter 10% change
