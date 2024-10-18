@@ -115,12 +115,21 @@ public:
         Node* tempPrev = temp->prev;    // sets points tempPrev to the value before temp (just saves it temporaily)
         tempPrev->next = temp->next;    // since temp is going to be deleted then the element before temp's next value will point to temp's next value
                                         // in other words   imagine the following
-                                        // [previous] -> [valueToBeDeleted] -> [next] -> [...] -> ...
+                                        // [previous] -> [temp] -> [next] -> [...] -> ...
                                         // the above will now become 
                                         // [previous] -> [next] -> ......
-                                        
-        temp->next->prev = tempPrev;    
-        delete temp;
+                                        // the important thing to note is that the above code essentially does the following 
+                                        //  previous->next = next (the previous value next pointer will point to next)
+
+        temp->next->prev = tempPrev;    // sinces temp will be deleted its next value's previous pointer should point to the value before temp
+                                        // in other words imagine the following
+                                        // [previous] -> [temp] -> [next] -> [...] -> ...
+                                        // the above will become 
+                                        // [previous] -> [next] -> ...
+                                        // the important thing to note is that the above code esesntially does the following
+                                        // next->prev = previous
+                                        // the next->prev value will now point to previous
+        delete temp;                    // deletes temp
     }
 
     // Adds a new element to the back of the list
