@@ -80,40 +80,46 @@ public:
         delete temp;
     }
 
+    // deletes the value at position pos
     void delete_pos(int pos) {
-        if (!head) {
-            cout << "List is empty." << endl;
-            return;
+        if (!head) {    // if the list is emetpy
+            cout << "List is empty." << endl;   // then outputs "List is emetpy to the console"
+            return; // exits out of the function
         }
     
-        if (pos == 1) {
+        if (pos == 1) { // if the position to be deleted is the first element in the list then just calls the pop_front() method which just deletes the first element in the list
             pop_front();
             return;
         }
     
-        Node* temp = head;
+        Node* temp = head;  // sets temp equal to the current head
     
-        for (int i = 1; i < pos; i++){
-            if (!temp) {
-                cout << "Position doesn't exist." << endl;
-                return;
+        for (int i = 1; i < pos; i++){  // traveres through the list 
+            if (!temp) {    // if temp points to a nullptr then the value at position doesn't exists
+                cout << "Position doesn't exist." << endl;  // outputs "Position doesn't exists " to the console.
+                return; // exits out of the function
             }
-            else
+            else    // otherwise temp will point to the next element in the list (until it reaches the desired position )
                 temp = temp->next;
         }
-        if (!temp) {
-            cout << "Position doesn't exist." << endl;
-            return;
+        if (!temp) {    // if after traversing through the list and temp points to a null ptr
+            cout << "Position doesn't exist." << endl;  // then the value doesn't exists and outputs "Position doesn't exist." to the console.
+            return; // exits out of the funciton
         }
     
-        if (!temp->next) {
-            pop_back();
-            return;
+        if (!temp->next) {  // if temp points to the last element in the list
+            pop_back(); // then calls the pop_back() method which deletes the last element in the list
+            return; // exits out of the function
         }
     
-        Node* tempPrev = temp->prev;
-        tempPrev->next = temp->next;
-        temp->next->prev = tempPrev;
+        Node* tempPrev = temp->prev;    // sets points tempPrev to the value before temp (just saves it temporaily)
+        tempPrev->next = temp->next;    // since temp is going to be deleted then the element before temp's next value will point to temp's next value
+                                        // in other words   imagine the following
+                                        // [previous] -> [valueToBeDeleted] -> [next] -> [...] -> ...
+                                        // the above will now become 
+                                        // [previous] -> [next] -> ......
+                                        
+        temp->next->prev = tempPrev;    
         delete temp;
     }
 
@@ -200,7 +206,7 @@ public:
             current = current->next;        // then point to the next element in the list
             // until there are no more elemnets to point to
         }
-        cout << endl;   // Ends the line the text is being outputed on i.e. presses enter 
+        cout << endl;   // Ends the line the text is being outputed on i.e. presses enter  (note I know it doesn't actually press enter)
     }
 
     // Prints out the content of the list in reverese i.e. tail to head
@@ -211,13 +217,12 @@ public:
             return; // exits out of the function 
         }
         while (current) {   // while current is still a valid pointer i.e. hasn't reached the end of the list
-            cout << current->data << " ";
-            current = current->prev;
+            cout << current->data << " ";   // outputs the data stored in current
+            current = current->prev;        // then points to the previous element in the list
         }
-        cout << endl;
+        cout << endl;   // Ends the line the text is being outputed on i.e. presses enter
     }
 };
-// STARTING WORK AGAIN 
 
 int main() {
     cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
