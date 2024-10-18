@@ -5,10 +5,13 @@ const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
 class DoublyLinkedList {
 private:
+    // Defines a Node for our Linked List
     struct Node {
-        int data;
-        Node* prev;
-        Node* next;
+        int data;   // The value our node is storing
+        Node* prev; // Pointer to the previous element in our list
+        Node* next; // Pointer to the next element in our list
+
+        // Parameterized Constructor which sets the values equal to the inputed values
         Node(int val, Node* p = nullptr, Node* n = nullptr) {
             data = val; 
             prev = p;
@@ -16,10 +19,11 @@ private:
         }
     };
 
-    Node* head;
-    Node* tail;
+    Node* head; // Pointer to the head node i.e. first element in our list
+    Node* tail; // Pointer to the tail node i.e. the last element in our list 
 
 public:
+    // Default Constructor for our list that sets the head and tail equal to nullptr, since the list will be empty created via default constructor
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
 
     void insert_after(int value, int position) {
@@ -113,24 +117,27 @@ public:
         delete temp;
     }
 
+    // Adds a new element to the back of the list
     void push_back(int v) {
-        Node* newNode = new Node(v);
-        if (!tail)
-            head = tail = newNode;
-        else {
-            tail->next = newNode;
-            newNode->prev = tail;
-            tail = newNode;
+        Node* newNode = new Node(v);    // Creates a new node with the integer v stored inside the node
+        if (!tail)                      // if the list is emepty (we check the tail because if there is one element in the list then the head = tail and if there is no tail then the list must be empty)
+            head = tail = newNode;      // then we set the head equal to the tail which is equal to the new node we want to add
+
+        else {                          // If the list is not emetpy
+            tail->next = newNode;       // tail->next should point to the new last element
+            newNode->prev = tail;       // since newNode is now the new last element its previous element should point to the old tail
+            tail = newNode;             // now that newNode is the last element in the list it should be equal to tail (i.e. tail should point to newNode)
         }
     }
     
+    // Adds a new element to the front of the list 
     void push_front(int v) {
-        Node* newNode = new Node(v);
-        if (!head)
-            head = tail = newNode;
-        else {
-            newNode->next = head;
-            head->prev = newNode;
+        Node* newNode = new Node(v);    // Creates a new node with the integer v stored inside the node
+        if (!head)                      // if the list is emetpy (list is emetpy when tail =  nullptr)
+            head = tail = newNode;      // then we set the head equal to the tail which is equal to the new node we want to add
+        else {                          // If the list is not empty
+            newNode->next = head;       // then the newNode->next element will now be the head
+            head->prev = newNode;       // 
             head = newNode;
         }
     }
