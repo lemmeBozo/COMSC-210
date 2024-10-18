@@ -69,9 +69,10 @@ void simulateCoffeeShop() {
 
     // simulation should run for 20 minutes (lets just say 20 run a loop 20 times)
     for (int minute = 1; minute <= 20; minute++) { // each itereation of the loop is 1 minute
+        cout << "Minute " << minute << endl;
         // probabilty of a customer being helped at the beggining of the line and ordering their coffee is 40%
         if (!line.isEmpty() && generateRandomInt(1, 100) <= 40)    { // if the line is NOT empty and our rng is less than or equal to 40 i.e. 40% chance has been hit
-            cout << names[line.popFront()] << " is sereved" << endl;
+            cout << "\t" << names[line.popFront()] << " is sereved" << endl;
         }
     // new customer joining 60% probability
         if (!line.isEmpty() && generateRandomInt(1,100) <= 60) { // adds customer to line 60% chance
@@ -82,8 +83,8 @@ void simulateCoffeeShop() {
         // Customer at the end of the line deciding to leave is 20%
         if (!line.isEmpty() && generateRandomInt(1,100) <= 20) { // 20% chance of person leaving the line
             int leaveIndex = generateRandomInt(0, line.size() - 1); // grabs a random customer from the line
-            line.deleteAt(leaveIndex + 1); // removes the customer from the queue
-            cout << "A customer left the line before being served. " << endl;
+            line.deleteAt(leaveIndex); // removes the customer from the queue
+            cout << "A customer left the line before being served(rear customer). " << endl;
         }
         // A vip customer with a coffe house gold card gets to skip the line and go straight to the counter 10% change
         if (generateRandomInt(1,100) <= 10) { // 10% chance of someone joining the line who is vip and gets pushed to the front of the queue
@@ -91,15 +92,17 @@ void simulateCoffeeShop() {
             cout << names[index] << "(VIP) has joined the front of the line." << endl;
             line.pushFront(index);
         }
+        // customer decideing to leave at any point in the line
+        if (!line.isEmpty() && generateRandomInt(1,100) <= 10) { // 10% chance for any customer to leave the line
+            int leaveIndex = generateRandomInt(0, line.size() - 1);
+            line.deleteAt(leaveIndex); // removes the customer from the queue
+            cout << "A customer left the line before being serever (from random point in line)" << endl;
+        }
         cout << "Resulting line: " << endl;
-        line.print();
+        line.print(); // note the line will print out the indexs of the people from the vector array 
+        // didn't have enough time to change the funciton, in hindsight I probably should have created a doubly linked list of strings
+        // that way when i output them it outputs the name
+        // hindsight is twenty twenty
 
     }
-    // in the following time
-
-
-
-
-    // the way the chance will be calculated will be with an rng generate a number from 1 to 100
-    // for the 60% chance if you get a number between 1 and 60 then you do whatever the fuck it says to do 
 }
