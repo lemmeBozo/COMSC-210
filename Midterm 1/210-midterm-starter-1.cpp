@@ -26,29 +26,30 @@ public:
     // Default Constructor for our list that sets the head and tail equal to nullptr, since the list will be empty created via default constructor
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
 
+    // inserts the a new node holding the integer value after position
     void insert_after(int value, int position) {
-        if (position < 0) {
-            cout << "Position must be >= 0." << endl;
-            return;
+        if (position < 0) { // if the position to add after is less than 0
+            cout << "Position must be >= 0." << endl;   // then outputs "Position must be >=0" 
+            return; // because position is out of bounds
         }
 
-        Node* newNode = new Node(value);
-        if (!head) {
-            head = tail = newNode;
-            return;
+        Node* newNode = new Node(value);    // Creates a new node that holds the intgeer value
+        if (!head) {    // if the list is empty
+            head = tail = newNode;  // then addes to the beggining of the list 
+            return; // exits out of the method
         }
 
-        Node* temp = head;
-        for (int i = 0; i < position && temp; ++i)
+        Node* temp = head; // sets temp equal to the head
+        for (int i = 0; i < position && temp; ++i)  // iterates throughout the list until we reach the desired position and temp points to the correct node
             temp = temp->next;
 
-        if (!temp) {
-            cout << "Position exceeds list size. Node not inserted.\n";
-            delete newNode;
-            return;
+        if (!temp) {    // if temp is null ptr
+            cout << "Position exceeds list size. Node not inserted.\n"; // then we are out of range and outputs message saying so
+            delete newNode; // we delete newNode because we are not going to add anything and we don't want any memmory leaks 
+            return; // exits out of the method
         }
 
-        newNode->next = temp->next;
+        newNode->next = temp->next; // 
         newNode->prev = temp;
         if (temp->next)
             temp->next->prev = newNode;
@@ -71,21 +72,28 @@ public:
         if (temp->prev) // if temp has a previous node (i.e. isn't the first node in the list) then
             temp->prev->next = temp->next;  // sets prev->next = next
                                             // Sets prev next pointer equal to the node after temp (next)
-                                            // [prev] [temp] [next]
+                                            // [prev] -> [temp] -> [next]
                                             // the above becomes
-                                            // [prev] [next]
+                                            // [prev] -> [next]
         else                                // otherwise if it doesn't have a previous node
             head = temp->next;              // sets head equal to the value after temp
                                             //  [temp(the current head)] [next]
                                             // becomes
                                             // [next( the new head)]
 
-        if (temp->next)
-            temp->next->prev = temp->prev;
-        else
-            tail = temp->prev; 
+        if (temp->next)                     // if temp has a next value
+            temp->next->prev = temp->prev;  // then update the next node's previous pointer to the node before temp
+                                            // [prev] [temp] [next]
+                                            // becomes
+                                            // [prev] [next]
+                                            // next's previous pointer will point to prev
+        else                                // otherwise if temp doesn't have a next pointer
+            tail = temp->prev;              // then sets the tail equal temps previous element
+                                            // [prev] [temp (current tail)] 
+                                            // becomes
+                                            // [prev (the new tail)]
 
-        delete temp;
+        delete temp;                        // deletes temp 
     }
 
     // deletes the value at position pos
