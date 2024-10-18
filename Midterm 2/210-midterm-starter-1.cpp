@@ -73,13 +73,33 @@ void simulateCoffeeShop() {
         if (!line.isEmpty() && generateRandomInt(1, 100) <= 40)    { // if the line is NOT empty and our rng is less than or equal to 40 i.e. 40% chance has been hit
             cout << names[line.popFront()] << " is sereved" << endl;
         }
+    // new customer joining 60% probability
+        if (!line.isEmpty() && generateRandomInt(1,100) <= 60) { // adds customer to line 60% chance
+            int index = generateRandomInt(0, names.size() - 1); // ads random person to line
+            cout << "\t" << names[index] << " joined the line" <<endl;
+            line.pushBack(index);
+        }    
+        // Customer at the end of the line deciding to leave is 20%
+        if (!line.isEmpty() && generateRandomInt(1,100) <= 20) { // 20% chance of person leaving the line
+            int leaveIndex = generateRandomInt(0, line.size() - 1); // grabs a random customer from the line
+            line.deleteAt(leaveIndex + 1); // removes the customer from the queue
+            cout << "A customer left the line before being served. " << endl;
+        }
+        // A vip customer with a coffe house gold card gets to skip the line and go straight to the counter 10% change
+        if (generateRandomInt(1,100) <= 10) { // 10% chance of someone joining the line who is vip and gets pushed to the front of the queue
+            int index = generateRandomInt(0, names.size() - 1); // gets a random person from the names vector
+            cout << names[index] << "(VIP) has joined the front of the line." << endl;
+            line.pushFront(index);
+        }
+        cout << "Resulting line: " << endl;
+        line.print();
+
     }
     // in the following time
 
-    // new customer joining 60% probability
-    // Customer at the end of the line deciding to leave is 20%
-    // Any customer at any time deciding to leave at any time is 20%
-    // A vip customer with a coffe house gold card gets to skip the line and go straight to the counter 10% change
+
+
+
     // the way the chance will be calculated will be with an rng generate a number from 1 to 100
     // for the 60% chance if you get a number between 1 and 60 then you do whatever the fuck it says to do 
 }
