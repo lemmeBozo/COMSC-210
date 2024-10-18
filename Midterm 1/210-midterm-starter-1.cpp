@@ -172,40 +172,45 @@ public:
 
         if (tail->prev) { // If the tail has a previous element (i.e. not the only element in the list )
             tail = tail->prev;  // then the tail should now point to its previous element (because the original tail is going to be deleted so the 2nd to last element is now the last element)
-            tail->next = nullptr;   // sets the tail->next element in the list = to nullptr
+            tail->next = nullptr;   // sets the tail->next element in the list = to nullptr because the tail should be the last element in the list
         }
-        else
-            head = tail = nullptr;
-        delete temp;
+        else    // if the tail is the only element in the list
+            head = tail = nullptr;  // then set both the head and the list eqaul to nullptr because there should be no elements in the list
+        delete temp;    // Deletes the tail
     }
 
-    ~DoublyLinkedList() {
-        while (head) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
+    // Destructor functionf or the list
+    ~DoublyLinkedList() {   
+        while (head) {  // while there is a head to delete
+            Node* temp = head;  // sets temp equal to the head
+            head = head->next;  // sets the head equal to the next value in the list (since the head is going to be deleted)
+            delete temp;        // deletes the head of the list
+            // This loop runs until the head is equal to nullptr meaning there are no more element to delete in the list
         }
     }
+    // Prints out the elements in the elements in the list from the head to the tail
     void print() {
-        Node* current = head;
-        if (!current) {
-            cout << "List is empty." << endl;
-            return;
+        Node* current = head;   // sets the current node equal to the head
+        if (!current) { // if there is no current node since its pointing to the head then that means the list is emetpy
+            cout << "List is empty." << endl;   // outputs "List is empty" to the console
+            return; // exits out of the function
         }
-        while (current) {
-            cout << current->data << " ";
-            current = current->next;
+        while (current) { // current is still a valid pointer i.e. isn't equal to null ptr i.e. hasn't reached the end of the list
+            cout << current->data << " ";   // output the data stored in current
+            current = current->next;        // then point to the next element in the list
+            // until there are no more elemnets to point to
         }
-        cout << endl;
+        cout << endl;   // Ends the line the text is being outputed on i.e. presses enter 
     }
 
+    // Prints out the content of the list in reverese i.e. tail to head
     void print_reverse() {
-        Node* current = tail;
-        if (!current) { 
-            cout << "List is empty." << endl;
-            return;
+        Node* current = tail;   // sets the current node equal to the tail
+        if (!current) {         // if the list is empty
+            cout << "List is empty." << endl;   // then output "List is emetpy" to the console
+            return; // exits out of the function 
         }
-        while (current) {
+        while (current) {   // while current is still a valid pointer i.e. hasn't reached the end of the list
             cout << current->data << " ";
             current = current->prev;
         }
