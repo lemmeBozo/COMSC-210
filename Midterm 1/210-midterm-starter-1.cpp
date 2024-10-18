@@ -49,13 +49,16 @@ public:
             return; // exits out of the method
         }
 
-        newNode->next = temp->next; // 
-        newNode->prev = temp;
-        if (temp->next)
-            temp->next->prev = newNode;
-        else
-            tail = newNode;
-        temp->next = newNode;
+        newNode->next = temp->next; // the newNodes next value should point to the node after next because newNode is going to be inserted between temp and next
+                                    // [temp] [newNode] [next]
+        newNode->prev = temp;       // the newNode's previous pointer should point to temp because the list should be like the following
+                                    // [temp] [newNode] [next]
+        if (temp->next)             // Checks if temp has a next node 
+            temp->next->prev = newNode;   // if temp has a next node, updates that nodes's previous pointer to point to newNode
+                                        // [temp] [newNode] [next]
+        else                        // if temp does not have a next node
+            tail = newNode;         // then the tail will now be newNode
+        temp->next = newNode;       // and temp->next will point to the newNode because it is the tail
     }
 
     // Deletes the node that holds value
@@ -247,7 +250,23 @@ public:
         }
         cout << endl;   // Ends the line the text is being outputed on i.e. presses enter
     }
+
+    void every_other_element() {
+        Node* current = head;
+        bool skip = false;
+        while (current) { // while current != nullptr
+            if (!skip) {    // if we are not skipping
+                cout << current->data << " ";
+            }
+            skip = !skip; // toggles skip (every time loop runs)
+            current = current->next;
+        }
+        cout << endl;
+    }
+
 };
+
+
 
 int main() {
     cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
