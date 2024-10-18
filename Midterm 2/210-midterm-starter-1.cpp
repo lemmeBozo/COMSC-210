@@ -1,4 +1,7 @@
 #include <iostream>
+#include <vector> // for vector
+#include <string> // for string
+#include <fstream>
 using namespace std;
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
@@ -203,9 +206,41 @@ public:
     }
 };
 
+// function to read names from the file (filename)
+vector<string> readNames (const string&);
+void simulateCofferShop() {
+    // Store opens
+    // add 5 customers immediately
+    // simulation should run for 20 minutes (lets just say 20 run a loop 20 times)
+    // in the following time
+    // probabilty of a customer being helped at the beggining of the line and ordering their coffee is 40%
+    // 
+
+}
+
 int main() {
     cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
 
-    
+    vector<string> names = readNames("names.txt");
+    for (int i = 0; i < names.size(); i++) {
+        cout << names.at(i) << endl;
+    }
+
     return 0;
+}
+
+vector<string> readNames (const string& filename) {
+    vector<string> names;
+    ifstream file(filename);
+    // checks if the file has been opened properly
+    if (file.is_open()) {
+        string name;
+        while(getline(file,name)) { // while there is a name to read
+            names.push_back(name); // pushes the name into the vecotr
+        }
+        return names;
+    } else { // if file was not opened
+        cout  << "FILE was not opened" << endl;
+        return names; // returns an empty vector 
+    }
 }
