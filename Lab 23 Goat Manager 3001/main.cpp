@@ -32,6 +32,38 @@ int main() {
     fin1.close();
 
 
+    // main menu
+
     return 0;
 }
 
+int main_menu() {
+    while(true) { 
+        int option;
+        cout << "*** GOAT MANAGER 3001 ***" << endl;
+        cout << "[1] Add a goat" << endl;
+        cout << "[2] Delete a goat" << endl;
+        cout << "[3] List goats" << endl;
+        cout << "[4] Quit" << endl;
+        cin >> option;  // Under the assumption user enters a valid number
+        // otherwise I would have input validation
+
+        switch (option) {
+            case 1:
+                // add goat
+                break;
+            case 2:
+                // delete goat
+                break;
+            case 3: 
+                // lists out goats
+                break;
+            case 4:
+                cout << "Exiting..." << endl;
+                return; // exits out of function 
+            default: 
+                cout << "Invalid option!" << endl;
+                break;
+        }
+    }
+}
