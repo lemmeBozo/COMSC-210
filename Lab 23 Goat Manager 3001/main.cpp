@@ -2,6 +2,9 @@
 #include <fstream>
 #include <iomanip>
 #include <list>
+#include <random> // for rng
+#include <chrono> // for better time percision
+#include <cmath> // for rounding
 #include "Goat.h"
 using namespace std;
 
@@ -13,7 +16,8 @@ int select_goat(list<Goat> trip);
 void delete_goat(list<Goat> &trip);
 void add_goat(list<Goat> &trip, string [], string []);
 void display_trip(list<Goat> trip);
-int main_menu();
+int main_menu(list<Goat> &trip, string [], string []);
+int generateRandomInt(int, int);
 
 int main() {
     srand(time(0));
@@ -39,7 +43,7 @@ int main() {
 
 // Starting work again
 
-int main_menu() {
+int main_menu(list<Goat> &trip, string names[], string colors[]) {
     while(true) { 
         int option;
         cout << "*** GOAT MANAGER 3001 ***" << endl;
@@ -53,6 +57,7 @@ int main_menu() {
         switch (option) {
             case 1:
                 // add goat
+                add_goat(trip, names, colors);
                 break;
             case 2:
                 // delete goat
@@ -68,4 +73,23 @@ int main_menu() {
                 break;
         }
     }
+}
+
+
+
+
+void add_goat(list<Goat> &trip, string [], string []) {
+    // add a goat to trip
+    string name;
+    string color;
+    int age;
+
+}
+
+// Reusing Code from Lab 21
+int generateRandomInt(int min, int max) {
+    auto seed = chrono::high_resolution_clock::now().time_since_epoch().count();
+    mt19937 generator(seed); // Mersene Twister RNG algorithm
+    uniform_int_distribution<int> distribution(min, max);
+    return distribution(generator);
 }
