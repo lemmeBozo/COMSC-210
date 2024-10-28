@@ -60,6 +60,9 @@ void main_menu(list<Goat> &trip, string names[], string colors[]) {
             case 1:
                 // add goat
                 add_goat(trip, names, colors);
+                cout << endl << "Added Goat" << endl;
+                cout << "Current trip:" << endl;
+                display_trip(trip);
                 break;
             case 2:
                 // delete goat
@@ -86,14 +89,16 @@ int select_goat(list<Goat> &trip) {
     // NOTE remmeber to write overloaded << stream thingy operator
     int option;
     display_trip(trip);
+    cout << "Select a goat: " ;
     cin >> option;
+    cout << endl;
     return option;
 } 
 
 void add_goat(list<Goat> &trip, string names[], string colors[]) {
     // add a goat to trip
-    string name = names[generateRandomInt(0,SZ_NAMES)];
-    string color = colors[generateRandomInt(0,SZ_COLORS)];
+    string name = names[generateRandomInt(0,SZ_NAMES - 1)];
+    string color = colors[generateRandomInt(0,SZ_COLORS - 1)];
     int age = generateRandomInt(0,MAX_AGE);
     Goat goat(name, age, color);
     trip.push_back(goat);
@@ -116,9 +121,9 @@ void delete_goat(list<Goat> &trip) {
 
 void display_trip(list<Goat> trip) {
     int i = 0;
-    cout << "Select a goat" << endl;
     for (auto goat : trip) { // Similiar to JS's forEach loop (for each goat in the trip output every goat)
-        cout << "[" << i << "]" << goat << endl;
+        cout << "[" << i << "] " << goat << endl;
+        i++;
     }
 }
 
