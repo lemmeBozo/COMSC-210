@@ -32,24 +32,27 @@ void setRead();
 
 
 int main() {
+    vector<string> vectorList;
+    list<string> listList;
+    set<string> setList;
+
+
     cout << setw(12) << "Operation"
-        << setw(10) << "Vector"
-        << setw(10) << "List"
-        << setw(10) << "Set" << endl;
+        << setw(12) << "Vector"
+        << setw(12) << "List"
+        << setw(12) << "Set" << endl;
 
     cout << setw(12) << "Read"
-        << setw(10) << timeFunction(vectorRead);
-        << setw(10) << timeFunction(listRead);
-        << setw(10) << timeFunction(setRead) << endl;
+        << setw(10) << timeFunction(vectorRead, vectorList) << "ms"
+        << setw(10) << timeFunction(listRead, listList) << "ms"
+        << setw(10) << timeFunction(setRead, setList) << "ms" << endl;
     return 0;
 }
 
 
 // Reading Functions
 
-void vectorRead() {
-    vector<string> list;
-
+void vectorRead(vector<string> &l) {
     ifstream file("codes.txt"); // opening the file
 
     if(!file) {
@@ -58,14 +61,12 @@ void vectorRead() {
     }
     string line; 
     while (getline(file , line)) {
-        list.push_back(line); // adding each line to the vector
+        l.push_back(line); // adding each line to the vector
     }
     file.close(); // close the file after reading
 } 
 
-void listRead() {
-    list<string> list;
-
+void listRead(list<string> &l) {
     ifstream file("codes.txt"); // opening file
 
     if (!file) {
@@ -74,14 +75,12 @@ void listRead() {
     }
     string line;
     while(getline(file, line)) {
-        list.push_back(line);
+        l.push_back(line);
     }
     file.close();
 }
 
-void setRead() {
-    set<string> list;
-
+void setRead(set<string> &l) {
     ifstream file("codes.txt"); // opening file
 
     if (!file) {
@@ -90,10 +89,13 @@ void setRead() {
     }
     string line;
     while(getline(file, line)) {
-        list.push_back(line);
+        l.insert(line);
     }
     file.close();
 }
+
+
+// Sorting functions
 
 /* syntax examples:
 auto start = high_resolution_clock::now()
