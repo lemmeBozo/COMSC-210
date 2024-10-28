@@ -42,8 +42,11 @@ public:
 
     // write overloaded < operator for the std::list
     friend ostream& operator<<(ostream &os, const Goat &goat) {
-        os << goat.name
+        os << goat.name << " (" << goat.age << ", " << goat.color << ")" << endl;
+        return os;
     }
 };
+
+
 
 #endif

@@ -87,6 +87,8 @@ int select_goat(list<Goat> trip) {
     for (auto goat : trip) { // Similiar to JS's forEach loop (for each goat in the trip output every goat)
         cout << "[" << i << "]" << goat << endl;
     }
+    cin >> option;
+    return option;
 } 
 
 void add_goat(list<Goat> &trip, string names[], string colors[]) {
@@ -102,9 +104,20 @@ void delete_goat(list<Goat> &trip) {
     // In order to delete a goat the user needs to select the goat to be deleted
     int index = select_goat(trip);
     // Iterate throughout the list to find the correct goat
+    if (index < 0 || index >= trip.size()) {
+        cout << "Invalid index!" << endl;
+        return;
+    }
+    
+    auto iterator = trip.begin();
+    advance(iterator, index); // moves the iterator to the desired index;
+    trip.erase(iterator); // erase the element at the itereator's position
+
 }
 
-
+void display_trip(list<Goat> trip) {
+    
+}
 
 // Reusing Code from Lab 21
 int generateRandomInt(int min, int max) {
