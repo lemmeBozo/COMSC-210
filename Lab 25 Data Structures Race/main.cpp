@@ -2,6 +2,7 @@
 #include <chrono>
 #include <fstream>
 #include <iomanip>
+#include <algorithm> // for std::sort (that way I can use the same sort method? function on all the Data structures)
 
 #include <vector>
 #include <list>
@@ -13,23 +14,28 @@ using namespace std::chrono;
 // COMSC-210 | Lab 25: Data Structures Races | Erick Pascual-Bautista
 
 // function template to test out functions
-template <typename function, typename... Args>
-auto timeFunction(function func, Args... args) {
+template <typename function, typename T>
+auto timeFunction(function func, T& arg) {
     auto start = high_resolution_clock::now();
 
     // Calling the passed function with its provided arguments (if any)
     // going to assume there is no return statement
-    func(args...);
+    func(arg);
 
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(end - start);
     return duration.count(); // will return elapsed time in milliseconds;
 }
 
-void vectorRead();
-void listRead();
-void setRead();
+// Reading functions prototypes
+void vectorRead(vector<string> &l);
+void listRead(list<string> &l);
+void setRead(set<string> &l);
 
+// Sorting function prototypes
+void sortVector(vector<string> &l);
+void sortList(list<string> &l);
+void sortSet(set<string> &l);
 
 int main() {
     vector<string> vectorList;
@@ -46,6 +52,12 @@ int main() {
         << setw(10) << timeFunction(vectorRead, vectorList) << "ms"
         << setw(10) << timeFunction(listRead, listList) << "ms"
         << setw(10) << timeFunction(setRead, setList) << "ms" << endl;
+
+        cout << setw(12) << "Sort"
+        << setw(10) << timeFunction(vectorRead, vectorList) << "ms"
+        << setw(10) << timeFunction(listRead, listList) << "ms"
+        << setw(10) << timeFunction(setRead, setList) << "ms" << endl;
+
     return 0;
 }
 
@@ -96,11 +108,11 @@ void setRead(set<string> &l) {
 
 
 // Sorting functions
+void sortVector(vector<string> &l) {
+    sort(l.begin(), l.end()); // sorting (in ascending order)
+}
 
-/* syntax examples:
-auto start = high_resolution_clock::now()
-auto end = high_resolution_clock::now()
-auto duration = duration_cast<milliseconds>(end - start)
-duration.count() references elapsed milliseconds
-*/
+void sortList(list<string> &l) {
+    sort(l.begin(), l.end());
+}
 
