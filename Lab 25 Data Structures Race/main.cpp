@@ -1,8 +1,11 @@
 #include <iostream>
 #include <chrono>
 #include <fstream>
+#include <iomanip>
 
 #include <vector>
+#include <list>
+#include <set>
 
 using namespace std;
 using namespace std::chrono;
@@ -19,13 +22,31 @@ auto timeFunction(function func, Args... args) {
     func(args...);
 
     auto end = high_resolution_clock::now();
-
     auto duration = duration_cast<milliseconds>(end - start);
-    return duration;
+    return duration.count(); // will return elapsed time in milliseconds;
+}
+
+void vectorRead();
+void listRead();
+void setRead();
+
+
+int main() {
+    cout << setw(12) << "Operation"
+        << setw(10) << "Vector"
+        << setw(10) << "List"
+        << setw(10) << "Set" << endl;
+
+    cout << setw(12) << "Read"
+        << setw(10) << timeFunction(vectorRead);
+        << setw(10) << timeFunction(listRead);
+        << setw(10) << timeFunction(setRead) << endl;
+    return 0;
 }
 
 
-// functions to test
+// Reading Functions
+
 void vectorRead() {
     vector<string> list;
 
@@ -42,10 +63,36 @@ void vectorRead() {
     file.close(); // close the file after reading
 } 
 
-int main() {
-    cout << "Read Vector operation: " << timeFunction(vectorRead) << endl;
+void listRead() {
+    list<string> list;
 
-    return 0;
+    ifstream file("codes.txt"); // opening file
+
+    if (!file) {
+        cout << "Unable to open file!" << endl;
+        return;
+    }
+    string line;
+    while(getline(file, line)) {
+        list.push_back(line);
+    }
+    file.close();
+}
+
+void setRead() {
+    set<string> list;
+
+    ifstream file("codes.txt"); // opening file
+
+    if (!file) {
+        cout << "Unable to open file!" << endl;
+        return;
+    }
+    string line;
+    while(getline(file, line)) {
+        list.push_back(line);
+    }
+    file.close();
 }
 
 /* syntax examples:
