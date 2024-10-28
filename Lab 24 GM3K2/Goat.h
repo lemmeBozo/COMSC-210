@@ -40,11 +40,18 @@ public:
     void set_color(string c)        { color = c; }
     string get_color() const        { return color; }
 
-    // write overloaded < operator for the std::list
+    //write overloaded < operator for the std::list
+    bool operator<(const Goat& goat) const {
+        return age < goat.age;
+    }
+
+    // Overloadedd << operator
     friend ostream& operator<<(ostream &os, const Goat &goat) {
         os << goat.name << " (" << goat.age << ", " << goat.color << ")" << endl;
         return os;
     }
+
+    
 };
 
 

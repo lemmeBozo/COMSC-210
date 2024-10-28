@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <list>
+#include <set> // replaced <list> with <ste>
 #include <random> // for rng
 #include <chrono> // for better time percision
 #include <cmath> // for rounding
@@ -12,11 +12,11 @@ using namespace std;
 
 const int SZ_NAMES = 200, SZ_COLORS = 25, MAX_AGE = 20;
 
-int select_goat(list<Goat> &trip);
-void delete_goat(list<Goat> &trip);
-void add_goat(list<Goat> &trip, string [], string []);
-void display_trip(list<Goat> trip);
-void main_menu(list<Goat> &trip, string [], string []);
+int select_goat(set<Goat> &trip);
+void delete_goat(set<Goat> &trip);
+void add_goat(set<Goat> &trip, string [], string []);
+void display_trip(set<Goat> trip);
+void main_menu(set<Goat> &trip, string [], string []);
 int generateRandomInt(int, int);
 
 int main() {
@@ -37,7 +37,7 @@ int main() {
 
 
     // main menu
-    list<Goat> trip;
+    set<Goat> trip;
     main_menu(trip, names, colors);
 
     return 0;
@@ -45,7 +45,7 @@ int main() {
 
 // Starting work again
 
-void main_menu(list<Goat> &trip, string names[], string colors[]) {
+void main_menu(set<Goat> &trip, string names[], string colors[]) {
     while(true) { 
         int option;
         cout << "*** GOAT MANAGER 3001 ***" << endl;
@@ -83,7 +83,7 @@ void main_menu(list<Goat> &trip, string names[], string colors[]) {
 }
 
 
-int select_goat(list<Goat> &trip) {
+int select_goat(set<Goat> &trip) {
     // Prompt the user to select a goat
     // Show the user the options
     // NOTE remmeber to write overloaded << stream thingy operator
@@ -95,16 +95,16 @@ int select_goat(list<Goat> &trip) {
     return option;
 } 
 
-void add_goat(list<Goat> &trip, string names[], string colors[]) {
+void add_goat(set<Goat> &trip, string names[], string colors[]) {
     // add a goat to trip
     string name = names[generateRandomInt(0,SZ_NAMES - 1)];
     string color = colors[generateRandomInt(0,SZ_COLORS - 1)];
     int age = generateRandomInt(0,MAX_AGE);
     Goat goat(name, age, color);
-    trip.push_back(goat);
+    trip.insert(goat);
 }
 
-void delete_goat(list<Goat> &trip) {
+void delete_goat(set<Goat> &trip) {
     // In order to delete a goat the user needs to select the goat to be deleted
     int index = select_goat(trip);
     // Iterate throughout the list to find the correct goat
@@ -119,7 +119,7 @@ void delete_goat(list<Goat> &trip) {
     cout << "goat removed!" << endl;
 }
 
-void display_trip(list<Goat> trip) {
+void display_trip(set<Goat> trip) {
     int i = 0;
     for (auto goat : trip) { // Similiar to JS's forEach loop (for each goat in the trip output every goat)
         cout << "[" << i << "] " << goat << endl;
