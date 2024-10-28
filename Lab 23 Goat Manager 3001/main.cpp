@@ -82,8 +82,11 @@ int select_goat(list<Goat> trip) {
     // Show the user the options
     // NOTE remmeber to write overloaded << stream thingy operator
     int option;
+    int i = 0;
     cout << "Select a goat" << endl;
-    for ()
+    for (auto goat : trip) { // Similiar to JS's forEach loop (for each goat in the trip output every goat)
+        cout << "[" << i << "]" << goat << endl;
+    }
 } 
 
 void add_goat(list<Goat> &trip, string names[], string colors[]) {
