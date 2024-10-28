@@ -61,6 +61,7 @@ int main_menu(list<Goat> &trip, string names[], string colors[]) {
                 break;
             case 2:
                 // delete goat
+                delete_goat(trip);
                 break;
             case 3: 
                 // lists out goats
@@ -76,15 +77,31 @@ int main_menu(list<Goat> &trip, string names[], string colors[]) {
 }
 
 
+int select_goat(list<Goat> trip) {
+    // Prompt the user to select a goat
+    // Show the user the options
+    // NOTE remmeber to write overloaded << stream thingy operator
+    int option;
+    cout << "Select a goat" << endl;
+    for ()
+} 
 
-
-void add_goat(list<Goat> &trip, string [], string []) {
+void add_goat(list<Goat> &trip, string names[], string colors[]) {
     // add a goat to trip
-    string name;
-    string color;
-    int age;
-
+    string name = names[generateRandomInt(0,SZ_NAMES)];
+    string color = colors[generateRandomInt(0,SZ_COLORS)];
+    int age = generateRandomInt(0,MAX_AGE);
+    Goat goat(name, age, color);
+    trip.push_back(goat);
 }
+
+void delete_goat(list<Goat> &trip) {
+    // In order to delete a goat the user needs to select the goat to be deleted
+    int index = select_goat(trip);
+    // Iterate throughout the list to find the correct goat
+}
+
+
 
 // Reusing Code from Lab 21
 int generateRandomInt(int min, int max) {
