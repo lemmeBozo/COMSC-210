@@ -12,11 +12,11 @@ using namespace std;
 
 const int SZ_NAMES = 200, SZ_COLORS = 25, MAX_AGE = 20;
 
-int select_goat(list<Goat> trip);
+int select_goat(list<Goat> &trip);
 void delete_goat(list<Goat> &trip);
 void add_goat(list<Goat> &trip, string [], string []);
 void display_trip(list<Goat> trip);
-int main_menu(list<Goat> &trip, string [], string []);
+void main_menu(list<Goat> &trip, string [], string []);
 int generateRandomInt(int, int);
 
 int main() {
@@ -37,20 +37,22 @@ int main() {
 
 
     // main menu
+    list<Goat> trip;
+    main_menu(trip, names, colors);
 
     return 0;
 }
 
 // Starting work again
 
-int main_menu(list<Goat> &trip, string names[], string colors[]) {
+void main_menu(list<Goat> &trip, string names[], string colors[]) {
     while(true) { 
         int option;
         cout << "*** GOAT MANAGER 3001 ***" << endl;
         cout << "[1] Add a goat" << endl;
         cout << "[2] Delete a goat" << endl;
         cout << "[3] List goats" << endl;
-        cout << "[4] Quit" << endl;
+        cout << "[4] Quit" << endl << endl;
         cin >> option;  // Under the assumption user enters a valid number
         // otherwise I would have input validation
 
@@ -65,6 +67,7 @@ int main_menu(list<Goat> &trip, string names[], string colors[]) {
                 break;
             case 3: 
                 // lists out goats
+                display_trip(trip);
                 break;
             case 4:
                 cout << "Exiting..." << endl;
@@ -77,16 +80,12 @@ int main_menu(list<Goat> &trip, string names[], string colors[]) {
 }
 
 
-int select_goat(list<Goat> trip) {
+int select_goat(list<Goat> &trip) {
     // Prompt the user to select a goat
     // Show the user the options
     // NOTE remmeber to write overloaded << stream thingy operator
     int option;
-    int i = 0;
-    cout << "Select a goat" << endl;
-    for (auto goat : trip) { // Similiar to JS's forEach loop (for each goat in the trip output every goat)
-        cout << "[" << i << "]" << goat << endl;
-    }
+    display_trip(trip);
     cin >> option;
     return option;
 } 
@@ -112,11 +111,15 @@ void delete_goat(list<Goat> &trip) {
     auto iterator = trip.begin();
     advance(iterator, index); // moves the iterator to the desired index;
     trip.erase(iterator); // erase the element at the itereator's position
-
+    cout << "goat removed!" << endl;
 }
 
 void display_trip(list<Goat> trip) {
-    
+    int i = 0;
+    cout << "Select a goat" << endl;
+    for (auto goat : trip) { // Similiar to JS's forEach loop (for each goat in the trip output every goat)
+        cout << "[" << i << "]" << goat << endl;
+    }
 }
 
 // Reusing Code from Lab 21
