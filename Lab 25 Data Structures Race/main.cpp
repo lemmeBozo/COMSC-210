@@ -57,11 +57,16 @@ void insertVector(vector<string> &l);
 void insertList(list<string> &l);
 void insertSet(set<string> &l);
 
+// Deleting function prototypes
+void deleteVector(vector<string> &l);
+void deleteList(list<string> &l);
+void deleteSet(set<string> &l);
+
+
 int main() {
     vector<string> vectorList;
     list<string> listList;
     set<string> setList;
-
 
     cout << setw(12) << "Operation"
         << setw(12) << "Vector"
@@ -73,15 +78,23 @@ int main() {
         << setw(10) << timeFunction(listRead, listList) << "ms"
         << setw(10) << timeFunction(setRead, setList) << "ms" << endl;
 
-        cout << setw(12) << "Sort"
+    cout << setw(12) << "Sort"
         << setw(10) << timeFunction(sortVector, vectorList) << "ms"
         << setw(10) << timeFunction(sortList, listList) << "ms"
         << setw(10) << "-1ms" << endl;
 
-        cout << setw(12) << "Insert"
+    // Note for the below functions some were too fast
+    // so I used nano seconds instead
+
+    cout << setw(12) << "Insert"
         << setw(10) << timeFunctionNS(insertVector, vectorList) << "ns"
         << setw(10) << timeFunctionNS(insertList, listList) << "ns"
         << setw(10) << timeFunctionNS(insertSet, setList) << "ns" << endl;
+
+    cout << setw(12) << "Insert"
+        << setw(10) << timeFunctionNS(deleteVector, vectorList) << "ns"
+        << setw(10) << timeFunctionNS(deleteList, listList) << "ns"
+        << setw(10) << timeFunctionNS(deleteSet, setList) << "ns" << endl;
 
     return 0;
 }
@@ -163,3 +176,19 @@ void insertList(list<string> &l) {
 void insertSet(set<string> &l) {
     l.insert("TESTCODE");
 } 
+
+// Deleting functions
+void deleteVector(vector<string> &l) {
+    int middle = l.size() / 2;
+    l.erase(l.begin() + middle);
+}
+
+void deleteList(list<string> &l) {
+    auto middle = next(l.begin(), l.size() / 2); 
+    l.erase(middle); 
+}
+
+void deleteSet(set<string> &l) {
+    auto middle = next(l.begin(), l.size() / 2); 
+    l.erase(middle);
+}
