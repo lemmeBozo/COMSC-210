@@ -37,7 +37,7 @@ int main() {
     return 0;
 }
 
-// Taking quick bathroom break will be back
+// Starting work again
 
 int main_menu() {
     while(true) { 
