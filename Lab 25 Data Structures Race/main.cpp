@@ -35,7 +35,11 @@ void setRead(set<string> &l);
 // Sorting function prototypes
 void sortVector(vector<string> &l);
 void sortList(list<string> &l);
-void sortSet(set<string> &l);
+
+// Inserting function prototypes
+void insertVector(vector<string> &l);
+void insertList(list<string> &l);
+void insertSet(set<string> &l);
 
 int main() {
     vector<string> vectorList;
@@ -54,9 +58,9 @@ int main() {
         << setw(10) << timeFunction(setRead, setList) << "ms" << endl;
 
         cout << setw(12) << "Sort"
-        << setw(10) << timeFunction(vectorRead, vectorList) << "ms"
-        << setw(10) << timeFunction(listRead, listList) << "ms"
-        << setw(10) << timeFunction(setRead, setList) << "ms" << endl;
+        << setw(10) << timeFunction(sortVector, vectorList) << "ms"
+        << setw(10) << timeFunction(sortList, listList) << "ms"
+        << setw(10) << "-1ms" << endl;
 
     return 0;
 }
@@ -96,7 +100,7 @@ void setRead(set<string> &l) {
     ifstream file("codes.txt"); // opening file
 
     if (!file) {
-        cout << "Unable to open file!" << endl;
+        cout << "Unable to open file!" << endl;but 
         return;
     }
     string line;
@@ -108,11 +112,19 @@ void setRead(set<string> &l) {
 
 
 // Sorting functions
+
+// Note although different sorthing algorithms are used they should both be 
+// the same time complexity
 void sortVector(vector<string> &l) {
-    sort(l.begin(), l.end()); // sorting (in ascending order)
+    sort(l.begin(), l.end()); // O(n log(n)), uses Introsort algorithm
 }
 
 void sortList(list<string> &l) {
-    sort(l.begin(), l.end());
+    l.sort(); // O(n log(n)), uses Merge Sort
 }
 
+// Inserting functions
+void insertVector(vector<string> &l) {
+    int middle = l.size() / 2;
+    l.at(middle) = "TESTCODE";
+}
