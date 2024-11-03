@@ -10,19 +10,20 @@ using namespace std;
 void printMap(const map<string, tuple<int, string, string>>&);
 
 void displayMenu();
-void programControl(int, map<string, tuple<int, string, string>>&);
+bool programControl(int, map<string, tuple<int, string, string>>&);
 void addVillager(map<string, tuple<int, string, string>>&);
 void deleteVillager(map<string, tuple<int, string, string>>&);
 
 int main() {
     // stores a name(key) associated with data[ friend lvl, species, catchphrase ]
     map<string, tuple<int, string, string>> village;
-    // while(true) {
+    int exit = false;
+    while(!exit) {
         displayMenu();
         int choice;
         cin >> choice;
-        programControl(choice, village);
-    //}
+        exit = programControl(choice, village);
+    }
     
     
     
@@ -82,7 +83,10 @@ int main() {
 void printMap(const map<string, tuple<int, string, string>>& village) {
     cout << "This works" << endl;
     for (const auto& villager : village) { // for each villager in my village
-        cout << villager.first << endl;
+        cout << villager.first;
+        cout << get<0>(villager.second) << ", " <<
+        get<1>(villager.second) << ", " <<
+        get<2>(villager.second) << ", " << endl;
     }
 }
 
@@ -99,7 +103,7 @@ void displayMenu() {
 }
 
 // handles the choice for the user and calls the appropriate functions
-void programControl(int choice, map<string, tuple<int, string, string>>& village) {
+bool programControl(int choice, map<string, tuple<int, string, string>>& village) {
     switch(choice) {
         case 1:
             addVillager(village);
@@ -114,11 +118,14 @@ void programControl(int choice, map<string, tuple<int, string, string>>& village
         case 5:
             break;
         case 6:
+            cout << "EXITTING" << endl;
+            return true;
             break;
         default:
             cout << "INVALID VALUE" << endl;
-            return;
+            break;
     }
+    return false;
 }
 
 // adds a villager to the map
