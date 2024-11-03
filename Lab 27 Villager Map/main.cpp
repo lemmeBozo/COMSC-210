@@ -1,24 +1,27 @@
 #include <iostream>
 #include <map>
 #include <vector>
-#include <tuple>
+#include <tuple> // this is really cool reminds me of how arrays work in javascript
 
 using namespace std;
 
 // COMSC-210 | Lab 27: Villager Map | Erick Pascual-Bautista
 
+void printMap(const map<string, tuple<int, string, string>>&);
+
 void displayMenu();
-void programControl(int choice, map<string, tuple<int, string, string>>& villagers);
-void addVillager(map<string, tuple<int, string, string>>& villagers);
+void programControl(int, map<string, tuple<int, string, string>>&);
+void addVillager(map<string, tuple<int, string, string>>&);
+void deleteVillager(map<string, tuple<int, string, string>>&);
 
 int main() {
     // stores a name(key) associated with data[ friend lvl, species, catchphrase ]
-    map<string, tuple<int, string, string>> villagers;
+    map<string, tuple<int, string, string>> village;
     // while(true) {
         displayMenu();
         int choice;
         cin >> choice;
-        programControl(choice, villagers);
+        programControl(choice, village);
     //}
     
     
@@ -33,7 +36,7 @@ int main() {
     // villagerColors.insert({"Marshal", {"Blue", "White", "Black"}});
 
     // // access the map using a range-based for loop
-    // cout << "Villagers and their favorite colors (range-based for loop):" << endl;
+    // cout << "village and their favorite colors (range-based for loop):" << endl;
     // for (auto pair : villagerColors) {
     //     cout << pair.first << ": ";
     //     for (auto color : pair.second)
@@ -42,7 +45,7 @@ int main() {
     // }
 
     // // access the map using iterators
-    // cout << "\nVillagers and their favorite colors (iterators):" << endl;
+    // cout << "\nvillage and their favorite colors (iterators):" << endl;
     // for (map<string, vector<string>>::iterator it = villagerColors.begin(); 
     //                                            it != villagerColors.end(); ++it) {
     //     cout << it->first << ": ";
@@ -75,6 +78,13 @@ int main() {
     return 0;
 }
 
+// prints out the map
+void printMap(const map<string, tuple<int, string, string>>& village) {
+    cout << "This works" << endl;
+    for (const auto& villager : village) { // for each villager in my village
+        cout << villager.first << endl;
+    }
+}
 
 // displays the menu
 void displayMenu() {
@@ -89,12 +99,13 @@ void displayMenu() {
 }
 
 // handles the choice for the user and calls the appropriate functions
-void programControl(int choice, map<string, tuple<int, string, string>>& villagers) {
+void programControl(int choice, map<string, tuple<int, string, string>>& village) {
     switch(choice) {
         case 1:
-            addVillager(villagers);
+            addVillager(village);
             break;
         case 2:
+            deleteVillager(village);
             break;
         case 3:
             break;
@@ -110,8 +121,8 @@ void programControl(int choice, map<string, tuple<int, string, string>>& village
     }
 }
 
-// adds a villager to the data map
-void addVillager(map<string, tuple<int, string, string>>& villagers) {
+// adds a villager to the map
+void addVillager(map<string, tuple<int, string, string>>& village) {
     string name;
     int friendLevel;
     string species;
@@ -133,5 +144,12 @@ void addVillager(map<string, tuple<int, string, string>>& villagers) {
     // creates a tupple made up of the below values and sets it equal to its key (name)
     //      key = data
     // i.e. name = tupple
-    villagers[name] = make_tuple(friendLevel, species, catchphrase);
+    village[name] = make_tuple(friendLevel, species, catchphrase);
+}
+
+// deletes a villager from the map
+void deleteVillager(map<string, tuple<int, string, string>>& village) {
+    // first print out the map
+    printMap(village);
+    // then prompt the user to select which villager to delete
 }
