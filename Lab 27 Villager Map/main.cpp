@@ -1,13 +1,15 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <tuple>
+
 using namespace std;
 
 // COMSC-210 | Lab 27: Villager Map | Erick Pascual-Bautista
 
 void displayMenu();
-void programControl(int choice);
-void addVillager();
+void programControl(int choice, map<string, tuple<int, string, string>>& villagers);
+void addVillager(map<string, tuple<int, string, string>>& villagers);
 
 int main() {
     // stores a name(key) associated with data[ friend lvl, species, catchphrase ]
@@ -16,7 +18,7 @@ int main() {
         displayMenu();
         int choice;
         cin >> choice;
-        programControl(choice);
+        programControl(choice, villagers);
     //}
     
     
@@ -74,7 +76,7 @@ int main() {
 }
 
 
-
+// displays the menu
 void displayMenu() {
         cout << "*** Villager MANAGER  ***" << endl;
         cout << "[1] Add Villager" << endl;
@@ -83,12 +85,14 @@ void displayMenu() {
         cout << "[4] Decrease Friendship" << endl;
         cout << "[5] Search for Villager" << endl;
         cout << "[6] Exit" << endl;
+        cout << "ENTER CHOICE: ";
 }
 
-void programControl(int choice) {
+// handles the choice for the user and calls the appropriate functions
+void programControl(int choice, map<string, tuple<int, string, string>>& villagers) {
     switch(choice) {
         case 1:
-            addVillager();
+            addVillager(villagers);
             break;
         case 2:
             break;
@@ -106,6 +110,28 @@ void programControl(int choice) {
     }
 }
 
-void addVillager() {
+// adds a villager to the data map
+void addVillager(map<string, tuple<int, string, string>>& villagers) {
+    string name;
+    int friendLevel;
+    string species;
+    string catchphrase;
+
+    cin.ignore();
+
+    cout << endl << "Villager name: ";
+    getline(cin, name);
+    cout << endl << "Friendship level: ";
+    cin >> friendLevel;
     
+    cin.ignore();
+
+    cout << endl << "Species: ";
+    getline(cin, species);
+    cout << endl << "Catchphrase: ";
+    getline(cin, catchphrase);
+    // creates a tupple made up of the below values and sets it equal to its key (name)
+    //      key = data
+    // i.e. name = tupple
+    villagers[name] = make_tuple(friendLevel, species, catchphrase);
 }
