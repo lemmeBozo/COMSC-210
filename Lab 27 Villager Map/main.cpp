@@ -7,8 +7,9 @@ using namespace std;
 
 // COMSC-210 | Lab 27: Villager Map | Erick Pascual-Bautista
 
-void printMap(const map<string, tuple<int, string, string>>&);
+void clearScreen() {cout << "\033[2J\033[1;1H";} // clears the screen (I searched this up)
 
+void printMap(const map<string, tuple<int, string, string>>&);
 void displayMenu();
 bool programControl(int, map<string, tuple<int, string, string>>&);
 void addVillager(map<string, tuple<int, string, string>>&);
@@ -81,17 +82,19 @@ int main() {
 
 // prints out the map
 void printMap(const map<string, tuple<int, string, string>>& village) {
-    cout << "This works" << endl;
+    int i = 1;
     for (const auto& villager : village) { // for each villager in my village
-        cout << villager.first;
-        cout << get<0>(villager.second) << ", " <<
+        cout << "[" << i << "] " << villager.first << ": ";
+        cout << "[" << get<0>(villager.second) << ", " <<
         get<1>(villager.second) << ", " <<
-        get<2>(villager.second) << ", " << endl;
+        get<2>(villager.second) << "]" << endl;
+        i++;
     }
 }
 
 // displays the menu
 void displayMenu() {
+        clearScreen();
         cout << "*** Villager MANAGER  ***" << endl;
         cout << "[1] Add Villager" << endl;
         cout << "[2] Delete Villager" << endl;
@@ -106,9 +109,11 @@ void displayMenu() {
 bool programControl(int choice, map<string, tuple<int, string, string>>& village) {
     switch(choice) {
         case 1:
+            clearScreen();
             addVillager(village);
             break;
         case 2:
+            clearScreen();
             deleteVillager(village);
             break;
         case 3:
@@ -158,5 +163,9 @@ void addVillager(map<string, tuple<int, string, string>>& village) {
 void deleteVillager(map<string, tuple<int, string, string>>& village) {
     // first print out the map
     printMap(village);
+    int choice;
+    cin.ignore();
+    cin >> choice;
+        cout << "Select a villager to delete: " << endl;
     // then prompt the user to select which villager to delete
 }
