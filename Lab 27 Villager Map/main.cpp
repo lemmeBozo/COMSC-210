@@ -5,11 +5,22 @@ using namespace std;
 
 // COMSC-210 | Lab 27: Villager Map | Erick Pascual-Bautista
 
+void displayMenu();
+void programControl(int choice);
+void addVillager();
+
 int main() {
-
+    // stores a name(key) associated with data[ friend lvl, species, catchphrase ]
+    map<string, tuple<int, string, string>> villagers;
+    // while(true) {
+        displayMenu();
+        int choice;
+        cin >> choice;
+        programControl(choice);
+    //}
     
-
-
+    
+    
     // // declarations
     // map<string, vector<string>> villagerColors;
 
@@ -64,4 +75,37 @@ int main() {
 
 
 
+void displayMenu() {
+        cout << "*** Villager MANAGER  ***" << endl;
+        cout << "[1] Add Villager" << endl;
+        cout << "[2] Delete Villager" << endl;
+        cout << "[3] Increase Friendship" << endl;
+        cout << "[4] Decrease Friendship" << endl;
+        cout << "[5] Search for Villager" << endl;
+        cout << "[6] Exit" << endl;
+}
 
+void programControl(int choice) {
+    switch(choice) {
+        case 1:
+            addVillager();
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            break;
+        default:
+            cout << "INVALID VALUE" << endl;
+            return;
+    }
+}
+
+void addVillager() {
+    
+}
