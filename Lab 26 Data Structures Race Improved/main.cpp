@@ -14,33 +14,37 @@ using namespace std::chrono;
 
 // COMSC-210 | Lab 26: Data Structures Races | Erick Pascual-Bautista
 
-// function template to test out functions
+// function template to test out functions (will average out the result over 15 test runs)
 template <typename function, typename T>
 auto timeFunction(function func, T& arg) {
-    auto start = high_resolution_clock::now();
-
-    // Calling the passed function with its provided arguments (if any)
-    // going to assume there is no return statement
-    func(arg);
-
-    auto end = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end - start);
-    return duration.count(); // will return elapsed time in milliseconds;
+    int iterations = 15;
+    long long totalDuration = 0; // Duration time will be a VERY large value thus long long
+    for (int i = 0; i < iterations; i++) { // will run the test 15 times and average the result
+        auto start = high_resolution_clock::now();    
+        func(arg);
+        auto end = high_resolution_clock::now();
+        auto duration = duration_cast<milliseconds>(end - start);   
+        totalDuration += duration.count();     
+    }
+    return totalDuration / iterations; // average duration in miliseconds
 }
 
 
-// function template to test out functions
+
+
+// function template to test out functions (will average out the result over 15 test runs)
 template <typename function, typename T>
 auto timeFunctionNS(function func, T& arg) {
-    auto start = high_resolution_clock::now();
-
-    // Calling the passed function with its provided arguments (if any)
-    // going to assume there is no return statement
-    func(arg);
-
-    auto end = high_resolution_clock::now();
-    auto duration = duration_cast<nanoseconds>(end - start);
-    return duration.count(); // will return elapsed time in nanoseconds;
+    int iterations = 15;
+    long long totalDuration = 0; // Duration time will be a VERY large value thus long long
+    for (int i = 0; i < iterations; i++) { // will run the test 15 times and average the result
+        auto start = high_resolution_clock::now();    
+        func(arg);
+        auto end = high_resolution_clock::now();
+        auto duration = duration_cast<nanoseconds>(end - start);   
+        totalDuration += duration.count();     
+    }
+    return totalDuration / iterations; // average duration in miliseconds
 }
 
 // Reading functions prototypes
