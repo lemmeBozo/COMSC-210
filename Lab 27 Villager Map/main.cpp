@@ -21,7 +21,7 @@ void addVillager(map<string, tuple<int, string, string>>&);
 void deleteVillager(map<string, tuple<int, string, string>>&);
 void increaseFriendship(map<string, tuple<int, string, string>>&);
 void decreaseFriendship(map<string, tuple<int, string, string>>&);
-bool searchForVillager(map<string, tuple<int, string, string>>&));
+void searchForVillager(map<string, tuple<int, string, string>>&);
 
 
 int main() {
@@ -86,6 +86,10 @@ bool programControl(int choice, map<string, tuple<int, string, string>>& village
             // there is no way I spend all that time
             // before I figured out that decreaseFriendship(village) wasn't included
             decreaseFriendship(village);
+            break;
+        case 5: 
+            clearScreen();
+            searchForVillager(village);
             break;
         case 6:
             cout << "EXITING" << endl;
@@ -181,7 +185,20 @@ void decreaseFriendship(map<string, tuple<int, string, string>>& village) {
     }
 }
 
-bool searchForVillager(map<string, tuple<int, string, string>>& village) {
+void searchForVillager(map<string, tuple<int, string, string>>& village) {
     cout << "Type in name to search for: ";
-    string name 
+    cin.ignore();
+    
+    string name;
+    getline(cin, name);
+
+    auto iterator = village.find(name);
+    if (iterator != village.end()) {
+        cout << "Villager found!" << endl;
+        cout << "Friendship Level: " << get<0>(iterator->second) << endl;
+        cout << "Species: " << get<1>(iterator->second) << endl;
+        cout << "Catchphrase: " << get<2>(iterator->second) << endl;
+    } else {cout << "Villager was NOT found" << endl;}
+    cout << "Press Enter to continue...";
+    cin.ignore();
 }
