@@ -27,6 +27,10 @@ void checkIfAllGoatsAreYoung(set<Goat>& trip);
 void findOldestGoat(set<Goat>& trip);
 void copyTrip(set<Goat>& trip); // this function is not really useful but included it anyways
 // as it uses a stl algorithm
+void sumAges(set<Goat>& trip);
+void sortGoatByNameAscending(set<Goat>& trip);
+void sortGoatByNameDescending(set<Goat>& trip);
+
 
 int main() {
     srand(time(0));
@@ -67,14 +71,10 @@ void main_menu(set<Goat> &trip, string names[], string colors[]) {
         cout << "[6] Check if all goats are young" << endl;
         cout << "[7] Find oldest goat" << endl;
         cout << "[8] Copy trip" << endl;
-
         cout << "[9] Sum goat ages" << endl;
-        cout << "[10] Sort goats by name" << endl;
-
-        // mising one more algorithm include this 
-        // starting work again
-
-        cout << "[4] Quit" << endl << endl;
+        cout << "[10] Sort goats by name ascending" << endl;
+        cout << "[11] Sort goats by name descending" << endl;
+        cout << "[12] Quit" << endl << endl;
         cin >> option;  // 
 
         switch (option) {
@@ -104,6 +104,18 @@ void main_menu(set<Goat> &trip, string names[], string colors[]) {
                 break;
             case 7:
                 findOldestGoat(trip);
+                break;
+            case 8:
+                copyTrip(trip);
+                break;
+            case 9:
+                sumAges(trip);
+                break;
+            case 10:
+                sortGoatByNameAscending(trip);
+                break;
+            case 11:
+                sortGoatByNameDescending(trip);
                 break;
 
             case 12:
@@ -230,5 +242,28 @@ void findOldestGoat(set<Goat>& trip) {
 }
 
 void copyTrip(set<Goat>& trip) {
-    for_each(trip.begin() , trip.end())
+    // creating copy set
+    set<Goat> copy;
+    // uses the stl copy to copy the trip from the begin to the end 
+    // and inserts the elements into copy starting from the begginning
+    std::copy(trip.begin(), trip.end(), inserter(copy, copy.begin()));
+
+    cout << "Copied trip: " << endl;
+    display_trip(copy);
+}
+
+void sumAges(set<Goat>& trip) {
+    // adds up the age of each goat and stores it into total age
+    // incrementing the age everytime we get the current goat age
+    int totalAge = accumulate(trip.begin(), trip.end(), 0, [](int sum, const Goat& goat) { 
+        return sum + goat.get_age(); 
+    });
+    cout << "Total age of all goats: " << totalAge << endl;
+}
+
+void sortGoatByNameAscending(set<Goat>& trip) {
+
+}
+void sortGoatByNameDescending(set<Goat>& trip) {
+    
 }
