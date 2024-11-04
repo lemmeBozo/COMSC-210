@@ -6,6 +6,7 @@
         "list": "cpp",
         "vector": "cpp",
         "string": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "set": "cpp"
     }
 }

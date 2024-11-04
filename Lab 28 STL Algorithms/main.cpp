@@ -8,7 +8,7 @@
 #include "Goat.h"
 using namespace std;
 
-// COMSC-210 | Lab 24: GM3K2 | Erick Pascual-Bautista
+// COMSC-210 | Lab 28: STL Algorithms | Erick Pascual-Bautista
 
 const int SZ_NAMES = 200, SZ_COLORS = 25, MAX_AGE = 20;
 
@@ -18,6 +18,9 @@ void add_goat(set<Goat> &trip, string [], string []);
 void display_trip(set<Goat> trip);
 void main_menu(set<Goat> &trip, string [], string []);
 int generateRandomInt(int, int);
+
+// Additional STL algorithm functinos
+void findGoatByName(set<Goat> &trip);
 
 int main() {
     srand(time(0));
@@ -52,9 +55,13 @@ void main_menu(set<Goat> &trip, string names[], string colors[]) {
         cout << "[1] Add a goat" << endl;
         cout << "[2] Delete a goat" << endl;
         cout << "[3] List goats" << endl;
+
+        cout << "[4] Find goat by name" << endl;
+
+
+
         cout << "[4] Quit" << endl << endl;
-        cin >> option;  // Under the assumption user enters a valid number
-        // otherwise I would have input validation
+        cin >> option;  // 
 
         switch (option) {
             case 1:
@@ -133,4 +140,19 @@ int generateRandomInt(int min, int max) {
     mt19937 generator(seed); // Mersene Twister RNG algorithm
     uniform_int_distribution<int> distribution(min, max);
     return distribution(generator);
+}
+
+
+void findGoatByName(set<Goat> &trip) {
+    string name;
+    cout << "Enter goat name to find: ";
+    cin >> name;
+
+    // using stl find_if to check if name is 
+    auto it = find_if(trip.begin(), trip.end(), [name](const Goat& goat) {
+        return goat.get_name() === name;
+    });
+
+
+
 }
