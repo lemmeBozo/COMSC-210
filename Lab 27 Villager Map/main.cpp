@@ -21,6 +21,7 @@ void addVillager(map<string, tuple<int, string, string>>&);
 void deleteVillager(map<string, tuple<int, string, string>>&);
 void increaseFriendship(map<string, tuple<int, string, string>>&);
 void decreaseFriendship(map<string, tuple<int, string, string>>&);
+bool searchForVillager(map<string, tuple<int, string, string>>&));
 
 
 int main() {
@@ -67,7 +68,7 @@ void displayMenu() {
 
 // handles the choice for the user and calls the appropriate functions
 bool programControl(int choice, map<string, tuple<int, string, string>>& village) {
-    switch(choice) {
+    switch (choice) {
         case 1:
             clearScreen();
             addVillager(village);
@@ -81,13 +82,14 @@ bool programControl(int choice, map<string, tuple<int, string, string>>& village
             increaseFriendship(village);
             break;
         case 4:
-            break;
-        case 5:
+            clearScreen();
+            // there is no way I spend all that time
+            // before I figured out that decreaseFriendship(village) wasn't included
+            decreaseFriendship(village);
             break;
         case 6:
-            cout << "EXITTING" << endl;
+            cout << "EXITING" << endl;
             return true;
-            break;
         default:
             cout << "INVALID VALUE" << endl;
             break;
@@ -177,4 +179,9 @@ void decreaseFriendship(map<string, tuple<int, string, string>>& village) {
             friendshipLevel--;
         }
     }
+}
+
+bool searchForVillager(map<string, tuple<int, string, string>>& village) {
+    cout << "Type in name to search for: ";
+    string name 
 }
