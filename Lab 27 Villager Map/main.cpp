@@ -104,16 +104,16 @@ void addVillager(map<string, tuple<int, string, string>>& village) {
 
     cin.ignore();
 
-    cout << endl << "Villager name: ";
+    cout << "Villager name: ";
     getline(cin, name);
-    cout << endl << "Friendship level: ";
+    cout << "Friendship level: ";
     cin >> friendLevel;
     
     cin.ignore();
 
-    cout << endl << "Species: ";
+    cout << "Species: ";
     getline(cin, species);
-    cout << endl << "Catchphrase: ";
+    cout << "Catchphrase: ";
     getline(cin, catchphrase);
     // creates a tupple made up of the below values and sets it equal to its key (name)
     //      key = data
@@ -128,9 +128,8 @@ void deleteVillager(map<string, tuple<int, string, string>>& village) {
     printMap(village);
     // then prompt the user to select which villager to delete    
     int choice;
-    cin.ignore();
-    cin >> choice;
     cout << "Select a villager to delete: " << endl;
+    cin >> choice;
 
     // delete the villager
     auto iterator = village.begin();
@@ -164,10 +163,7 @@ void increaseFriendship(map<string, tuple<int, string, string>>& village) {
 }
 
 void decreaseFriendship(map<string, tuple<int, string, string>>& village) {
-    // Print out map
     printMap(village);
-
-    // Prompt user to select villager to increase friendsip with    
     int choice;
     cout << "Select a villager to decrease friendship with: ";
     cin >> choice;
@@ -175,12 +171,10 @@ void decreaseFriendship(map<string, tuple<int, string, string>>& village) {
     auto iterator = village.begin();
     advance(iterator, (choice - 1));
 
-    // increments friendship by 1
-    if (iterator != village.end()) { // if within range
+    if (iterator != village.end()) {
         auto& friendshipLevel = get<0>(iterator->second);
         if (friendshipLevel > 0) {
-            friendshipLevel--;            
+            friendshipLevel--;
         }
-
-    } 
+    }
 }
