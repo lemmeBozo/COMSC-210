@@ -65,7 +65,6 @@ void main_menu(set<Goat> &trip, string names[], string colors[]) {
         cout << "[1] Add a goat" << endl;
         cout << "[2] Delete a goat" << endl;
         cout << "[3] List goats" << endl;
-
         cout << "[4] Find goat by name" << endl;
         cout << "[5] Cout goats by age" << endl;
         cout << "[6] Check if all goats are young" << endl;
@@ -262,8 +261,27 @@ void sumAges(set<Goat>& trip) {
 }
 
 void sortGoatByNameAscending(set<Goat>& trip) {
-
+    // create vector of the goats
+    vector<Goat> sortedTrip(trip.begin(), trip.end()); // copies the trip from beggining to end
+    // using stl sort to sort the vector
+    sort(sortedTrip.begin(), sortedTrip.end(), [](const Goat& a , const Goat& b) {
+        return a.get_name() < b.get_name();
+    });
+    // prints out the goats in ascending sorted
+    for (const auto& goat : sortedTrip) {
+        cout << goat << endl;
+    }
 }
+
 void sortGoatByNameDescending(set<Goat>& trip) {
-    
+    // create vector of the goats
+    vector<Goat> sortedTrip(trip.begin(), trip.end()); // copies the trip from beggining to end
+    // using stl sort to sort the vector
+    sort(sortedTrip.begin(), sortedTrip.end(), [](const Goat& a , const Goat& b) {
+        return a.get_name() > b.get_name();
+    });
+    // prints out the goats in ascending sorted
+    for (const auto& goat : sortedTrip) {
+        cout << goat << endl;
+    }
 }
