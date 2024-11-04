@@ -9,7 +9,6 @@ using namespace std;
 
 // Helper functions
 void clearScreen() {cout << "\033[2J\033[1;1H";} // clears the screen (I searched this up)
-void findVillager(int index) {}
 void printMap(const map<string, tuple<int, string, string>>&);
 
 
@@ -78,6 +77,8 @@ bool programControl(int choice, map<string, tuple<int, string, string>>& village
             deleteVillager(village);
             break;
         case 3:
+            clearScreen();
+            increaseFriendship(village);
             break;
         case 4:
             break;
@@ -146,9 +147,40 @@ void increaseFriendship(map<string, tuple<int, string, string>>& village) {
 
     // Prompt user to select villager to increase friendsip with    
     int choice;
-    cin.ignore();
-    cin >> choice;
     cout << "Select a villager to increase friendship with: ";
+    cin >> choice;
+
+    auto iterator = village.begin();
+    advance(iterator, (choice - 1));
 
     // increments friendship by 1
+    if (iterator != village.end()) { // if within range
+        auto& friendshipLevel = get<0>(iterator->second);
+        if (friendshipLevel < 10) {
+            friendshipLevel++;            
+        }
+
+    } 
+}
+
+void decreaseFriendship(map<string, tuple<int, string, string>>& village) {
+    // Print out map
+    printMap(village);
+
+    // Prompt user to select villager to increase friendsip with    
+    int choice;
+    cout << "Select a villager to decrease friendship with: ";
+    cin >> choice;
+
+    auto iterator = village.begin();
+    advance(iterator, (choice - 1));
+
+    // increments friendship by 1
+    if (iterator != village.end()) { // if within range
+        auto& friendshipLevel = get<0>(iterator->second);
+        if (friendshipLevel > 0) {
+            friendshipLevel--;            
+        }
+
+    } 
 }
