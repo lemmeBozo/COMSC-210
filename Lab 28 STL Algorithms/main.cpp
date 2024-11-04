@@ -24,6 +24,8 @@ int generateRandomInt(int, int);
 void findGoatByName(set<Goat> &trip);
 void countGoatByAge(set<Goat>& trip); 
 void checkIfAllGoatsAreYoung(set<Goat>& trip);
+void findOldestGoat(set<Goat>& trip);
+
 
 int main() {
     srand(time(0));
@@ -61,7 +63,8 @@ void main_menu(set<Goat> &trip, string names[], string colors[]) {
 
         cout << "[4] Find goat by name" << endl;
         cout << "[5] Cout goats by age" << endl;
-
+        cout << "[6] Check if all goats are young" << endl;
+        cout << "[7] Find oldest goat" << endl;
 
         cout << "[4] Quit" << endl << endl;
         cin >> option;  // 
@@ -88,6 +91,13 @@ void main_menu(set<Goat> &trip, string names[], string colors[]) {
             case 5:
                 countGoatByAge(trip);
                 break;
+            case 6:
+                checkIfAllGoatsAreYoung(trip);
+                break;
+            case 7:
+                findOldestGoat(trip);
+                break;
+
             case 12:
                 cout << "Exiting..." << endl;
                 return; // exits out of function 
@@ -153,7 +163,9 @@ int generateRandomInt(int min, int max) {
 
 
 // stl algorithm functions
-
+// Lambda functions are used here for their simplicity and concise syntax
+// They are really similar to javascripts arrow functions which I always fonud useful and
+// continue to find useful here
 
 
 
@@ -186,5 +198,18 @@ void countGoatByAge(set<Goat>&  trip) {
 }
 
 void checkIfAllGoatsAreYoung(set<Goat>& trip) {
-    bool allYoung = all_of(trip.begin())
+    // the stl all_of checks if all of the goats in our trip meets the condition
+    // if so it returns true otherwise it returns false
+    bool allYoung = all_of(trip.begin(), trip.end(), [](const Goat& goat) {
+        return goat.get_age() < 5;
+    });
+
+    if (allYoung) {
+        cout << "All goats are young" << endl;
+    } else {cout << "Not all the goats are young" << endl;}
+
+}
+
+void findOldestGoat(set<Goat>& trip) {
+
 }
