@@ -25,7 +25,8 @@ void findGoatByName(set<Goat> &trip);
 void countGoatByAge(set<Goat>& trip); 
 void checkIfAllGoatsAreYoung(set<Goat>& trip);
 void findOldestGoat(set<Goat>& trip);
-
+void copyTrip(set<Goat>& trip); // this function is not really useful but included it anyways
+// as it uses a stl algorithm
 
 int main() {
     srand(time(0));
@@ -65,6 +66,12 @@ void main_menu(set<Goat> &trip, string names[], string colors[]) {
         cout << "[5] Cout goats by age" << endl;
         cout << "[6] Check if all goats are young" << endl;
         cout << "[7] Find oldest goat" << endl;
+        cout << "[8] Copy trip" << endl;
+
+        cout << "[9] Sum goat ages" << endl;
+        cout << "[10] Sort goats by name" << endl;
+
+        // mising one more algorithm include this 
 
         cout << "[4] Quit" << endl << endl;
         cin >> option;  // 
@@ -211,5 +218,16 @@ void checkIfAllGoatsAreYoung(set<Goat>& trip) {
 }
 
 void findOldestGoat(set<Goat>& trip) {
+    // using stl max_element to find which goat age element is larger than the last/previous
+    // will return an iterator to the oldest goat
+    auto it = max_element(trip.begin(), trip.end(), [](const Goat& a, const Goat& b) {
+        return a.get_age() < b.get_age();
+    });
+    if (it != trip.end()) {
+        cout << "Oldest goat: " << *it << endl;
+    }
+}
 
+void copyTrip(set<Goat>& trip) {
+    for_each(trip.begin() , trip.end())
 }
