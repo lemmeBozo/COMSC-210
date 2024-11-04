@@ -72,6 +72,7 @@ void main_menu(set<Goat> &trip, string names[], string colors[]) {
         cout << "[10] Sort goats by name" << endl;
 
         // mising one more algorithm include this 
+        // starting work again
 
         cout << "[4] Quit" << endl << endl;
         cin >> option;  // 
