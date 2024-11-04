@@ -6,6 +6,7 @@
 #include <chrono> // for better time percision
 #include <cmath> // for rounding
 #include "Goat.h"
+#include <algorithm>
 using namespace std;
 
 // COMSC-210 | Lab 28: STL Algorithms | Erick Pascual-Bautista
@@ -21,6 +22,8 @@ int generateRandomInt(int, int);
 
 // Additional STL algorithm functinos
 void findGoatByName(set<Goat> &trip);
+void countGoatByAge(set<Goat>& trip); 
+void checkIfAllGoatsAreYoung(set<Goat>& trip);
 
 int main() {
     srand(time(0));
@@ -57,7 +60,7 @@ void main_menu(set<Goat> &trip, string names[], string colors[]) {
         cout << "[3] List goats" << endl;
 
         cout << "[4] Find goat by name" << endl;
-
+        cout << "[5] Cout goats by age" << endl;
 
 
         cout << "[4] Quit" << endl << endl;
@@ -79,7 +82,13 @@ void main_menu(set<Goat> &trip, string names[], string colors[]) {
                 // lists out goats
                 display_trip(trip);
                 break;
-            case 4:
+            case 4: 
+                findGoatByName(trip);
+                break;
+            case 5:
+                countGoatByAge(trip);
+                break;
+            case 12:
                 cout << "Exiting..." << endl;
                 return; // exits out of function 
             default: 
@@ -143,16 +152,39 @@ int generateRandomInt(int min, int max) {
 }
 
 
+// stl algorithm functions
+
+
+
+
 void findGoatByName(set<Goat> &trip) {
     string name;
     cout << "Enter goat name to find: ";
     cin >> name;
 
-    // using stl find_if to check if name is 
+    // using stl find_if to check if name is inside the trip of goats
     auto it = find_if(trip.begin(), trip.end(), [name](const Goat& goat) {
-        return goat.get_name() === name;
+        return (goat.get_name() == name);
     });
 
+    if (it!= trip.end()) {
+        cout << "Goat found: " << *it << endl;
+    } else {cout << "Goat not found" << endl;}
 
+}
 
+void countGoatByAge(set<Goat>&  trip) {
+    int age;
+    cout << "Enter age to count: ";
+    cin >> age;
+    // couts how many times the condition is true and adds 1 to the count
+    // using algorithm count_if
+    int count = count_if(trip.begin(), trip.end(), [age](const Goat& goat) {
+        return goat.get_age() == age;
+    });
+    cout << "Number of goats with age " << age << ": " << count << endl;
+}
+
+void checkIfAllGoatsAreYoung(set<Goat>& trip) {
+    bool allYoung = all_of(trip.begin())
 }
