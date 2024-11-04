@@ -29,6 +29,9 @@ int main() {
     map<string, tuple<int, string, string>> village;
     int exit = false;
     while(!exit) {
+        clearScreen();
+        printMap(village);
+        cout << endl << endl;
         displayMenu();
         int choice;
         cin >> choice;
@@ -55,7 +58,6 @@ void printMap(const map<string, tuple<int, string, string>>& village) {
 
 // displays the menu
 void displayMenu() {
-        clearScreen();
         cout << "*** Villager MANAGER  ***" << endl;
         cout << "[1] Add Villager" << endl;
         cout << "[2] Delete Villager" << endl;
