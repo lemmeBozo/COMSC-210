@@ -49,6 +49,29 @@ void simulateTrafficFlow(map<string, vector<list<string>>>& lanes, int periods) 
     // 2. Depending on the time, change the light state (i.e. green, red, yellow)
     // 3. Adjust the car lists based on the light state
     // 4. Print or log the traffic changes for each lane at this itme periond
-    
+
+   // For each time period
+   for (int i = 0; i < periods; i++) {
+        // Display the current time period
+        cout << "Time period: " << i + 1 << endl;
+   }
+
+   // Loop through each lane in the map
+   for (auto& lane : lanes) { // for each lane in lanes map
+        // Get the current state of the lane (i.e. green, yellow or red)
+
+        // Depending on light state do the following:
+        
+
+        
+        // If green, move the cars from the waiting list to the moving list
+        // If yellow move cars to the slowing list
+        // If red keep cars in the waiting list
+
+        // Apply random events (car breakdown, accidents, new car arrivals etc...)
+        // If a breakdown/accident occurs cars are added to the waitlist
+        // If a new car arrives add to the appropriate list based on the light
+   }
+
 }
 
