@@ -54,24 +54,33 @@ void simulateTrafficFlow(map<string, vector<list<string>>>& lanes, int periods) 
    for (int i = 0; i < periods; i++) {
         // Display the current time period
         cout << "Time period: " << i + 1 << endl;
-   }
+           // Loop through each lane in the map
+        for (auto& lane : lanes) { // for each lane in lanes map
+            // For each light state (green, red or yellow)
+            for (int state = 0; state < 3; state++) {
+                // Processing each state of the car
+                switch (state) {
+                    case 0: // if state is green light
+                        // move cars from the waiting list to the moving list
+                        break;
+                    case 1: // if state is red light
+                        // cars remain in the waiting list
+                        break;
+                    case 2: // if state is yellow light 
+                        // keep cars in the slowing list
+                        break;
+                }
+            }
 
-   // Loop through each lane in the map
-   for (auto& lane : lanes) { // for each lane in lanes map
-        // Get the current state of the lane (i.e. green, yellow or red)
+            // Apply random events (car breakdown, accidents, new car arrivals etc...)
+            // If a breakdown/accident occurs cars are added to the waitlist
+            // If a new car arrives add to the appropriate list based on the light        
 
-        // Depending on light state do the following:
+        } // End of State loop
         
-
-        
-        // If green, move the cars from the waiting list to the moving list
-        // If yellow move cars to the slowing list
-        // If red keep cars in the waiting list
-
-        // Apply random events (car breakdown, accidents, new car arrivals etc...)
-        // If a breakdown/accident occurs cars are added to the waitlist
-        // If a new car arrives add to the appropriate list based on the light
-   }
-
+        // Display the updated state of each lane after processing this time period
+        // example of data trafficLanes["Northbound"] = {{"Car1"}, {"Car2"}, {"Car3"}};
+        //                                                  green     red      yellow
+   } 
 }
 
