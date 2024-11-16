@@ -30,6 +30,9 @@ int main() {
     cout << "Initial queue: " << endl; 
     displayQueue(tollBoothQueue);
 
+    // Starting simulation
+    simulateTollBooth(tollBoothQueue);
+
     return 0;
 }
 
@@ -61,15 +64,28 @@ void displayQueue(deque<Car>& queue) {
 }
 
 void simulateTollBooth(deque<Car>& queue) {
+    int time = 1;
     while (!queue.empty()) { // while the queue is empty run the simulation
-        if (generateRandomInt(1,55) <= 55) { // 55% chance (Car pays toll)
+        // I am going to assume only 1 operation may happen per time period
+        cout << endl << "Time " << time;
+        if (generateRandomInt(1,100) <= 55) { // 55% chance (Car pays toll)
+            cout << " Operation: Car Paid: "; 
+            Car car = queue.front();
+            car.print();
+
             queue.pop_front(); // removes the car from the 
                                //queue as they have already payed
-        } 
-        if (generateRandomInt(1,45) <= 45) {
-            
+        } else {
+            cout << " Operation: Joined lane: ";
+            Car car; // create a new car
+            car.print();
+            queue.emplace_back(car);
         }
+        cout << "Queue: ";
+        displayQueue(queue);
+        time++;
     }
+    // the above will run until the queue is empty
 }
 
 
