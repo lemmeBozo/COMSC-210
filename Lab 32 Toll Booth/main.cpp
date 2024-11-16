@@ -2,6 +2,10 @@
 #include <deque>
 #include "Car.h"
 
+// For RNG
+#include <random>
+#include <chrono>
+
 using namespace std;
 
 // COMSC-210 | Lab 32: Tool Booth | Erick Pascual-Bautista
@@ -10,8 +14,11 @@ using namespace std;
 const int INITIAL_QUEUE_SIZE = 2;
 
 // Function prototypes
+int generateRandomInt(int, int); // helper function
+
 void initializedQueue(deque<Car>&, int);
 void displayQueue(deque<Car>&);
+void simulateTollBooth(deque<Car>&);
 
 int main() {
     deque<Car> tollBoothQueue;
@@ -24,6 +31,14 @@ int main() {
     displayQueue(tollBoothQueue);
 
     return 0;
+}
+
+// Reusing Code from Lab 21
+int generateRandomInt(int min, int max) {
+    auto seed = chrono::high_resolution_clock::now().time_since_epoch().count();
+    mt19937 generator(seed); // Mersene Twister RNG algorithm
+    uniform_int_distribution<int> distribution(min, max);
+    return distribution(generator);
 }
 
 void initializedQueue(deque<Car>& queue, int size) {
@@ -44,3 +59,17 @@ void displayQueue(deque<Car>& queue) {
         }
     }
 }
+
+void simulateTollBooth(deque<Car>& queue) {
+    while (!queue.empty()) { // while the queue is empty run the simulation
+        if (generateRandomInt(1,55) <= 55) { // 55% chance (Car pays toll)
+            queue.pop_front(); // removes the car from the 
+                               //queue as they have already payed
+        } 
+        if (generateRandomInt(1,45) <= 45) {
+            
+        }
+    }
+}
+
+
