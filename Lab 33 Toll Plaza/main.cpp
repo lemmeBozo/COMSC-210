@@ -1,6 +1,6 @@
 #include <iostream>
 #include <deque>
-#include <array>
+#include <vector>
 #include "Car.h"
 
 // For RNG
@@ -12,19 +12,20 @@ using namespace std;
 // COMSC-210 | Lab 33: Toll Plaza | Erick Pascual-Bautista
 
 // Global variables
-const int INITIAL_QUEUE_SIZE = 2;
+const int INITIAL_QUEUE_SIZE = 3;
 
 // Function prototypes
 int generateRandomInt(int, int); // helper function
 
-void initializedArray(deque<Car>[]&, int);
-void displayQueue(deque<Car>&);
+void initializedArray(vector<deque<Car>>&, int);
+
+void displayLanes(vector<deque<Car>>& lanes);
 void simulateTollBooth(deque<Car>&);
 
 int main() {
     // Creating an array of toll booth lanes (4)
-    deque<Car> lanes[4]; 
-
+    vector<deque<Car>> lanes;
+    initializedArray(lanes, INITIAL_QUEUE_SIZE);
 
 
     return 0;
@@ -38,23 +39,33 @@ int generateRandomInt(int min, int max) {
     return distribution(generator);
 }
 
-void initializedArray(deque<Car>[]& , int size) {
-    for (int i = 0; i < size; i++) {
-        queue.emplace_back(Car()); // Constructs car object 
-                                   //and directly places it in queue
-
+void initializedArray(vector<deque<Car>>& lanes, int size) {
+    for (int i = 0; i < lanes.size(); i++) { // loops through each deque
+        for (int j = 0; j < size; j++) { // for each deques adds n cars
+            lanes[0].emplace_back(Car());
+        }
     }
 }
 
-void displayQueue(deque<Car>& queue) {
-    if (queue.empty()) { // if the queue is empty
-        cout << "No one waiting in line" << endl; // print out no one is waiting
-    } else { // otherwise print display the cars in line
-        for (auto& car : queue) { // for every car in the queue
-            cout << "\t";
-            car.print(); // print out the data about the car
+void displayLanes(vector<deque<Car>>& lanes) {
+    for (const auto& queue : lanes) { // for each queue in lanes array
+    
+        for (auto& car : queue) { // for each car in the queues
+
         }
     }
+
+
+
+
+    // if (queue.empty()) { // if the queue is empty
+    //     cout << "No one waiting in line" << endl; // print out no one is waiting
+    // } else { // otherwise print display the cars in line
+    //     for (auto& car : queue) { // for every car in the queue
+    //         cout << "\t";
+    //         car.print(); // print out the data about the car
+    //     }
+    // }
 }
 
 void simulateTollBooth(deque<Car>& queue) {
