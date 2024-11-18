@@ -71,6 +71,11 @@ void displayLanes(vector<deque<Car>>& lanes) {
     }
 }
 
+/* Note to self, lots of this function could easily be improved with more functions
+    for example a car joining is used multiple times i.e. code reused
+    this could easily be a function that is called upon each time you need it
+    instead of having the code be in 2 places
+ */
 
 void simulateTollBooth(vector<deque<Car>>& lanes) {
     // Probabilities
@@ -86,27 +91,45 @@ void simulateTollBooth(vector<deque<Car>>& lanes) {
             if (!lane.empty()) { // if the lane isn't empty           
                 // Used to compare against event probabilities
                 int chance = generateRandomInt(1,100);
-                cout << "Lane " << laneNumber << ": ";
+
+                // Outputs lane number
+                cout << "Lane " << laneNumber << " ";
+
+                // If statements for events
                 if (chance <= payChance) { 
                     cout << "Paid: ";
                     Car car = lane.front();
                     car.print();
                     lane.pop_front();
                 } else if (chance <= payChance + joinChance) {
-                        cout << "Car has joined queue" << endl;
+                    cout << "Joined lane: ";
+                    Car car; // Creates a new instance of a car
+                    car.print(); // prints out the details of the car
+                    lane.emplace_back(car); // adds car to the back of the queue
                 } else if (chance <= payChance + joinChance + shiftChance) {
                     // the above condition is not necessary (is implied)
                     // but will include in case other events are added instead using else {}
-                    cout << "Car will chance lanes" << endl;
+                    cout << "Switched: " << endl;
                 }
-            } else { // otherwise you
+            } else { // otherwise if lane is empty
+                // Special probabilities for empty queue
+                int joinChance = 50;
 
+                // Used to compare against probabilities
+                int chance = generateRandomInt(1,100);
+
+                cout << "Lane " << laneNumber << " ";
+
+                // If statement for events
+                if (chance <= joinChance) {
+                    cout << " Joined lane: ";
+                    Car car; // Creates a new instance of a car
+                    car.print(); // prints out the details of the car
+                    lane.emplace_back(car); // adds car to the back of the queue                    
+                } else {cout << "No change" << endl;} 
             }
-            // if lane is NOT empty 
-            // regular probalities
-            // else
+            laneNumber++;
         }
-        laneNumber++;
     }
 }
 
