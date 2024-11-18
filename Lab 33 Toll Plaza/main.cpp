@@ -81,11 +81,11 @@ void simulateTollBooth(vector<deque<Car>>& lanes) {
     // Probabilities
     int payChance = 46; 
     int joinChance = 39;
-    int shiftChance = 15; 
+    int shiftChance = 15; // isn't relaly necessary but will be included
+                            // in case other events are added
 
     for (int i = 0; i < CYCLES; i++) { // runs the simulation for 20 cycles
-        vector<string> operations; // will hold operations that occur
-        cout << endl << "Time " << i + 1 << endl;    
+        cout << endl << "Time " << i + 1 << endl << endl;    
         int laneNumber = 1;
         for (auto& lane : lanes) {
             if (!lane.empty()) { // if the lane isn't empty           
@@ -106,14 +106,18 @@ void simulateTollBooth(vector<deque<Car>>& lanes) {
                     Car car; // Creates a new instance of a car
                     car.print(); // prints out the details of the car
                     lane.emplace_back(car); // adds car to the back of the queue
-                } else if (chance <= payChance + joinChance + shiftChance) {
-                    // the above condition is not necessary (is implied)
-                    // but will include in case other events are added instead using else {}
-                    cout << "Switched: " << endl;
+                } else { // otherwise 
+                    cout << "Switched: ";
+                    Car car = lane.back(); // saves the car at the back of the lane
+                    car.print(); // prints out the details of the car
+                    lane.pop_back(); // removes car from queue
+                    
+                    if (laneNumber +)
+
                 }
             } else { // otherwise if lane is empty
                 // Special probabilities for empty queue
-                int joinChance = 50;
+                joinChance = 50;
 
                 // Used to compare against probabilities
                 int chance = generateRandomInt(1,100);
@@ -130,6 +134,9 @@ void simulateTollBooth(vector<deque<Car>>& lanes) {
             }
             laneNumber++;
         }
+        // displays state of lanes at the end of each loop iteration
+        cout << endl;
+        displayLanes(lanes);
     }
 }
 
