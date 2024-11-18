@@ -2,6 +2,7 @@
 #define CAR_H
 #include <iostream>
 #include <iomanip>
+#include <string> // used for std::to_string
 using namespace std;
 
 const int YEAR_MIN = 1990, YEAR_MAX = 2024;
@@ -34,8 +35,9 @@ public:
     void print() {
         cout << "[" << year << " " << make << " (" << transponder << ")]\n";
     }
-    void returnDetails() {
-        return 
+    
+    string returnDetails() {
+        return "[" + to_string(year) + " " + make + " (" + to_string(transponder) + ")";
     }
 
 };

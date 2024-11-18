@@ -71,34 +71,34 @@ void displayLanes(vector<deque<Car>>& lanes) {
     }
 }
 
-void handleProbabilities() {
-    // Probabilities
-    int payChance = 46; // 1-46
-    int joinChance = 85; // 46 - 85
-    int shiftChance = 100; //
-
-    // Used to compare against probabilities
-    int chance = generateRandomInt(1,100);
-
-    if (chance <= payChance) {
-            cout << "Car will pay" << endl;
-        } else if (chance <= payChance + joinChance) {
-            cout << "Car has joined queue" << endl;
-        } else if (chance <= payChance + joinChance + shiftChance) {
-            // the above condition is not necessary (is implied)
-            // but will include in case other events are added
-            cout << "Car will chance lanes" << endl;
-        }
-    // return string
-}
 
 void simulateTollBooth(vector<deque<Car>>& lanes) {
+    // Probabilities
+    int payChance = 46; 
+    int joinChance = 39;
+    int shiftChance = 15; 
+
     for (int i = 0; i < CYCLES; i++) { // runs the simulation for 20 cycles
         vector<string> operations; // will hold operations that occur
         cout << endl << "Time " << i + 1 << endl;    
+        int laneNumber = 1;
         for (auto& lane : lanes) {
-            if (!lane.empty()) { // if the lane isn't empty 
-                
+            if (!lane.empty()) { // if the lane isn't empty           
+                // Used to compare against event probabilities
+                int chance = generateRandomInt(1,100);
+                cout << "Lane " << laneNumber << ": ";
+                if (chance <= payChance) { 
+                    cout << "Paid: ";
+                    Car car = lane.front();
+                    car.print();
+                    lane.pop_front();
+                } else if (chance <= payChance + joinChance) {
+                        cout << "Car has joined queue" << endl;
+                } else if (chance <= payChance + joinChance + shiftChance) {
+                    // the above condition is not necessary (is implied)
+                    // but will include in case other events are added instead using else {}
+                    cout << "Car will chance lanes" << endl;
+                }
             } else { // otherwise you
 
             }
@@ -106,6 +106,7 @@ void simulateTollBooth(vector<deque<Car>>& lanes) {
             // regular probalities
             // else
         }
+        laneNumber++;
     }
 }
 
