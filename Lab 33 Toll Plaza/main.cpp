@@ -22,6 +22,13 @@ void displayLanes(vector<deque<Car>>&);
 
 void simulateTollBooth(vector<deque<Car>>&);
 
+// Structs
+
+struct Probabilities {
+    // Public:
+    int carLeave = 
+}
+
 int main() {
     // Creating an array of toll booth lanes (4)
     vector<deque<Car>> lanes(4);
@@ -68,10 +75,11 @@ void displayLanes(vector<deque<Car>>& lanes) {
 }
 
 void simulateTollBooth(vector<deque<Car>>& lanes) {
+
     for (int i = 0; i < CYCLES; i++) { // runs the simulation for 20 cycles
         cout << endl << "Time " << time;    
         for (auto& lane : lanes) {
-            if ()
+            
         }
     }
 
