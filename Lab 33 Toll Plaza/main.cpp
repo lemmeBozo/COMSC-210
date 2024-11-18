@@ -22,13 +22,6 @@ void displayLanes(vector<deque<Car>>&);
 
 void simulateTollBooth(vector<deque<Car>>&);
 
-// Structs
-
-struct Probabilities {
-    // Public:
-    int carLeave = 
-}
-
 int main() {
     // Creating an array of toll booth lanes (4)
     vector<deque<Car>> lanes(4);
@@ -75,11 +68,28 @@ void displayLanes(vector<deque<Car>>& lanes) {
 }
 
 void simulateTollBooth(vector<deque<Car>>& lanes) {
-
+    // Probabilities
+    int payChance = 46; // 1-46
+    int joinChance = 85; // 46 - 85
+    int shiftChance = 100; //
     for (int i = 0; i < CYCLES; i++) { // runs the simulation for 20 cycles
         cout << endl << "Time " << time;    
         for (auto& lane : lanes) {
-            
+            if (!lane.empty()) { // if the lane isn't empty 
+                int chance = generateRandomInt(1,100);
+                if (chance <= payChance) {
+                    cout << "Car will pay" << endl;
+                } else if (chance >= payChance && chance <= joinChance) {
+                    cout << "Car has joined queue" << endl;
+                } else if (chance >= joinChance && chance <= shiftChance) {
+                    cout << "Car will chance lanes" << endl;
+                }
+            } else { // otherwise you
+
+            }
+            // if lane is NOT empty 
+            // regular probalities
+            // else
         }
     }
 
