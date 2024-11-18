@@ -11,23 +11,19 @@ using namespace std;
 
 // COMSC-210 | Lab 33: Toll Plaza | Erick Pascual-Bautista
 
-// Global variables
-const int INITIAL_QUEUE_SIZE = 3;
-
 // Function prototypes
 int generateRandomInt(int, int); // helper function
 
-void initializedArray(vector<deque<Car>>&, int);
+void initializedArray(vector<deque<Car>>&);
 
 void displayLanes(vector<deque<Car>>& lanes);
 void simulateTollBooth(deque<Car>&);
 
 int main() {
     // Creating an array of toll booth lanes (4)
-    vector<deque<Car>> lanes;
-    initializedArray(lanes, INITIAL_QUEUE_SIZE);
-
-
+    vector<deque<Car>> lanes(4);
+    initializedArray(lanes);
+    displayLanes(lanes);
     return 0;
 }
 
@@ -39,58 +35,54 @@ int generateRandomInt(int min, int max) {
     return distribution(generator);
 }
 
-void initializedArray(vector<deque<Car>>& lanes, int size) {
+void initializedArray(vector<deque<Car>>& lanes) {
     for (int i = 0; i < lanes.size(); i++) { // loops through each deque
-        for (int j = 0; j < size; j++) { // for each deques adds n cars
-            lanes[0].emplace_back(Car());
+        for (int j = 0; j < generateRandomInt(1, 3); j++) { 
+            // initializing queue with 1-3 cars for each queue
+            lanes[i].emplace_back(Car());
         }
     }
 }
 
 void displayLanes(vector<deque<Car>>& lanes) {
-    for (const auto& queue : lanes) { // for each queue in lanes array
-    
-        for (auto& car : queue) { // for each car in the queues
-
+    int i = 1;
+    for (auto& queue : lanes) { // for each queue in lanes array
+        if (queue.empty()) { // if the queue is empty, output status to console
+            cout << "Lane " << i << ": is empty" << endl;
+        } else { // otherwise 
+            cout << "Lane " << i << ": " << endl;
+            for (auto& car : queue) { // print out each car in the queue
+                cout << "\t";
+                car.print(); 
+            }        
         }
+        i++;
     }
-
-
-
-
-    // if (queue.empty()) { // if the queue is empty
-    //     cout << "No one waiting in line" << endl; // print out no one is waiting
-    // } else { // otherwise print display the cars in line
-    //     for (auto& car : queue) { // for every car in the queue
-    //         cout << "\t";
-    //         car.print(); // print out the data about the car
-    //     }
-    // }
 }
 
-void simulateTollBooth(deque<Car>& queue) {
-    int time = 1;
-    while (!queue.empty()) { // while the queue is empty run the simulation
-        // I am going to assume only 1 operation may happen per time period
-        cout << endl << "Time " << time;
-        if (generateRandomInt(1,100) <= 55) { // 55% chance (Car pays toll)
-            cout << " Operation: Car Paid: "; 
-            Car car = queue.front();
-            car.print();
+// void simulateTollBooth(deque<Car>& queue) {
+//     int time = 1;
+//     while (!queue.empty()) { // while the queue is empty run the simulation
+//         // I am going to assume only 1 operation may happen per time period
+//         cout << endl << "Time " << time;
+//         if (generateRandomInt(1,100) <= 55) { // 55% chance (Car pays toll)
+//             cout << " Operation: Car Paid: "; 
+//             Car car = queue.front();
+//             car.print();
 
-            queue.pop_front(); // removes the car from the 
-                               //queue as they have already payed
-        } else {
-            cout << " Operation: Joined lane: ";
-            Car car; // create a new car
-            car.print();
-            queue.emplace_back(car);
-        }
-        cout << "Queue: ";
-        displayQueue(queue);
-        time++;
-    }
-    // the above will run until the queue is empty
-}
+//             queue.pop_front(); // removes the car from the 
+//                                //queue as they have already payed
+//         } else {
+//             cout << " Operation: Joined lane: ";
+//             Car car; // create a new car
+//             car.print();
+//             queue.emplace_back(car);
+//         }
+//         cout << "Queue: ";
+//         displayQueue(queue);
+//         time++;
+//     }
+//     // the above will run until the queue is empty
+// }
 
 
