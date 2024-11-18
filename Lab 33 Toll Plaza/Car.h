@@ -34,6 +34,9 @@ public:
     void print() {
         cout << "[" << year << " " << make << " (" << transponder << ")]\n";
     }
+    void returnDetails() {
+        return 
+    }
 
 };
 #endif

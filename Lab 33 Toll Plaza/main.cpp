@@ -32,6 +32,10 @@ int main() {
     // displays the Initial state of the lanes
     cout << "Initial state of lanes" << endl;
     displayLanes(lanes);
+
+    // Starting simulation
+    simulateTollBooth(lanes);
+
     return 0;
 }
 
@@ -67,23 +71,34 @@ void displayLanes(vector<deque<Car>>& lanes) {
     }
 }
 
-void simulateTollBooth(vector<deque<Car>>& lanes) {
+void handleProbabilities() {
     // Probabilities
     int payChance = 46; // 1-46
     int joinChance = 85; // 46 - 85
     int shiftChance = 100; //
+
+    // Used to compare against probabilities
+    int chance = generateRandomInt(1,100);
+
+    if (chance <= payChance) {
+            cout << "Car will pay" << endl;
+        } else if (chance <= payChance + joinChance) {
+            cout << "Car has joined queue" << endl;
+        } else if (chance <= payChance + joinChance + shiftChance) {
+            // the above condition is not necessary (is implied)
+            // but will include in case other events are added
+            cout << "Car will chance lanes" << endl;
+        }
+    // return string
+}
+
+void simulateTollBooth(vector<deque<Car>>& lanes) {
     for (int i = 0; i < CYCLES; i++) { // runs the simulation for 20 cycles
-        cout << endl << "Time " << time;    
+        vector<string> operations; // will hold operations that occur
+        cout << endl << "Time " << i + 1 << endl;    
         for (auto& lane : lanes) {
             if (!lane.empty()) { // if the lane isn't empty 
-                int chance = generateRandomInt(1,100);
-                if (chance <= payChance) {
-                    cout << "Car will pay" << endl;
-                } else if (chance >= payChance && chance <= joinChance) {
-                    cout << "Car has joined queue" << endl;
-                } else if (chance >= joinChance && chance <= shiftChance) {
-                    cout << "Car will chance lanes" << endl;
-                }
+                
             } else { // otherwise you
 
             }
@@ -92,30 +107,6 @@ void simulateTollBooth(vector<deque<Car>>& lanes) {
             // else
         }
     }
-
-
-    // int time = 1;
-    // while (!queue.empty()) { // while the queue is empty run the simulation
-    //     // I am going to assume only 1 operation may happen per time period
-
-    //     if (generateRandomInt(1,100) <= 55) { // 55% chance (Car pays toll)
-    //         cout << " Operation: Car Paid: "; 
-    //         Car car = queue.front();
-    //         car.print();
-
-    //         queue.pop_front(); // removes the car from the 
-    //                            //queue as they have already payed
-    //     } else {
-    //         cout << " Operation: Joined lane: ";
-    //         Car car; // create a new car
-    //         car.print();
-    //         queue.emplace_back(car);
-    //     }
-    //     cout << "Queue: ";
-    //     displayQueue(queue);
-    //     time++;
-    // }
-    // // the above will run until the queue is empty
 }
 
 
