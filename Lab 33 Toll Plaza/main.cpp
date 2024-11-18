@@ -1,5 +1,6 @@
 #include <iostream>
 #include <deque>
+#include <array>
 #include "Car.h"
 
 // For RNG
@@ -16,22 +17,15 @@ const int INITIAL_QUEUE_SIZE = 2;
 // Function prototypes
 int generateRandomInt(int, int); // helper function
 
-void initializedQueue(deque<Car>&, int);
+void initializedArray(deque<Car>[]&, int);
 void displayQueue(deque<Car>&);
 void simulateTollBooth(deque<Car>&);
 
 int main() {
-    deque<Car> tollBoothQueue;
+    // Creating an array of toll booth lanes (4)
+    deque<Car> lanes[4]; 
 
-    // Initializing queue
-    initializedQueue(tollBoothQueue, INITIAL_QUEUE_SIZE);
 
-    // Printing out the initial queue before starting simulation
-    cout << "Initial queue: " << endl; 
-    displayQueue(tollBoothQueue);
-
-    // Starting simulation
-    simulateTollBooth(tollBoothQueue);
 
     return 0;
 }
@@ -44,7 +38,7 @@ int generateRandomInt(int min, int max) {
     return distribution(generator);
 }
 
-void initializedQueue(deque<Car>& queue, int size) {
+void initializedArray(deque<Car>[]& , int size) {
     for (int i = 0; i < size; i++) {
         queue.emplace_back(Car()); // Constructs car object 
                                    //and directly places it in queue
