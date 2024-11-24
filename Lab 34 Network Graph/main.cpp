@@ -1,9 +1,8 @@
 #include <iostream>
 #include <vector>
-
-// Data structures needed for DFS & BFS
 #include <stack>
 #include <queue>
+#include <climits>
 
 using namespace std;
 
@@ -165,6 +164,41 @@ public:
         }
         cout << endl;
     }
+
+    // Dijkstra's algorithm to find the shortest path from a given source
+    void dijkstra(int start) {
+        vector<int> dist(SIZE, INT_MAX);
+        dist[start] = 0;
+        priority_queue<Pair, vector<Pair>, greater<Pair>> pq;
+        pq.push(make_pair(0, start));
+
+        while (!pq.empty()) {
+            int currentDist = pq.top().first;
+            int currentNode = pq.top().second;
+            pq.pop();
+
+            if (currentDist > dist[currentNode]) {
+                continue;
+            }
+
+            for (auto &neighbor : adjList[currentNode]) {
+                int nextNode = neighbor.first;
+                int weight = neighbor.second;
+                int newDist = currentDist + weight;
+
+                if (newDist < dist[nextNode]) {
+                    dist[nextNode] = newDist;
+                    pq.push(make_pair(newDist, nextNode));
+                }
+            }
+        }
+
+        cout << "Shortest path from node " << start << ":" << endl;
+        for (int i = 0; i < SIZE; i++) {
+            cout << start << " -> " << i << " : " << dist[i] << endl;
+        }
+        cout << endl;
+    }
 };
 
 int main() {
@@ -184,6 +218,8 @@ int main() {
     
     graph.DFS(0);
     graph.BFS(0);
+
+    graph.dijkstra(0);
 
     return 0;
 }
