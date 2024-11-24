@@ -9,7 +9,7 @@ using namespace std;
 
 // COMSC-210 | Lab 34: Network Graph | Erick Pascual-Bautista
 
-const int SIZE = 7;
+const int SIZE = 10;
 
 struct Edge {
     int src, dest, weight;
@@ -113,7 +113,7 @@ int main() {
     // Creates a vector of graph edges/weights
     vector<Edge> edges = {
         // (x, y, w) —> edge from x to y having weight w
-        {0,1,12},{0,2,8},{0,3,21},{2,3,6},{2,6,2},{5,6,6},{4,5,9},{2,4,4},{2,5,5}
+        {0,2,8},{0,3,21},{2,3,6},{5,6,6},{4,5,9},{2,4,4},{2,5,5},{1,7,10},{3,8,15},{6,9,20},{7,8,25},{8,9,30},{3,7,12}
     };
 
     // Creates graph
@@ -122,7 +122,7 @@ int main() {
     // Prints adjacency list representation of graph
     graph.printGraph();
 
-    cout << endl << endl;
+    cout << endl;
     
     graph.DFS(0);
     graph.BFS(0);
