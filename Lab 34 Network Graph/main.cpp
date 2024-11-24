@@ -1,6 +1,9 @@
 #include <iostream>
 #include <vector>
+
+// Data structures needed for DFS & BFS
 #include <stack>
+#include <queue>
 
 using namespace std;
 
@@ -77,6 +80,33 @@ public:
         cout << endl;
     }
 
+    // Breadth First Search (BFS)
+    void BFS(int start) {
+        vector<bool> visited(SIZE, false);
+        queue<int> queue;
+
+        // Starting from the given node
+        queue.push(start);
+        visited[start] = true;
+
+        cout << "BFS starting from vertex " << start << ":" << endl;
+
+        while (!queue.empty()) {
+            int node = queue.front();
+            queue.pop();
+            cout << node << " ";
+
+            // Get all adjacent vertices of the dequeued node
+            for (auto& neighbor : adjList[node]) {
+                if (!visited[neighbor.first]) {
+                    queue.push(neighbor.first);
+                    visited[neighbor.first] = true;
+                }
+            }
+
+        }
+        cout << endl;
+    }
 };
 
 int main() {
@@ -91,8 +121,11 @@ int main() {
 
     // Prints adjacency list representation of graph
     graph.printGraph();
+
     cout << endl << endl;
+    
     graph.DFS(0);
+    graph.BFS(0);
 
     return 0;
 }
