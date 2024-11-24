@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <stack>
 
 using namespace std;
 
@@ -46,6 +47,36 @@ public:
             cout << endl;
         }
     }
+    
+    // Depth First Search (DFS)
+    void DFS(int start) {
+        vector<bool> visited(SIZE, false); 
+        stack<int> stack;
+
+        // Start from the given node
+        stack.push(start);
+
+        cout << "DFS starting from vertex " << start << ":" << endl;
+
+        while(!stack.empty()) {
+            int node = stack.top();
+            stack.pop();
+        
+            if(!visited[node]) {
+                cout << node << " ";
+                visited[node] = true;
+            }
+
+            // Gets all adjacent vertices of the popped node 
+            for (auto& neighbor : adjList[node]) {
+                if (!visited[neighbor.first]) {
+                    stack.push(neighbor.first);
+                }
+            }
+        }
+        cout << endl;
+    }
+
 };
 
 int main() {
@@ -60,6 +91,9 @@ int main() {
 
     // Prints adjacency list representation of graph
     graph.printGraph();
+    cout << endl << endl;
+    graph.DFS(0);
+
     return 0;
 }
 
