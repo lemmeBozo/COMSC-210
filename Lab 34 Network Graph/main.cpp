@@ -42,37 +42,72 @@ public:
 
     // Print the graph's adjacency list
     void printGraph() {
-        cout << "Graph's adjacency list:" << endl;
+        cout << "Elecrtic Power Grid Topolgy" << endl;
         for (int i = 0; i < adjList.size(); i++) {
-            cout << i << " --> ";
+            cout << "Substation " << i;
+            switch(i) {
+                case 0: cout << " (Main Power Station)"; break;
+                case 1: cout << " (Distribution Center)"; break;
+                case 2: cout << " (Residential Area)"; break;
+                case 3: cout << " (Comerical Hub)"; break;
+                case 4: cout << " (Industrial Complex)"; break;
+                case 5: cout << " (Renewable Energy Plant)"; break;
+                case 6: cout << " (Backup Power Station)"; break;
+                case 7: cout << " (Substation)"; break;
+            }
+            cout << " connects to: " << endl;
             for (Pair v : adjList[i])
-                cout << "(" << v.first << ", " << v.second << ") ";
+                cout << "  → Substation " << v.first << " (Capacity: " << v.second << " MW)" << endl;
             cout << endl;
         }
     }
     
     // Depth First Search (DFS)
     void DFS(int start) {
-        vector<bool> visited(SIZE, false); 
+        vector<bool> visited(SIZE, false);
         stack<int> stack;
 
         // Start from the given node
         stack.push(start);
 
-        cout << "DFS starting from vertex " << start << ":" << endl;
+        cout << "Network Trace (DFS) from Substation " << start;
+        if (start == 0) cout << " (Main Power Station)";
+        cout << ":\nPurpose: Tracing power flow paths through the grid\n=======================================" << endl;
 
-        while(!stack.empty()) {
+        while (!stack.empty()) {
             int node = stack.top();
             stack.pop();
-        
-            if(!visited[node]) {
-                cout << node << " ";
+
+            if (!visited[node]) {
+                cout << "Inspecting Substation " << node;
+                switch (node) {
+                    case 0: cout << " (Main Power Station)"; break;
+                    case 1: cout << " (Distribution Center)"; break;
+                    case 2: cout << " (Residential Area)"; break;
+                    case 3: cout << " (Commercial Hub)"; break;
+                    case 4: cout << " (Industrial Complex)"; break;
+                    case 5: cout << " (Renewable Energy Plant)"; break;
+                    case 6: cout << " (Backup Power Station)"; break;
+                    case 7: cout << " (Substation)"; break;
+                }
+                cout << endl;
                 visited[node] = true;
             }
 
-            // Gets all adjacent vertices of the popped node 
-            for (auto& neighbor : adjList[node]) {
+            // Get all adjacent vertices of the popped node
+            for (auto &neighbor : adjList[node]) {
                 if (!visited[neighbor.first]) {
+                    cout << "  → Potential power flow to Substation " << neighbor.first;
+                    switch (neighbor.first) {
+                        case 1: cout << " (Distribution Center)"; break;
+                        case 2: cout << " (Residential Area)"; break;
+                        case 3: cout << " (Commercial Hub)"; break;
+                        case 4: cout << " (Industrial Complex)"; break;
+                        case 5: cout << " (Renewable Energy Plant)"; break;
+                        case 6: cout << " (Backup Power Station)"; break;
+                        case 7: cout << " (Substation)"; break;
+                    }
+                    cout << " - Capacity: " << neighbor.second << " MW" << endl;
                     stack.push(neighbor.first);
                 }
             }
@@ -85,25 +120,48 @@ public:
         vector<bool> visited(SIZE, false);
         queue<int> queue;
 
-        // Starting from the given node
+        // Start from the given node
         queue.push(start);
         visited[start] = true;
 
-        cout << "BFS starting from vertex " << start << ":" << endl;
+        cout << "Layer-by-Layer Network Inspection (BFS) from Substation " << start;
+        if (start == 0) cout << " (Main Power Station)";
+        cout << ":\nPurpose: Analyzing power distribution by distance from source\n=================================================" << endl;
 
         while (!queue.empty()) {
             int node = queue.front();
             queue.pop();
-            cout << node << " ";
+            cout << "Checking Substation " << node;
+            switch (node) {
+                case 0: cout << " (Main Power Station)"; break;
+                case 1: cout << " (Distribution Center)"; break;
+                case 2: cout << " (Residential Area)"; break;
+                case 3: cout << " (Commercial Hub)"; break;
+                case 4: cout << " (Industrial Complex)"; break;
+                case 5: cout << " (Renewable Energy Plant)"; break;
+                case 6: cout << " (Backup Power Station)"; break;
+                case 7: cout << " (Substation)"; break;
+            }
+            cout << endl;
 
             // Get all adjacent vertices of the dequeued node
-            for (auto& neighbor : adjList[node]) {
+            for (auto &neighbor : adjList[node]) {
                 if (!visited[neighbor.first]) {
+                    cout << "  → Next service area: Substation " << neighbor.first;
+                    switch (neighbor.first) {
+                        case 1: cout << " (Distribution Center)"; break;
+                        case 2: cout << " (Residential Area)"; break;
+                        case 3: cout << " (Commercial Hub)"; break;
+                        case 4: cout << " (Industrial Complex)"; break;
+                        case 5: cout << " (Renewable Energy Plant)"; break;
+                        case 6: cout << " (Backup Power Station)"; break;
+                        case 7: cout << " (Substation)"; break;
+                    }
+                    cout << " - Capacity: " << neighbor.second << " MW" << endl;
                     queue.push(neighbor.first);
                     visited[neighbor.first] = true;
                 }
             }
-
         }
         cout << endl;
     }
