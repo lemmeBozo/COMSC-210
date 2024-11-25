@@ -274,7 +274,16 @@ public:
         cout << endl;
     }
 
-
+    void printKruskalMST() override {
+        auto mst = kruskalMST();
+        cout << "Minimum Spanning Tree of the Power Grid:\n";
+        for (auto &edge : mst) {
+            cout << "Transmission Line from Substation " << edge.src << " (" << substationNames[edge.src]
+                 << ") to Substation " << edge.dest << " (" << substationNames[edge.dest]
+                 << ") with capacity: " << edge.weight << " MW\n";
+        }
+        cout << endl;
+    }
 };
 
 
