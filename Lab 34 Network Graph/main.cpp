@@ -126,51 +126,50 @@ public:
         return dist; // Return distance vector
     }
 
-    // // Kruskal: Returns the edges in the MST
-    // vector<Edge> kruskalMST() {
-    //     vector<Edge> result; // Stores MST edges
-    //     vector<Edge> allEdges;
+    // Kruskal: Returns the edges in the MST
+    vector<Edge> kruskalMST() {
+        vector<Edge> result; // Stores MST edges
+        vector<Edge> allEdges;
 
-    //     for (int i = 0; i < SIZE; i++) {
-    //         for (auto &neighbor : adjList[i]) {
-    //             if (i < neighbor.first) { // Avoid duplicate edges
-    //                 allEdges.push_back({i, neighbor.first, neighbor.second});
-    //             }
-    //         }
-    //     }
+        for (int i = 0; i < SIZE; i++) {
+            for (auto &neighbor : adjList[i]) {
+                if (i < neighbor.first) { // Avoid duplicate edges
+                    allEdges.push_back({i, neighbor.first, neighbor.second});
+                }
+            }
+        }
 
-    //     sort(allEdges.begin(), allEdges.end(), [](Edge &a, Edge &b) {
-    //         return a.weight < b.weight;
-    //     });
+        sort(allEdges.begin(), allEdges.end(), [](Edge &a, Edge &b) {
+            return a.weight < b.weight;
+        });
 
-    //     vector<int> parent(SIZE);
-    //     for (int i = 0; i < SIZE; i++) parent[i] = i;
+        vector<int> parent(SIZE);
+        for (int i = 0; i < SIZE; i++) parent[i] = i;
 
-    //     function<int(int)> find = [&](int i) {
-    //         if (parent[i] != i) parent[i] = find(parent[i]);
-    //         return parent[i];
-    //     };
+        function<int(int)> find = [&](int i) {
+            if (parent[i] != i) parent[i] = find(parent[i]);
+            return parent[i];
+        };
 
-    //     auto unite = [&](int u, int v) {
-    //         int rootU = find(u);
-    //         int rootV = find(v);
-    //         parent[rootU] = rootV;
-    //     };
+        auto unite = [&](int u, int v) {
+            int rootU = find(u);
+            int rootV = find(v);
+            parent[rootU] = rootV;
+        };
 
-    //     for (auto &edge : allEdges) {
-    //         int rootU = find(edge.src);
-    //         int rootV = find(edge.dest);
+        for (auto &edge : allEdges) {
+            int rootU = find(edge.src);
+            int rootV = find(edge.dest);
 
-    //         if (rootU != rootV) {
-    //             result.push_back(edge);
-    //             unite(rootU, rootV);
-    //         }
-    //     }
+            if (rootU != rootV) {
+                result.push_back(edge);
+                unite(rootU, rootV);
+            }
+        }
 
-    //     return result; // Return MST edges
-    // }
-    //     // General-purpose print methods
-    
+        return result; // Return MST edges
+    }
+        // General-purpose print methods
     virtual void printDFS(int start) {
         auto traversal = DFS(start);
         cout << "DFS Traversal starting from node " << start << ":\n";
@@ -199,15 +198,15 @@ public:
         cout << endl;
     }
 
-    // virtual void printKruskalMST() {
-    //     auto mst = kruskalMST();
-    //     cout << "Minimum Spanning Tree edges:\n";
-    //     for (auto &edge : mst) {
-    //         cout << "Edge from " << edge.src << " to " << edge.dest
-    //             << " with capacity: " << edge.weight << " units\n";
-    //     }
-    //     cout << endl;
-    // }
+    virtual void printKruskalMST() {
+        auto mst = kruskalMST();
+        cout << "Minimum Spanning Tree edges:\n";
+        for (auto &edge : mst) {
+            cout << "Edge from " << edge.src << " to " << edge.dest
+                << " with capacity: " << edge.weight << " units\n";
+        }
+        cout << endl;
+    }
 
 };
 
@@ -275,16 +274,16 @@ public:
         cout << endl;
     }
 
-    // void printKruskalMST() override {
-    //     auto mst = kruskalMST();
-    //     cout << "Minimum Spanning Tree of the Power Grid:\n";
-    //     for (auto &edge : mst) {
-    //         cout << "Transmission Line from Substation " << edge.src << " (" << substationNames[edge.src]
-    //              << ") to Substation " << edge.dest << " (" << substationNames[edge.dest]
-    //              << ") with capacity: " << edge.weight << " MW\n";
-    //     }
-    //     cout << endl;
-    // }
+    void printKruskalMST() override {
+        auto mst = kruskalMST();
+        cout << "Minimum Spanning Tree of the Power Grid:\n";
+        for (auto &edge : mst) {
+            cout << "Transmission Line from Substation " << edge.src << " (" << substationNames[edge.src]
+                 << ") to Substation " << edge.dest << " (" << substationNames[edge.dest]
+                 << ") with capacity: " << edge.weight << " MW\n";
+        }
+        cout << endl;
+    }
 };
 
 
@@ -311,16 +310,16 @@ int main() {
 
     PowerGridGraph grid(edges, names);
 
-    grid.printGraph();
+    // grid.printGraph();
     
-    cout << endl;
+    // cout << endl;
 
-    grid.printDFS(0);
-    grid.printBFS(0);
+    // grid.printDFS(0);
+    // grid.printBFS(0);
 
-    cout << endl;
+    // cout << endl;
 
-    grid.printDijkstra(0);
+    // grid.printDijkstra(0);
     grid.printKruskalMST();
 
     return 0;
