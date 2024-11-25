@@ -3,6 +3,9 @@
 #include <stack>
 #include <queue>
 #include <climits>
+#include <functional>
+#include <algorithm>
+#include <string>
 
 using namespace std;
 
@@ -17,158 +20,88 @@ struct Edge {
 typedef pair<int, int> Pair;  // Creates alias 'Pair' for the pair<int,int> data type
 
 class Graph {
-public:
-    // a vector of vectors of Pairs to represent an adjacency list
+protected:
     vector<vector<Pair>> adjList;
 
-    // Graph Constructor
+public:
     Graph(vector<Edge> const &edges) {
-        // resize the vector to hold SIZE elements of type vector<Edge>
         adjList.resize(SIZE);
 
-        // add edges to the directed graph
-        for (auto &edge: edges) {
+        for (auto &edge : edges) {
             int src = edge.src;
             int dest = edge.dest;
             int weight = edge.weight;
 
-            // insert at the end
             adjList[src].push_back(make_pair(dest, weight));
-            // for an undirected graph, add an edge from dest to src also
             adjList[dest].push_back(make_pair(src, weight));
         }
     }
 
-    // Print the graph's adjacency list
-    void printGraph() {
-        cout << "Elecrtic Power Grid Topolgy" << endl;
+    virtual void printGraph() {
+        cout << "Graph's adjacency list:" << endl;
         for (int i = 0; i < adjList.size(); i++) {
-            cout << "Substation " << i;
-            switch(i) {
-                case 0: cout << " (Main Power Station)"; break;
-                case 1: cout << " (Distribution Center)"; break;
-                case 2: cout << " (Residential Area)"; break;
-                case 3: cout << " (Comerical Hub)"; break;
-                case 4: cout << " (Industrial Complex)"; break;
-                case 5: cout << " (Renewable Energy Plant)"; break;
-                case 6: cout << " (Backup Power Station)"; break;
-                case 7: cout << " (Substation)"; break;
-            }
-            cout << " connects to: " << endl;
-            for (Pair v : adjList[i])
-                cout << "  → Substation " << v.first << " (Capacity: " << v.second << " MW)" << endl;
-            cout << endl;
+        cout << i << " --> ";
+        for (Pair v : adjList[i])
+        cout << "(" << v.first << ", " << v.second << ") ";
+        cout << endl;
         }
     }
-    
-    // Depth First Search (DFS)
-    void DFS(int start) {
+
+    // DFS that returns traversal data instead of printing
+    vector<int> DFS(int start) {
         vector<bool> visited(SIZE, false);
         stack<int> stack;
+        vector<int> traversal; // Store visited nodes
 
-        // Start from the given node
         stack.push(start);
-
-        cout << "Network Trace (DFS) from Substation " << start;
-        if (start == 0) cout << " (Main Power Station)";
-        cout << ":\nPurpose: Tracing power flow paths through the grid\n=======================================" << endl;
-
         while (!stack.empty()) {
             int node = stack.top();
             stack.pop();
 
             if (!visited[node]) {
-                cout << "Inspecting Substation " << node;
-                switch (node) {
-                    case 0: cout << " (Main Power Station)"; break;
-                    case 1: cout << " (Distribution Center)"; break;
-                    case 2: cout << " (Residential Area)"; break;
-                    case 3: cout << " (Commercial Hub)"; break;
-                    case 4: cout << " (Industrial Complex)"; break;
-                    case 5: cout << " (Renewable Energy Plant)"; break;
-                    case 6: cout << " (Backup Power Station)"; break;
-                    case 7: cout << " (Substation)"; break;
-                }
-                cout << endl;
+                traversal.push_back(node);
                 visited[node] = true;
             }
 
-            // Get all adjacent vertices of the popped node
             for (auto &neighbor : adjList[node]) {
                 if (!visited[neighbor.first]) {
-                    cout << "  → Potential power flow to Substation " << neighbor.first;
-                    switch (neighbor.first) {
-                        case 1: cout << " (Distribution Center)"; break;
-                        case 2: cout << " (Residential Area)"; break;
-                        case 3: cout << " (Commercial Hub)"; break;
-                        case 4: cout << " (Industrial Complex)"; break;
-                        case 5: cout << " (Renewable Energy Plant)"; break;
-                        case 6: cout << " (Backup Power Station)"; break;
-                        case 7: cout << " (Substation)"; break;
-                    }
-                    cout << " - Capacity: " << neighbor.second << " MW" << endl;
                     stack.push(neighbor.first);
                 }
             }
         }
-        cout << endl;
+
+        return traversal;
     }
 
-    // Breadth First Search (BFS)
-    void BFS(int start) {
+    // BFS that returns traversal data instead of printing
+    vector<int> BFS(int start) {
         vector<bool> visited(SIZE, false);
         queue<int> queue;
+        vector<int> traversal;
 
-        // Start from the given node
         queue.push(start);
         visited[start] = true;
-
-        cout << "Layer-by-Layer Network Inspection (BFS) from Substation " << start;
-        if (start == 0) cout << " (Main Power Station)";
-        cout << ":\nPurpose: Analyzing power distribution by distance from source\n=================================================" << endl;
 
         while (!queue.empty()) {
             int node = queue.front();
             queue.pop();
-            cout << "Checking Substation " << node;
-            switch (node) {
-                case 0: cout << " (Main Power Station)"; break;
-                case 1: cout << " (Distribution Center)"; break;
-                case 2: cout << " (Residential Area)"; break;
-                case 3: cout << " (Commercial Hub)"; break;
-                case 4: cout << " (Industrial Complex)"; break;
-                case 5: cout << " (Renewable Energy Plant)"; break;
-                case 6: cout << " (Backup Power Station)"; break;
-                case 7: cout << " (Substation)"; break;
-            }
-            cout << endl;
+            traversal.push_back(node);
 
-            // Get all adjacent vertices of the dequeued node
             for (auto &neighbor : adjList[node]) {
                 if (!visited[neighbor.first]) {
-                    cout << "  → Next service area: Substation " << neighbor.first;
-                    switch (neighbor.first) {
-                        case 1: cout << " (Distribution Center)"; break;
-                        case 2: cout << " (Residential Area)"; break;
-                        case 3: cout << " (Commercial Hub)"; break;
-                        case 4: cout << " (Industrial Complex)"; break;
-                        case 5: cout << " (Renewable Energy Plant)"; break;
-                        case 6: cout << " (Backup Power Station)"; break;
-                        case 7: cout << " (Substation)"; break;
-                    }
-                    cout << " - Capacity: " << neighbor.second << " MW" << endl;
                     queue.push(neighbor.first);
                     visited[neighbor.first] = true;
                 }
             }
         }
-        cout << endl;
+
+        return traversal;
     }
 
-    // Dijkstra's algorithm to find the shortest path from a given source
-    void dijkstra(int start) {
+    vector<int> dijkstra(int start) {
         vector<int> dist(SIZE, INT_MAX);
         dist[start] = 0;
+
         priority_queue<Pair, vector<Pair>, greater<Pair>> pq;
         pq.push(make_pair(0, start));
 
@@ -177,9 +110,7 @@ public:
             int currentNode = pq.top().second;
             pq.pop();
 
-            if (currentDist > dist[currentNode]) {
-                continue;
-            }
+            if (currentDist > dist[currentNode]) continue;
 
             for (auto &neighbor : adjList[currentNode]) {
                 int nextNode = neighbor.first;
@@ -192,14 +123,160 @@ public:
                 }
             }
         }
+        return dist; // Return distance vector
+    }
 
-        cout << "Shortest path from node " << start << ":" << endl;
+    // Kruskal: Returns the edges in the MST
+    vector<Edge> kruskalMST() {
+        vector<Edge> result; // Stores MST edges
+        vector<Edge> allEdges;
+
         for (int i = 0; i < SIZE; i++) {
-            cout << start << " -> " << i << " : " << dist[i] << endl;
+            for (auto &neighbor : adjList[i]) {
+                if (i < neighbor.first) { // Avoid duplicate edges
+                    allEdges.push_back({i, neighbor.first, neighbor.second});
+                }
+            }
+        }
+
+        sort(allEdges.begin(), allEdges.end(), [](Edge &a, Edge &b) {
+            return a.weight < b.weight;
+        });
+
+        vector<int> parent(SIZE);
+        for (int i = 0; i < SIZE; i++) parent[i] = i;
+
+        function<int(int)> find = [&](int i) {
+            if (parent[i] != i) parent[i] = find(parent[i]);
+            return parent[i];
+        };
+
+        auto unite = [&](int u, int v) {
+            int rootU = find(u);
+            int rootV = find(v);
+            parent[rootU] = rootV;
+        };
+
+        for (auto &edge : allEdges) {
+            int rootU = find(edge.src);
+            int rootV = find(edge.dest);
+
+            if (rootU != rootV) {
+                result.push_back(edge);
+                unite(rootU, rootV);
+            }
+        }
+
+        return result; // Return MST edges
+    }
+        // General-purpose print methods
+    virtual void printDFS(int start) {
+        auto traversal = DFS(start);
+        cout << "DFS Traversal starting from node " << start << ":\n";
+        for (int node : traversal) {
+            cout << node << " ";
+        }
+        cout << endl << endl;
+    }
+
+    virtual void printBFS(int start) {
+        auto traversal = BFS(start);
+        cout << "BFS Traversal starting from node " << start << ":\n";
+        for (int node : traversal) {
+            cout << node << " ";
+        }
+        cout << endl << endl;
+    }
+
+    virtual void printDijkstra(int start) {
+        auto dist = dijkstra(start);
+        cout << "Dijkstra's Shortest Paths from node " << start << ":\n";
+        for (int i = 0; i < dist.size(); i++) {
+            cout << "Node " << start << " → Node " << i
+                 << " : " << (dist[i] == INT_MAX ? "Unreachable" : to_string(dist[i])) << endl;
         }
         cout << endl;
     }
+
+    virtual void printKruskalMST() {
+        auto mst = kruskalMST();
+        cout << "Minimum Spanning Tree edges:\n";
+        for (auto &edge : mst) {
+            cout << "Edge from " << edge.src << " to " << edge.dest
+                << " with capacity: " << edge.weight << " units\n";
+        }
+        cout << endl;
+    }
+
 };
+
+// Custom graph derived from graph
+class PowerGridGraph : public Graph {
+private:
+    vector<string> substationNames;
+
+public:
+    PowerGridGraph(vector<Edge> const &edges, vector<string> names)
+        : Graph(edges), substationNames(names) {}
+
+    void printGraph() override {
+        cout << "Power Grid Network Topology:\n================================\n";
+        for (int i = 0; i < adjList.size(); i++) {
+            cout << "Substation " << i << " (" << substationNames[i] << ") connects to:\n";
+            for (Pair v : adjList[i]) {
+                cout << "  → Substation " << v.first << " (" << substationNames[v.first]
+                     << ") - Capacity: " << v.second << " MW\n";
+            }
+        }
+        cout << endl;
+    }
+
+    void printDFS(int start) override {
+        cout << "Network Trace (DFS) from Substation " << start << " (" << substationNames[start] << "):\n";
+        cout << "Purpose: Tracing possible power flow paths through the grid\n";
+        cout << "=======================================\n";
+        auto traversal = DFS(start);
+        for (int node : traversal) {
+            cout << "Inspecting Substation " << node << " (" << substationNames[node] << ")\n";
+            for (auto &neighbor : adjList[node]) {
+                cout << "  → Potential power flow to Substation " << neighbor.first << " ("
+                     << substationNames[neighbor.first] << ") - Capacity: " << neighbor.second << " MW\n";
+            }
+        }
+        cout << endl;
+    }
+
+    void printBFS(int start) override {
+        cout << "Layer-by-Layer Network Inspection (BFS) from Substation " << start
+             << " (" << substationNames[start] << "):\n";
+        cout << "Purpose: Analyzing power distribution by distance from source\n";
+        cout << "=================================================\n";
+        auto traversal = BFS(start);
+        for (int node : traversal) {
+            cout << "Checking Substation " << node << " (" << substationNames[node] << ")\n";
+            for (auto &neighbor : adjList[node]) {
+                cout << "  → Next distribution area: Substation " << neighbor.first << " ("
+                     << substationNames[neighbor.first] << ") - Capacity: " << neighbor.second << " MW\n";
+            }
+        }
+        cout << endl;
+    }
+
+    void printDijkstra(int start) override {
+        auto dist = dijkstra(start);
+        cout << "Shortest Power Distribution Paths from Substation " << start << " ("
+             << substationNames[start] << "):\n";
+        for (int i = 0; i < dist.size(); i++) {
+            cout << "Substation " << start << " → Substation " << i
+                 << " (" << substationNames[i] << ") : "
+                 << (dist[i] == INT_MAX ? "Unreachable" : to_string(dist[i]) + " MW") << endl;
+        }
+        cout << endl;
+    }
+
+
+};
+
 
 int main() {
     // Creates a vector of graph edges/weights
@@ -208,18 +285,33 @@ int main() {
         {0,2,8},{0,3,21},{2,3,6},{5,6,6},{4,5,9},{2,4,4},{2,5,5},{1,7,10},{3,8,15},{6,9,20},{7,8,25},{8,9,30},{3,7,12}
     };
 
-    // Creates graph
-    Graph graph(edges);
+    // Creates vector of names
+    vector<string> names = {
+        "Main Power Plant",      // Node 0
+        "Substation Alpha",      // Node 1
+        "Substation Beta",       // Node 2
+        "Switchyard Gamma",      // Node 3
+        "Transformer Delta",     // Node 4
+        "Control Station Epsilon", // Node 5
+        "Relay Station Zeta",    // Node 6
+        "Substation Eta",        // Node 7
+        "Backup Station Theta",  // Node 8
+        "Regional Hub Iota"      // Node 9
+    };
 
-    // Prints adjacency list representation of graph
-    graph.printGraph();
+    PowerGridGraph grid(edges, names);
+
+    grid.printGraph();
+    
+    cout << endl;
+
+    grid.printDFS(0);
+    grid.printBFS(0);
 
     cout << endl;
-    
-    graph.DFS(0);
-    graph.BFS(0);
 
-    graph.dijkstra(0);
+    grid.printDijkstra(0);
+    grid.printKruskalMST();
 
     return 0;
 }
