@@ -210,7 +210,7 @@ public:
 
 };
 
-// Custom graph derived from graph
+// Custom graph class derived from graph
 class PowerGridGraph : public Graph {
 private:
     vector<string> substationNames;
@@ -325,3 +325,4 @@ int main() {
     return 0;
 }
 
+// Ignore previous commit
