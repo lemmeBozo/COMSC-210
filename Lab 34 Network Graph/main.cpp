@@ -286,6 +286,7 @@ public:
     }
 };
 
+void displayMenu(PowerGridGraph&);
 
 int main() {
     // Creates a vector of graph edges/weights
@@ -309,20 +310,48 @@ int main() {
     };
 
     PowerGridGraph grid(edges, names);
-
-    // grid.printGraph();
-    
-    // cout << endl;
-
-    // grid.printDFS(0);
-    // grid.printBFS(0);
-
-    // cout << endl;
-
-    // grid.printDijkstra(0);
-    grid.printKruskalMST();
+    displayMenu(grid);
 
     return 0;
 }
 
-// Ignore previous commit
+void displayMenu(PowerGridGraph &grid) {
+    int choice;
+    do {
+        cout << "Power Grid Network Menu:\n";
+        cout << "[1] Display power distribution network\n";
+        cout << "[2] Analyze power distribution (BFS)\n";
+        cout << "[3] Plan inspection route (DFS)\n";
+        cout << "[4] Calculate shortest distribution paths\n";
+        cout << "[5] Find Minimum Spanning Tree\n";
+        cout << "[0] Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+        cout << endl;
+
+        switch (choice) {
+            case 1:
+                grid.printGraph();
+                break;
+            case 2:
+                grid.printBFS(0);  // Start BFS from the main power plant
+                break;
+            case 3:
+                grid.printDFS(0);  // Start DFS from the main power plant
+                break;
+            case 4:
+                grid.printDijkstra(0);  // Start Dijkstra from the main power plant
+                break;
+            case 5:
+                grid.printKruskalMST();  // Print Minimum Spanning Tree
+                break;
+            case 0:
+                cout << "Exiting...\n";
+                break;
+            default:
+                cout << "Invalid choice. Please try again.\n";
+                break;
+        }
+        cout << endl;
+    } while (choice != 0);
+}
