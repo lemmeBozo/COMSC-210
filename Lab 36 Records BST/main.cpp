@@ -17,8 +17,12 @@ void printLineBreaks(int);
 int getUserInput();
 void handleUserInput(int, StringBinaryTree&, ifstream&);
 string fetchNextString(ifstream&);
+
+// BST Operations
 void addElement(string, StringBinaryTree&);
 void removeElement(StringBinaryTree&);
+void searchForElement(StringBinaryTree&);
+void modifyRecords(stringBinaryTree&); // Im going to 
 
 int main() {
     // Opening File
@@ -51,7 +55,7 @@ void printMenu() {
         cout << "[1] Add element" << endl;
         cout << "[2] Delete element" << endl;
         cout << "[3] Search for element" << endl;
-        cout << "[4] Modify records at" << endl;
+        cout << "[4] Modify records" << endl;
         cout << "[5] QUIT" << endl;
         cout << "ENTER CHOICE: ";
 }
@@ -80,7 +84,7 @@ void handleUserInput(int userInput, StringBinaryTree& tree, ifstream& file) {
             removeElement(tree);
             break;
         case 3:
-            // findElement(string)
+            searchForElement(tree);
             break;
         case 4:
             // modifyElement(string)
@@ -114,3 +118,15 @@ void removeElement(StringBinaryTree& tree) {
     cout << "REMOVED ELEMENT, tree after removal: " << endl << endl;;
     tree.displayInOrder();
 }
+
+void searchForElement(StringBinaryTree& tree) {
+    bool found = false;
+    string strToFind;
+    cout << "Please enter a string to find: ";
+    cin >> strToFind;
+    found = tree.searchNode(strToFind);
+    if (found) {
+        cout << "STRING FOUND" << endl;
+    } else {cout << "STRING NOT FONUD" << endl;}
+}
+
