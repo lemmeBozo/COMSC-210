@@ -1,6 +1,9 @@
 #include <iostream>
 #include <fstream> // For reading a file
 #include <string>
+
+#include "StringBinaryTree.h" // Including custom data structure
+
 using namespace std;
 
 // COMSC-210 | Lab 36: Records BST | Erick Pascual-Bautista
@@ -10,18 +13,21 @@ ifstream openFile(string);
 void printMenu(); 
 void printLineBreaks(int);
 int getUserInput();
-void handleUserInput(int);
+void handleUserInput(int, StringBinaryTree&, ifstream&);
 string fetchNextString(ifstream&);
-void addElement(string);
+void addElement(string, StringBinaryTree&);
 
 int main() {
     // Opening File
     ifstream file = openFile("codes.txt");
 
+    // Creating Binary Tree
+    StringBinaryTree tree;
+
     // Binary tree operations loop
     while (true) {
         printMenu();
-        handleUserInput(getUserInput());
+        handleUserInput(getUserInput(), tree, file);
         printLineBreaks(2);
     }
 
@@ -59,10 +65,13 @@ int getUserInput() {
     return value;
 }
 
-void handleUserInput(int userInput) {
+void handleUserInput(int userInput, StringBinaryTree& tree, ifstream& file) {
     switch(userInput) {
-        case 1:
-            // Call addElement(string)
+        case 1: 
+            {
+                string strToAdd = fetchNextString(file);
+                addElement(strToAdd, tree);
+            }
             break;
         case 2:
             // Call deleteElement() 
@@ -87,7 +96,8 @@ string fetchNextString(ifstream& file) {
     return ""; // Otherwise return an empty string
 }
 
-void addElement(string strToAdd) {
-
+void addElement(string strToAdd, StringBinaryTree& tree) {
+    tree.insertNode(strToAdd); // Adds string to tree
+    tree.displayInOrder(); // Then displays tree in order
 }
 
