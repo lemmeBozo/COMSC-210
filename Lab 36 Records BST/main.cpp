@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream> // For reading a file
-#include <random> // for rng
-#include <chrono> // for rng
+#include <string>
 using namespace std;
 
 // COMSC-210 | Lab 36: Records BST | Erick Pascual-Bautista
@@ -11,8 +10,7 @@ void printMenu();
 void printLineBreaks(int);
 int getUserInput();
 void handleUserInput(int);
-string getRandomString();
-int generateRandomInt(int)
+string fetchNextString();
 
 int main() {
     while (true) {
@@ -68,18 +66,21 @@ void handleUserInput(int userInput) {
     }
 }
 
-string getRandomString() {
+string fetchNextString() {
+    static int index = 0; // Only initialized once
+
+    string line;
     ifstream file("codes.txt");
     if(!file.is_open()) {
         cerr << "Error: Unable to open file 'codes.txt'" << endl;
         return 0;
     }
+    for (int i = 0; i < index; i++) {
+        if (getline(file, line)) {
+            return line;
+        }
+    }
+    file.close();
+    index++;
 }
 
-// Reusing Code from Lab 21
-int generateRandomInt(int min, int max) {
-    auto seed = chrono::high_resolution_clock::now().time_since_epoch().count();
-    mt19937 generator(seed); // Mersene Twister RNG algorithm
-    uniform_int_distribution<int> distribution(min, max);
-    return distribution(generator);
-}
