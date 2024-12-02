@@ -2,7 +2,9 @@
 #include <fstream> // For reading a file
 #include <string>
 
-#include "StringBinaryTree.h" // Including custom data structure
+// Including custom data structure
+#include "StringBinaryTree.h" 
+#include "StringBinaryTree.cpp"
 
 using namespace std;
 
@@ -16,6 +18,7 @@ int getUserInput();
 void handleUserInput(int, StringBinaryTree&, ifstream&);
 string fetchNextString(ifstream&);
 void addElement(string, StringBinaryTree&);
+void removeElement(StringBinaryTree&);
 
 int main() {
     // Opening File
@@ -74,7 +77,7 @@ void handleUserInput(int userInput, StringBinaryTree& tree, ifstream& file) {
             }
             break;
         case 2:
-            // Call deleteElement() 
+            removeElement(tree);
             break;
         case 3:
             // findElement(string)
@@ -98,6 +101,16 @@ string fetchNextString(ifstream& file) {
 
 void addElement(string strToAdd, StringBinaryTree& tree) {
     tree.insertNode(strToAdd); // Adds string to tree
+    cout << "Printing out Binary Tree in order: " << endl;
     tree.displayInOrder(); // Then displays tree in order
 }
 
+void removeElement(StringBinaryTree& tree) {
+    string strToRemove;
+    tree.displayInOrder();
+    cout << "Please type in the element to delete: ";
+    cin >> strToRemove;
+    tree.remove(strToRemove);
+    cout << "REMOVED ELEMENT, tree after removal: " << endl << endl;;
+    tree.displayInOrder();
+}

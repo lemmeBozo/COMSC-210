@@ -3,12 +3,10 @@
 
 #include <string>
 
-using namespace std;
-
 class StringBinaryTree {
 // Private:
     struct TreeNode {
-        string value;
+        std::string value;
         TreeNode* left;
         TreeNode* right;
     };
@@ -18,7 +16,7 @@ class StringBinaryTree {
    // Private member functions for internal operations.
    void insert(TreeNode *&, TreeNode *&);
    void destroySubTree(TreeNode *);
-   void deleteNode(string, TreeNode *&);
+   void deleteNode(std::string, TreeNode *&);
    void makeDeletion(TreeNode *&);
    void displayInOrder(TreeNode *) const;
    void displayPreOrder(TreeNode *) const;
@@ -32,9 +30,9 @@ public:
    ~StringBinaryTree()    { destroySubTree(root); }
 
    // Public interface for inserting, searching, and removing nodes.
-   void insertNode(string);
-   bool searchNode(string);
-   void remove(string);
+   void insertNode(std::string);
+   bool searchNode(std::string);
+   void remove(std::string);
 
    // Public wrappers for tree traversal functions.
    void displayInOrder() const     {  displayInOrder(root); }
