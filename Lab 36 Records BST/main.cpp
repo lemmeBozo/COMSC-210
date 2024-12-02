@@ -6,19 +6,34 @@ using namespace std;
 // COMSC-210 | Lab 36: Records BST | Erick Pascual-Bautista
 
 // Function Prototypes
+ifstream openFile(string);
 void printMenu(); 
 void printLineBreaks(int);
 int getUserInput();
 void handleUserInput(int);
-string fetchNextString();
+string fetchNextString(ifstream&);
+void addElement(string);
 
 int main() {
+    // Opening File
+    ifstream file = openFile("codes.txt");
+
+    // Binary tree operations loop
     while (true) {
         printMenu();
         handleUserInput(getUserInput());
         printLineBreaks(2);
     }
+
     return 0;
+}
+
+ifstream openFile(string fileName) {
+    std::ifstream file(fileName);
+    if (!file.is_open()) {
+        throw std::ios_base::failure("Error: Unable to open file '" + fileName + "'");
+    }
+    return file; // Return the ifstream object
 }
 
 // displays the menu
@@ -66,21 +81,13 @@ void handleUserInput(int userInput) {
     }
 }
 
-string fetchNextString() {
-    static int index = 0; // Only initialized once
-
+string fetchNextString(ifstream& file) {
     string line;
-    ifstream file("codes.txt");
-    if(!file.is_open()) {
-        cerr << "Error: Unable to open file 'codes.txt'" << endl;
-        return 0;
-    }
-    for (int i = 0; i < index; i++) {
-        if (getline(file, line)) {
-            return line;
-        }
-    }
-    file.close();
-    index++;
+    if (getline(file, line)) {return line;} // If valid string return string
+    return ""; // Otherwise return an empty string
+}
+
+void addElement(string strToAdd) {
+
 }
 
