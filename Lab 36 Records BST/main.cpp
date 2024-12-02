@@ -1,27 +1,23 @@
 #include <iostream>
-
+#include <fstream> // For reading a file
+#include <random> // for rng
+#include <chrono> // for rng
 using namespace std;
 
 // COMSC-210 | Lab 36: Records BST | Erick Pascual-Bautista
-
-// Global Variable
-int QUIT_CONDITION = 5;
 
 // Function Prototypes
 void printMenu(); 
 void printLineBreaks(int);
 int getUserInput();
 void handleUserInput(int);
+string getRandomString();
+int generateRandomInt(int)
 
 int main() {
     while (true) {
         printMenu();
-        int userInput = getUserInput();
-        if (userInput == QUIT_CONDITION) {
-            cout << "Exiting program..." << endl;
-            break; 
-        }
-
+        handleUserInput(getUserInput());
         printLineBreaks(2);
     }
     return 0;
@@ -53,16 +49,37 @@ int getUserInput() {
 void handleUserInput(int userInput) {
     switch(userInput) {
         case 1:
-            // Call addElement()
+            // Call addElement(string)
             break;
         case 2:
-            // Call deleteElement()
+            // Call deleteElement() 
             break;
         case 3:
-
+            // findElement(string)
+            break;
         case 4:
+            // modifyElement(string)
         case 5:
+            cout << endl << "Exiting program..." << endl << endl;
+            exit(0); // Completly exits from the program
         default:
+            cout << endl << "Error: not a valid option" << endl;
             break;
     }
+}
+
+string getRandomString() {
+    ifstream file("codes.txt");
+    if(!file.is_open()) {
+        cerr << "Error: Unable to open file 'codes.txt'" << endl;
+        return 0;
+    }
+}
+
+// Reusing Code from Lab 21
+int generateRandomInt(int min, int max) {
+    auto seed = chrono::high_resolution_clock::now().time_since_epoch().count();
+    mt19937 generator(seed); // Mersene Twister RNG algorithm
+    uniform_int_distribution<int> distribution(min, max);
+    return distribution(generator);
 }
