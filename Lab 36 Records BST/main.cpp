@@ -19,17 +19,26 @@ void handleUserInput(int, StringBinaryTree&, ifstream&);
 string fetchNextString(ifstream&);
 
 // BST Operations
+void initializeBST(StringBinaryTree&, int, ifstream& );
 void addElement(string, StringBinaryTree&);
 void removeElement(StringBinaryTree&);
 void searchForElement(StringBinaryTree&);
-void modifyRecords(stringBinaryTree&); // Im going to 
+void modifyRecords(StringBinaryTree&); 
+// Im going to assume that by modify records you meant delete the element and add another one
+// since actually changing the value of a node dosen't maintain the order for the BST
 
 int main() {
+    // NOTE I am going to assume the user will input everything correctly
+    // otherwise I would have added errors all over the place
+
     // Opening File
     ifstream file = openFile("codes.txt");
 
     // Creating Binary Tree
     StringBinaryTree tree;
+
+    // Initializing Tree
+    initializeBST(tree, 8, file);
 
     // Binary tree operations loop
     while (true) {
@@ -87,7 +96,8 @@ void handleUserInput(int userInput, StringBinaryTree& tree, ifstream& file) {
             searchForElement(tree);
             break;
         case 4:
-            // modifyElement(string)
+            modifyRecords(tree);
+            break;
         case 5:
             cout << endl << "Exiting program..." << endl << endl;
             exit(0); // Completly exits from the program
@@ -101,6 +111,13 @@ string fetchNextString(ifstream& file) {
     string line;
     if (getline(file, line)) {return line;} // If valid string return string
     return ""; // Otherwise return an empty string
+}
+
+void initializeBST(StringBinaryTree& tree, int numOfElements, ifstream& file) {
+    for (int i = 0; i < numOfElements; i++) {
+        string line = fetchNextString(file);
+        tree.insertNode(line);
+    }
 }
 
 void addElement(string strToAdd, StringBinaryTree& tree) {
@@ -130,3 +147,17 @@ void searchForElement(StringBinaryTree& tree) {
     } else {cout << "STRING NOT FONUD" << endl;}
 }
 
+void modifyRecords(StringBinaryTree& tree) {
+    string strToRemove;
+    tree.displayInOrder();
+    cout << "Please type in the element to modify: ";
+    cin >> strToRemove;
+    tree.remove(strToRemove);
+    cout << endl << "Please type in modified value: ";
+    string strToAdd;
+    cin >> strToAdd;
+    tree.insertNode(strToAdd);
+    cout << "MODIFIED VALUE, tree after modification" << endl;
+    tree.displayInOrder();
+    cout << endl;
+}
