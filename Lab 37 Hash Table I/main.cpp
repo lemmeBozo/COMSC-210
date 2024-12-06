@@ -16,24 +16,21 @@ int main() {
     if(!file.is_open()) {cout << "Error opening file" << endl;}
 
     string line;
-    int sum = 0;
     while(getline(file , line)) {
         hash_table[toAscii(line)].push_back(line);
     }
 
-
-    cout << "The total sum of the file is " << sum << endl;
-    /* 
-        Create a map [ascii sum] = [string, string string] 
-        note the strings have a ascii sum of well ascii sum
-
-        TODO 
-        1. create a map
-        2. Read file
-        3. properly store string in the correct list associtaed with the ascii value
-        map[key].push_back(element)
-    */
-
+    // Outputing 10 elements from the map
+    int count = 0;
+    int elementsToOutput = 30;
+    for(auto iterator = hash_table.begin(); iterator != hash_table.end() && count < elementsToOutput; iterator++, count++) {
+        cout << "[" << iterator->first << "] = ";
+        cout << "[";
+        for (auto& str : iterator->second) { // for every string in the list
+            cout << str << ",";
+        } 
+        cout << "]" << endl << endl;
+    }
 
     return 0;
 }
