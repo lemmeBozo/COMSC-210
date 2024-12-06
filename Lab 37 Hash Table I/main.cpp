@@ -1,22 +1,39 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
+#include <map>
+#include <list>
 using namespace std;
 
+// Function prototypes
 int toAscii(string);
 
 int main() {
+    // Creatnig Hash Table (map of key ints, value list of strings)
+    map<int, list<string>> hash_table;
+
     ifstream file("data.txt");
     if(!file.is_open()) {cout << "Error opening file" << endl;}
 
     string line;
     int sum = 0;
     while(getline(file , line)) {
-        sum += toAscii(line);
+        hash_table[toAscii(line)].push_back(line);
     }
 
+
     cout << "The total sum of the file is " << sum << endl;
+    /* 
+        Create a map [ascii sum] = [string, string string] 
+        note the strings have a ascii sum of well ascii sum
+
+        TODO 
+        1. create a map
+        2. Read file
+        3. properly store string in the correct list associtaed with the ascii value
+        map[key].push_back(element)
+    */
+
 
     return 0;
 }
