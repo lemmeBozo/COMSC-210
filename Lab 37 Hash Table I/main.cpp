@@ -7,10 +7,16 @@ using namespace std;
 int toAscii(string);
 
 int main() {
+    ifstream file("data.txt");
+    if(!file.is_open()) {cout << "Error opening file" << endl;}
 
+    string line;
+    int sum = 0;
+    while(getline(file , line)) {
+        sum += toAscii(line);
+    }
 
-    int sum = toAscii("536B9DFC93AF");
-    cout << sum << endl;
+    cout << "The total sum of the file is " << sum << endl;
 
     return 0;
 }
