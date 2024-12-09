@@ -79,6 +79,8 @@ void handleUserInput(int input, map<int, list<string>>& table) {
             printElements(table);
             break;
         case 2:
+            cout << "Please enter a key to find: ";
+            findKey(table, getUserInput());
             break;
         case 3:
             break;
@@ -108,11 +110,11 @@ void printElements(map<int, list<string>>& table, int elementsToOutput) {
 void findKey(map<int, list<string>>& table, int keyToFind) {
     auto iterator = table.find(keyToFind); 
     if (iterator != table.end()) {
-        cout << "Key found" << endl;
+        cout << "KEY FOUND" << endl;
         cout << "[" << iterator->first << "] = [";
-        for (auto& string : iterator->second) { // Output every string in the string list
-            cout << string << ",";
+        for (auto& str : iterator->second) { // Output every string in the string list
+            cout << str << ",";
         }
-        cout << "]" << endl; << endl;
+        cout << "]" << endl << endl;
     } else {cout << "KEY NOT FOUND" << endl;}
 }
