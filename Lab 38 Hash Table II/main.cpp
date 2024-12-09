@@ -16,7 +16,8 @@ void promptInput();
 void handleUserInput(int input, map<int, list<string>>&);
 
 // Menu operatinos
-void printElements(map<int, list<string>>&, int);
+void printElements(map<int, list<string>>&, int = 20);
+void findKey(map<int, list<string>>&, int);
 
 int main() {
     // Creatnig Hash Table (map of key ints, value list of strings)
@@ -36,7 +37,7 @@ int main() {
         // PROGRAM LOGIC GOES HERE
         printMenu();
         promptInput();
-        handleUserInput(getUserInput());
+        handleUserInput(getUserInput(), hash_table);
     }
 
 
@@ -56,7 +57,7 @@ int gen_hash_index(string str) {
 // displays the menu
 void printMenu() { 
         cout << "*** Binary Search Tree Operation  ***" << endl;
-        cout << "[1] Print out 30 elements" << endl;
+        cout << "[1] Print out 20 elements" << endl;
         cout << "[2] Find Key" << endl;
         cout << "[3] Add key" << endl;
         cout << "[4] Modify key" << endl;
@@ -75,6 +76,7 @@ int getUserInput() {
 void handleUserInput(int input, map<int, list<string>>& table) {
     switch(input) {
         case 1:
+            printElements(table);
             break;
         case 2:
             break;
@@ -90,7 +92,7 @@ void handleUserInput(int input, map<int, list<string>>& table) {
     }
 }
 
-void printElements(map<int, list<string>>& table, int elementsToOutput = 30) {
+void printElements(map<int, list<string>>& table, int elementsToOutput) {
     // Outputing elementsToOutput number of elements from the map
     int count = 0;
     for(auto iterator = table.begin(); iterator != table.end() && count < elementsToOutput; iterator++, count++) {
@@ -101,4 +103,16 @@ void printElements(map<int, list<string>>& table, int elementsToOutput = 30) {
         } 
         cout << "]" << endl << endl;
     }
+}
+
+void findKey(map<int, list<string>>& table, int keyToFind) {
+    auto iterator = table.find(keyToFind); 
+    if (iterator != table.end()) {
+        cout << "Key found" << endl;
+        cout << "[" << iterator->first << "] = [";
+        for (auto& string : iterator->second) { // Output every string in the string list
+            cout << string << ",";
+        }
+        cout << "]" << endl; << endl;
+    } else {cout << "KEY NOT FOUND" << endl;}
 }
