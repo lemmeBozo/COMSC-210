@@ -5,7 +5,8 @@
 #include <list>
 using namespace std;
 
-// COMSC-210 | Lab 37: Hash Table I | Erick Pascual-Bautista
+// COMSC-210 | Lab 37: Hash Table II | Erick Pascual-Bautista
+
 
 // Function prototypes
 int gen_hash_index(string);
