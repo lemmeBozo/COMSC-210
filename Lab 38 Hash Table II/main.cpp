@@ -15,9 +15,13 @@ int getUserInput();
 void promptInput();
 void handleUserInput(int input, map<int, list<string>>&);
 
+// Helper function
+bool findKey(map<int, list<string>>&, int);
+
 // Menu operatinos
 void printElements(map<int, list<string>>&, int = 20);
-void findKey(map<int, list<string>>&, int);
+void userFindKey(map<int, list<string>>&, int);
+void addKey(map<int, list<string>>&, int);
 
 int main() {
     // Creatnig Hash Table (map of key ints, value list of strings)
@@ -80,9 +84,12 @@ void handleUserInput(int input, map<int, list<string>>& table) {
             break;
         case 2:
             cout << "Please enter a key to find: ";
-            findKey(table, getUserInput());
+            userFindKey(table, getUserInput());
             break;
         case 3:
+            // Adding key
+            cout << "Please enter a key to add: ";
+            addKey(table, getUserInput());
             break;
         case 4:
             break;
@@ -107,14 +114,30 @@ void printElements(map<int, list<string>>& table, int elementsToOutput) {
     }
 }
 
-void findKey(map<int, list<string>>& table, int keyToFind) {
+bool findKey(map<int, list<string>>& table, int keyToFind) {
+    auto iterator = table.find(keyToFind); 
+    if(iterator != table.end()) {return true;} 
+    else {return false;}
+}
+
+void userFindKey(map<int, list<string>>& table, int keyToFind) {
     auto iterator = table.find(keyToFind); 
     if (iterator != table.end()) {
-        cout << "KEY FOUND" << endl;
+        cout << endl << "KEY FOUND" << endl << endl;
         cout << "[" << iterator->first << "] = [";
         for (auto& str : iterator->second) { // Output every string in the string list
             cout << str << ",";
         }
         cout << "]" << endl << endl;
-    } else {cout << "KEY NOT FOUND" << endl;}
+    } else {cout << endl << "KEY NOT FOUND" << endl << endl;}
+}
+
+void addKey(map<int, list<string>>& table, int keyToAdd) {
+    bool keyIsFound = findKey(table, keyToAdd);
+    if (keyIsFound) {
+        cout << endl << "KEY IS FOUND: To add more elements please use '[4]' MODIFY KEY OPERATION" << endl << endl;
+    } else {
+        
+        //table.[index].push(string);
+    }
 }
